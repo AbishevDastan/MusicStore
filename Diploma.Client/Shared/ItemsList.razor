@@ -1,7 +1,15 @@
-﻿@inject HttpClient Http
+﻿@using Diploma.BusinessLogic.Services.ItemService;
+@inject IItemService ItemService
 
+@if (ItemService.Items == null || ItemService.Items.Count == null)
+{
+    <span>Loading Products...</span>
+}
+
+else
+{
 <ul class="list-unstyled">
-    @foreach (var item in Items)
+    @foreach (var item in ItemService.Items)
     {
     <li>
         <div class="img-wrapper">
@@ -20,3 +28,4 @@
     </li>
     }
 </ul>
+}

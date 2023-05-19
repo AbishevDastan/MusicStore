@@ -1,4 +1,5 @@
-﻿using Diploma.DataAccess;
+﻿using Diploma.BusinessLogic.Repositories.ItemRepository;
+using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -10,22 +11,19 @@ namespace Diploma.Api.Controllers
     [ApiController]
     public class ItemController : ControllerBase
     {
-        private readonly DataContext _dataContext;
+        private readonly IItemRepository _itemRepository;
 
-        public ItemController(DataContext dataContext)
+        public ItemController(IItemRepository itemRepository)
         {
-            _dataContext = dataContext;
+            _itemRepository = itemRepository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItem()
+        //[Route("/GetItems")]
+        public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItems()
         {
-            var items = await _dataContext.Items.ToListAsync();
-            var response = new ServiceResponse<List<Item>>()
-            {
-                Data = items
-            };
-            return Ok(response);
+            var result = await _itemRepository.GetItems();
+            return Ok(result);
         }
     }
 }

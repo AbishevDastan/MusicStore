@@ -10,6 +10,4 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 //Dependency resolver
 builder.Services.AddClientDependencies();
 
-builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7233/") });
-
 await builder.Build().RunAsync();
