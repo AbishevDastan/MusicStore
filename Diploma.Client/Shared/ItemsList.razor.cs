@@ -1,4 +1,5 @@
-﻿using Diploma.Domain.Entities;
+﻿using Diploma.Domain;
+using Diploma.Domain.Entities;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Shared
@@ -9,10 +10,10 @@ namespace Diploma.Client.Shared
 
         protected override async Task OnInitializedAsync()
         {
-            var result = await Http.GetFromJsonAsync<List<Item>>("api/Item");
-            if (result !=null)
+            var result = await Http.GetFromJsonAsync<ServiceResponse<List<Item>>>("api/Item");
+            if (result !=null && result.Data is not null)
             {
-                Items = result;
+                Items = result.Data;
             }
         }
     }
