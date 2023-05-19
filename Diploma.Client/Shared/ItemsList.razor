@@ -1,0 +1,22 @@
+﻿@inject HttpClient Http
+
+<ul class="list-unstyled">
+    @foreach (var item in Items)
+    {
+    <li>
+        <div class="img-wrapper">
+            <a href="#">
+                <img class="img" src="@item.Image" alt="@item.Name">
+            </a>
+        </div>
+
+        <div class="body">
+            <a href="#">
+                <h4>@item.Name</h4>
+            </a>
+            <p>@item.Description</p>
+            <h5 class="price">@item.Price</h5>
+        </div>
+    </li>
+    }
+</ul>
