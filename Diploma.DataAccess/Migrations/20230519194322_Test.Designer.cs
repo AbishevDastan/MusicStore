@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230519151829_Test")]
+    [Migration("20230519194322_Test")]
     partial class Test
     {
         /// <inheritdoc />

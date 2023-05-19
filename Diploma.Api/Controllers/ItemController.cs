@@ -1,4 +1,5 @@
 ﻿using Diploma.DataAccess;
+using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +18,14 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Item>>> GetItem()
+        public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItem()
         {
             var items = await _dataContext.Items.ToListAsync();
-            return Ok(items);
+            var response = new ServiceResponse<List<Item>>()
+            {
+                Data = items
+            };
+            return Ok(response);
         }
     }
 }
