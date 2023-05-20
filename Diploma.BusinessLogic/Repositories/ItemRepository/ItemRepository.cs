@@ -21,6 +21,24 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             _dataContext = dataContext;
         }
 
+        public async Task<ServiceResponse<Item>> GetItem(int itemId)
+        {
+            var response = new ServiceResponse<Item>();
+            var item = await _dataContext.Items.FindAsync(itemId);
+
+            if (item == null)
+            {
+                response.Success = false;
+                response.Message = "Can not find this item.";
+            }
+            else
+            {
+                response.Data = item;
+            }
+
+            return response;
+        }
+
         public async Task<ServiceResponse<List<Item>>> GetItems()
         {
 

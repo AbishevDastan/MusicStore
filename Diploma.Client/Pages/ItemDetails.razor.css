@@ -1,0 +1,23 @@
+﻿.img {
+    max-height: 500px;
+    max-width: 500px;
+    border-radius: 6px;
+    margin: 0 10px 10px 10px;
+}
+
+.img-wrapper {
+    text-align: center;
+    max-height: 500px;
+    max-width: 500px;
+}
+
+@media (max-width: 1023.98px){
+    .img {
+        max-width: 300px;
+    }
+
+    .img-wrapper {
+        height: auto;
+        width: 100%
+    }
+}

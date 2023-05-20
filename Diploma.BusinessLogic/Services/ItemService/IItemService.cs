@@ -1,4 +1,5 @@
-﻿using Diploma.Domain.Entities;
+﻿using Diploma.Domain;
+using Diploma.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace Diploma.BusinessLogic.Services.ItemService
         List<Item> Items { get; set; }
 
         Task GetItems();
+        Task<ServiceResponse<Item>> GetItem(int itemId);
     }
 }

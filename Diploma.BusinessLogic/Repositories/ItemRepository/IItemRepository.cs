@@ -12,6 +12,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 {
     public interface IItemRepository
     {
-        Task<ServiceResponse<List<Item>>> GetItems();
+        Task<ServiceResponse<List<Item>>> GetItems(); 
+        Task<ServiceResponse<Item>> GetItem(int itemId);
     }
 }

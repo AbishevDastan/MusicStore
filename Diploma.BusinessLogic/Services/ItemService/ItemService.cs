@@ -28,5 +28,11 @@ namespace Diploma.BusinessLogic.Services.ItemService
                 Items = result.Data;
             }
         }
+
+        public async Task<ServiceResponse<Item>> GetItem(int itemId)
+        {
+            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Item>>($"api/Item/{itemId}");
+            return result;
+        }
     }
 }

@@ -1,0 +1,24 @@
+﻿@page "/item/{id:int}"
+@using Diploma.BusinessLogic.Services.ItemService;
+@inject IItemService ItemService
+
+@if(item == null)
+{
+    <span>@message</span>
+}
+else
+{
+    <div>
+        <div class="img-wrapper mr-2">
+            <img class="img" src="@item.Image" alt="@item.Name"/>
+        </div>
+
+        <div class="body">
+            <h2 class="mb-0">@item.Name</h2>
+            <p>@item.Description</p>
+            <h4 class="price">
+                $@item.Price
+            </h4>
+        </div>
+    </div>
+}

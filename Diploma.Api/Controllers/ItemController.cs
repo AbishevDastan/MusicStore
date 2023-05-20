@@ -19,10 +19,17 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        //[Route("/GetItems")]
         public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItems()
         {
             var result = await _itemRepository.GetItems();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("{itemId}")]
+        public async Task<ActionResult<ServiceResponse<Item>>> GetItem(int itemId)
+        {
+            var result = await _itemRepository.GetItem(itemId);
             return Ok(result);
         }
     }
