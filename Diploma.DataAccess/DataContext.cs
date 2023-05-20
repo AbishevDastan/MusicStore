@@ -22,7 +22,8 @@ namespace Diploma.DataAccess
                     Name = "Test1",
                     Price = 5,
                     Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                    Description = "TestTestTestTest1"
+                    Description = "TestTestTestTest1",
+                    CategoryId = 1
                 },
 
                 new Item
@@ -31,10 +32,28 @@ namespace Diploma.DataAccess
                     Name = "Test2",
                     Price = 7,
                     Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                    Description = "TestTestTestTest2"
+                    Description = "TestTestTestTest2",
+                    CategoryId = 2
+                });
+
+            modelBuilder.Entity<Category>().HasData(
+                new Category
+                {
+                    Id = 1,
+                    Name = "Category1",
+                    Url = "category1"
+
+                },
+                
+                new Category
+                {
+                    Id = 2,
+                    Name = "Category2",
+                    Url = "category2"
                 });
         }
 
         public DbSet<Item> Items { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

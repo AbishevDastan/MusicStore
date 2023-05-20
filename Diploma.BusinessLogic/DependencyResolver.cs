@@ -1,4 +1,6 @@
-﻿using Diploma.BusinessLogic.Repositories.ItemRepository;
+﻿using Diploma.BusinessLogic.Repositories.CategoryRepository;
+using Diploma.BusinessLogic.Repositories.ItemRepository;
+using Diploma.BusinessLogic.Services.CategoryService;
 using Diploma.BusinessLogic.Services.ItemService;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,6 +12,7 @@ namespace Diploma.BusinessLogic
         {
             //Server
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
 
             return services;
         }
@@ -18,6 +21,7 @@ namespace Diploma.BusinessLogic
         {
             //Client
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<ICategoryService, CategoryService>();
 
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7233/") });
 

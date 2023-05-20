@@ -21,6 +21,17 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             _dataContext = dataContext;
         }
 
+        public async Task<ServiceResponse<List<Item>>> GetItems()
+        {
+
+            var response = new ServiceResponse<List<Item>>
+            {
+                Data = await _dataContext.Items.ToListAsync()
+            };
+
+        return response;
+        }
+
         public async Task<ServiceResponse<Item>> GetItem(int itemId)
         {
             var response = new ServiceResponse<Item>();
@@ -37,17 +48,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             }
 
             return response;
-        }
-
-        public async Task<ServiceResponse<List<Item>>> GetItems()
-        {
-
-            var response = new ServiceResponse<List<Item>>
-            {
-                Data = await _dataContext.Items.ToListAsync()
-            };
-
-        return response;
         }
     }
 }
