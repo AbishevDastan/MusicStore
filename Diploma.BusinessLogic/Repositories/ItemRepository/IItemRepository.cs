@@ -12,7 +12,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 {
     public interface IItemRepository
     {
-        Task<ServiceResponse<List<Item>>> GetItems(); 
+        Task<List<Item>> GetItems(); 
         Task<ServiceResponse<Item>> GetItem(int itemId);
         Task<ServiceResponse<List<Item>>> GetItemsByCategory(string categoryUrl);
     }

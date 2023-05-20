@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.Domain.Entities
+namespace Diploma.DTO
 {
-    public class Item
+    public class ItemDTO
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Image { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public Category? Category { get; set; } // CategoryModel
+        public CategoryDTO? Category { get; set; } // CategoryModel
         public int CategoryId { get; set; }
-        public List<ItemVariant> Variants { get; set; } = new List<ItemVariant>();
+        public List<ItemVariantDTO> Variants { get; set; } = new List<ItemVariantDTO>();
     }
 }

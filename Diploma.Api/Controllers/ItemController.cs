@@ -1,9 +1,10 @@
-﻿using Diploma.BusinessLogic.Repositories.ItemRepository;
+﻿using AutoMapper;
+using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
+using Diploma.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.Api.Controllers
 {
@@ -12,17 +13,21 @@ namespace Diploma.Api.Controllers
     public class ItemController : ControllerBase
     {
         private readonly IItemRepository _itemRepository;
+        private readonly IMapper _mapper;
 
-        public ItemController(IItemRepository itemRepository)
+        public ItemController(IItemRepository itemRepository, IMapper mapper)
         {
             _itemRepository = itemRepository;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItems()
+        public async Task<ActionResult<List<Item>>> GetItems()
         {
-            var result = await _itemRepository.GetItems();
-            return Ok(result);
+            var items = await _itemRepository.GetItems();
+            var itemDTOs = _mapper.Map<List<ItemDTO>>(items);
+
+            return Ok(itemDTOs);
         }
 
         [HttpGet]

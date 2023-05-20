@@ -21,21 +21,21 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             _dataContext = dataContext;
         }
 
-        public async Task<ServiceResponse<List<Item>>> GetItems()
+        public async Task<List<Item>> GetItems()
         {
-
-            var response = new ServiceResponse<List<Item>>
-            {
-                Data = await _dataContext.Items.ToListAsync()
-            };
-
-        return response;
+            var items = await _dataContext.Items
+                        .Include(i => i.Variants)
+                        .ToListAsync();
+            return items;
         }
 
         public async Task<ServiceResponse<Item>> GetItem(int itemId)
         {
             var response = new ServiceResponse<Item>();
-            var item = await _dataContext.Items.FindAsync(itemId);
+            var item = await _dataContext.Items
+                .Include(i => i.Variants)
+                .ThenInclude(v => v.ItemType)
+                .FirstOrDefaultAsync(i => i.Id == itemId);
 
             if (item == null)
             {
@@ -56,6 +56,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             {
                 Data = await _dataContext.Items
                 .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()))
+                .Include(i => i.Variants)
                 .ToListAsync()
             };
 

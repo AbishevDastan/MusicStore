@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Diploma.BusinessLogic\Diploma.BusinessLogic.csproj" />
     <ProjectReference Include="..\Diploma.DataAccess\Diploma.DataAccess.csproj" />
     <ProjectReference Include="..\Diploma.Domain\Diploma.Domain.csproj" />
+    <ProjectReference Include="..\Diploma.DTO\Diploma.DTO.csproj" />
   </ItemGroup>
 
 </Project>
