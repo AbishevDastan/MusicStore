@@ -49,6 +49,18 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
             return response;
         }
+
+        public async Task<ServiceResponse<List<Item>>> GetItemsByCategory(string categoryUrl)
+        {
+            var response = new ServiceResponse<List<Item>>
+            {
+                Data = await _dataContext.Items
+                .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()))
+                .ToListAsync()
+            };
+
+            return response;
+        }
     }
 }
         

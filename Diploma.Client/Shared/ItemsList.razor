@@ -1,5 +1,6 @@
 ﻿@using Diploma.BusinessLogic.Services.ItemService;
 @inject IItemService ItemService
+@implements IDisposable
 
 @if (ItemService.Items == null || ItemService.Items.Count == null)
 {

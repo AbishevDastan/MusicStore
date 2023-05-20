@@ -32,5 +32,13 @@ namespace Diploma.Api.Controllers
             var result = await _itemRepository.GetItem(itemId);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("category/{categoryUrl}")]
+        public async Task<ActionResult<ServiceResponse<List<Item>>>> GetItemsByCategory(string categoryUrl)
+        { 
+            var result = await _itemRepository.GetItemsByCategory(categoryUrl);
+            return Ok(result);
+        }
     }
 }

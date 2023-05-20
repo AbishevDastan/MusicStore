@@ -10,9 +10,9 @@ namespace Diploma.BusinessLogic.Services.ItemService
 {
     public interface IItemService
     {
+        event Action ItemsChanged;
         List<Item> Items { get; set; }
-
-        Task GetItems();
+        Task GetItems(string? categoryUrl = null);
         Task<ServiceResponse<Item>> GetItem(int itemId);
     }
 }

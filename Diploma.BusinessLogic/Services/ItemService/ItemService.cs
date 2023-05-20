@@ -13,6 +13,8 @@ namespace Diploma.BusinessLogic.Services.ItemService
     {
         private readonly HttpClient _httpClient;
 
+        public event Action ItemsChanged;
+
         public ItemService(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -20,13 +22,18 @@ namespace Diploma.BusinessLogic.Services.ItemService
 
         public List<Item> Items { get; set; } = new List<Item>();
 
-        public async Task GetItems()
+        public async Task GetItems(string? categoryUrl = null)
         {
-            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Item>>>("api/Item");
+            var result = categoryUrl == null ?
+                 await _httpClient.GetFromJsonAsync<ServiceResponse<List<Item>>>("api/Item") :
+                 await _httpClient.GetFromJsonAsync<ServiceResponse<List<Item>>>($"api/Item/category/{categoryUrl}");
+
             if (result != null && result.Data != null)
             {
                 Items = result.Data;
             }
+
+            ItemsChanged?.Invoke();
         }
 
         public async Task<ServiceResponse<Item>> GetItem(int itemId)

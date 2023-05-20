@@ -7,9 +7,14 @@ namespace Diploma.Client.Shared
 {
     public partial class ItemsList
     {
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
-            await ItemService.GetItems();
+            ItemService.ItemsChanged += StateHasChanged;
+        }
+
+        public void Dispose()
+        {
+            ItemService.ItemsChanged -= StateHasChanged;
         }
     }
 }
