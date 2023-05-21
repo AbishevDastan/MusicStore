@@ -1,5 +1,6 @@
 ﻿using Diploma.Domain;
 using Diploma.Domain.Entities;
+using Diploma.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,22 +19,22 @@ namespace Diploma.BusinessLogic.Services.CategoryService
             _httpClient = httpClient;
         }
 
-        public List<Category> Categories { get; set; } = new List<Category>();
+        public List<CategoryDTO> Categories { get; set; } = new List<CategoryDTO>();
 
 
         public async Task GetCategories()
         {
-            var response = await _httpClient.GetFromJsonAsync<ServiceResponse<List<Category>>>("api/Category");
+            var response = await _httpClient.GetFromJsonAsync<List<CategoryDTO>>("api/category");
 
-            if (response != null && response.Data != null)
+            if (response != null)
             {
-                Categories = response.Data;
+                Categories = response;
             }
         }
 
-        public async Task<ServiceResponse<Category>> GetCategory(int categoryId)
+        public async Task<CategoryDTO> GetCategory(int categoryId)
         {
-            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Category>>($"api/Category/{categoryId}");
+            var result = await _httpClient.GetFromJsonAsync<CategoryDTO>($"api/category/{categoryId}");
             return result;
         }
     }

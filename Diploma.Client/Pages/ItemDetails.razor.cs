@@ -1,4 +1,6 @@
-﻿using Diploma.Domain.Entities;
+﻿using Diploma.BusinessLogic.Services.ItemService;
+using Diploma.Domain.Entities;
+using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
 using System.Net.Http.Headers;
 
@@ -6,24 +8,17 @@ namespace Diploma.Client.Pages
 {
     public partial class ItemDetails
     {
-        private Item? item = null;
-
         [Parameter]
         public int Id { get; set; }
-        private string message = string.Empty; 
+        [Inject]
+        public IItemService ItemService { get; set; }
+        private ItemDTO? Item { get; set; }
+        private string ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
-            message = "Loading product...";
-            var result = await ItemService.GetItem(Id);
-            if (!result.Success) 
-            {
-                message = result.Message;
-            }
-            else
-            {
-                item = result.Data;
-            }
+            ErrorMessage = "Sorry, an error has occured.";
+            Item = await ItemService.GetItem(Id);
         }
     }
 }

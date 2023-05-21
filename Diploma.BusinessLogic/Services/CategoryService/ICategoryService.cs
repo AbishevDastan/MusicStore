@@ -1,5 +1,6 @@
 ﻿using Diploma.Domain;
 using Diploma.Domain.Entities;
+using Diploma.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,8 @@ namespace Diploma.BusinessLogic.Services.CategoryService
 {
     public interface ICategoryService
     {
-        List<Category> Categories { get; set; }
+        List<CategoryDTO> Categories { get; set; }
         Task GetCategories();
-
-        Task<ServiceResponse<Category>> GetCategory(int categoryId);
+        Task<CategoryDTO> GetCategory(int categoryId);
     }
 }

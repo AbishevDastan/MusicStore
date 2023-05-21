@@ -1,5 +1,6 @@
 ﻿using Diploma.Domain;
 using Diploma.Domain.Entities;
+using Diploma.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,25 +21,25 @@ namespace Diploma.BusinessLogic.Services.ItemService
             _httpClient = httpClient;
         }
 
-        public List<Item> Items { get; set; } = new List<Item>();
+        public List<ItemDTO> Items { get; set; } = new List<ItemDTO>();
 
-        public async Task GetItems(string? categoryUrl = null)
+        public async Task GetItems(string? categoryUrl)
         {
             var result = categoryUrl == null ?
-                 await _httpClient.GetFromJsonAsync<ServiceResponse<List<Item>>>("api/Item") :
-                 await _httpClient.GetFromJsonAsync<ServiceResponse<List<Item>>>($"api/Item/category/{categoryUrl}");
+                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>("api/item") :
+                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>($"api/item/category/{categoryUrl}");
 
-            if (result != null && result.Data != null)
+            if (result != null)
             {
-                Items = result.Data;
+                Items = result;
             }
 
             ItemsChanged?.Invoke();
         }
 
-        public async Task<ServiceResponse<Item>> GetItem(int itemId)
+        public async Task<ItemDTO> GetItem(int itemId)
         {
-            var result = await _httpClient.GetFromJsonAsync<ServiceResponse<Item>>($"api/Item/{itemId}");
+            var result = await _httpClient.GetFromJsonAsync<ItemDTO>($"api/Item/{itemId}");
             return result;
         }
     }

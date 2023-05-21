@@ -10,7 +10,7 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
 {
     public interface ICategoryRepository
     {
-        Task<ServiceResponse<List<Category>>> GetCategories();
-        Task<ServiceResponse<Category>> GetCategory(int categoryId);
+        Task<List<Category>> GetCategories();
+        Task<Category> GetCategory(int categoryId);
     }
 }

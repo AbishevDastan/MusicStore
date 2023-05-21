@@ -1,21 +1,22 @@
 ﻿@page "/item/{id:int}"
 @using Diploma.BusinessLogic.Services.ItemService;
-@inject IItemService ItemService
+@using Diploma.DTO;
 
-@if(item == null)
+@if(Item == null)
 {
-    <span>@message</span>
+   @* <DisplayErrorMessage ErrorMessage="@Error">Sorry, the error has occured while loading the product.</DisplayErrorMessage>*@
+    <span>@ErrorMessage</span>
 }
 else
 {
     <div>
         <div class="img-wrapper mr-2">
-            <img class="img" src="@item.Image" alt="@item.Name"/>
+            <img class="img" src="@Item.Image" alt="@Item.Name"/>
         </div>
 
         <div class="body">
-            <h2 class="mb-0">@item.Name</h2>
-            <p>@item.Description</p>
+            <h2 class="mb-0">@Item.Name</h2>
+            <p>@Item.Description</p>
             <h4 class="price">
                @* $@item.Price*@
             </h4>
