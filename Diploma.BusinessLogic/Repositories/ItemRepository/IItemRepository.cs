@@ -15,5 +15,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         Task<List<Item>> GetItems(); 
         Task<Item> GetItem(int itemId);
         Task<List<Item>> GetItemsByCategory(string categoryUrl);
+        Task<List<Item>> SearchItem(string searchText);
+        Task<List<string>> GetItemSearchSuggestions(string searchText);
     }
 }

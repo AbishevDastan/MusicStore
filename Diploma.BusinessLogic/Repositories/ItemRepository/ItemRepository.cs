@@ -54,6 +54,64 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
             return itemsByCategory;
         }
+
+        public async Task<List<Item>> SearchItem(string searchText)
+        {
+            var result = await _dataContext.Items
+                .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
+                || 
+                i.Description.ToLower().Contains(searchText.ToLower()))
+                .Include (i => i.Variants)
+                .ToListAsync();
+
+            return result;
+        }
+
+        public async Task<List<Item>> FindItemsBySearchText(string searchText)
+        {
+            var result = await _dataContext.Items
+                .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
+                ||
+                i.Description.ToLower().Contains(searchText.ToLower()))
+                .Include(i => i.Variants)
+                .ToListAsync();
+
+            return result;
+        }
+        
+        public async Task<List<string>> GetItemSearchSuggestions(string searchText)
+        {
+            var items = await FindItemsBySearchText(searchText);
+
+            List<string> result = new List<string>();
+
+            foreach (var item in items)
+            { 
+                if(item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+                {
+                    result.Add(item.Name);
+                }
+
+                if (item.Description != null)
+                {
+                    var punctuation = item.Description.Where(char.IsPunctuation)
+                        .Distinct().ToArray();
+                    var words = item.Description.Split()
+                        .Select(i => i.Trim(punctuation));
+
+                    foreach (var word in words) 
+                    {
+                        if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase)
+                            && !result.Contains(word))
+                        {
+                            result.Add(word);
+                        }
+                    }
+                }
+            }
+            return new List<string> (result);
+
+        }
     }
 }
         

@@ -15,5 +15,8 @@ namespace Diploma.BusinessLogic.Services.ItemService
         List<ItemDTO> Items { get; set; }
         Task GetItems(string? categoryUrl);
         Task<ItemDTO> GetItem(int itemId);
+        string Message { get; set; }
+        Task SearchItem(string searchText);
+        Task<List<string>> GetItemSearchSuggestions(string searchText);
     }
 }

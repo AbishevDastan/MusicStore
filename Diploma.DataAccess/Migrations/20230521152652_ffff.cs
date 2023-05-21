@@ -7,7 +7,7 @@
 namespace Diploma.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class ffff : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

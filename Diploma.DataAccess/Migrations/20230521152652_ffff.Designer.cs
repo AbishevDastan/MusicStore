@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230521095651_First")]
-    partial class First
+    [Migration("20230521152652_ffff")]
+    partial class ffff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

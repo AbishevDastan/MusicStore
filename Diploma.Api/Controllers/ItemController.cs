@@ -55,5 +55,24 @@ namespace Diploma.Api.Controllers
             
             return Ok(itemsByCategoryDTO);
         }
+
+        [HttpGet]
+        [Route("search/{searchText}")]
+        public async Task<ActionResult<List<Item>>> SearchItem(string searchText)
+        {
+            var search = await _itemRepository.SearchItem(searchText);
+            var searchItemDTO = _mapper.Map<List<ItemDTO>>(search);
+
+            return Ok(searchItemDTO);
+        }
+
+        [HttpGet]
+        [Route("searchsuggestions/{searchText}")]
+        public async Task<ActionResult<List<Item>>> GetItemSearchSuggestions(string searchText)
+        {
+            var search = await _itemRepository.GetItemSearchSuggestions(searchText);
+
+            return Ok(search);
+        }
     }
 }

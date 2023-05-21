@@ -22,6 +22,7 @@ namespace Diploma.BusinessLogic.Services.ItemService
         }
 
         public List<ItemDTO> Items { get; set; } = new List<ItemDTO>();
+        public string Message { get; set; } = "Loading items...";
 
         public async Task GetItems(string? categoryUrl)
         {
@@ -40,6 +41,26 @@ namespace Diploma.BusinessLogic.Services.ItemService
         public async Task<ItemDTO> GetItem(int itemId)
         {
             var result = await _httpClient.GetFromJsonAsync<ItemDTO>($"api/Item/{itemId}");
+            return result;
+        }
+
+        public async Task SearchItem(string searchText)
+        {
+            var result = await _httpClient.GetFromJsonAsync<List<ItemDTO>>($"api/item/search/{searchText}");
+            if (result != null) 
+            {
+                Items = result;
+            }
+            if (Items.Count == 0)
+            {
+                Message = "No products found.";
+            }
+            ItemsChanged?.Invoke();
+        }
+
+        public async Task<List<string>> GetItemSearchSuggestions(string searchText)
+        {
+            var result = await _httpClient.GetFromJsonAsync<List<string>>($"api/item/searchsuggestions/{searchText}");
             return result;
         }
     }

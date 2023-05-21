@@ -1,0 +1,24 @@
+﻿@inject IItemService ItemService
+@inject NavigationManager NavigationManager
+
+<div class="input-group">
+    <input @bind-value="searchText"
+           @bind-value:event="oninput"
+           type="search"
+           list="items"
+           @onkeyup="HandleSearch"
+           class="form-control"
+           placeholder="Search..."
+           @ref="searchInput" />
+        <datalist id="items">
+            @foreach (var suggestion in suggestions)
+            {
+                <option>@suggestion</option>
+            }
+        </datalist>
+        <div class="input-group-append">
+            <button class="btn btn-primary" @onclick="SearchItems">
+                <span class="oi oi-magnifying-glass"></span>
+            </button>
+        </div>
+</div>
