@@ -11,6 +11,10 @@
     max-width: 500px;
 }
 
+.initial-price {
+    text-decoration: line-through;
+}
+
 @media (max-width: 1023.98px){
     .img {
         max-width: 300px;

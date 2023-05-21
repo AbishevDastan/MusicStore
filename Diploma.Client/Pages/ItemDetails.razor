@@ -17,9 +17,29 @@ else
         <div class="body">
             <h2 class="mb-0">@Item.Name</h2>
             <p>@Item.Description</p>
-            <h4 class="price">
-               @* $@item.Price*@
-            </h4>
+
+            @*A select box for the item variant*@
+            @if(Item.Variants != null && Item.Variants.Count > 1)
+            {
+                <div class="mb-3">
+                    <select class="form-select" @bind="currentTypeId">
+                        @foreach (var variant in Item.Variants)
+                        {
+                            <option value="@variant.ItemTypeId">@variant.ItemType.Name</option>
+                        }
+                    </select>
+                </div>
+            }
+
+            @*Display the smallest price possible for a specific item*@
+            @if(GetSelectedVariant() != null)
+            {
+                @if(GetSelectedVariant().InitialPrice > GetSelectedVariant().Price)
+                {
+                    <h6 class="text-muted initial-price">$@GetSelectedVariant().InitialPrice</h6>
+                }
+            }
+            <h4 class="price">$@GetSelectedVariant().Price</h4>
         </div>
     </div>
 }

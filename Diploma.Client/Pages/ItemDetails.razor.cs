@@ -13,12 +13,24 @@ namespace Diploma.Client.Pages
         [Inject]
         public IItemService ItemService { get; set; }
         private ItemDTO? Item { get; set; }
+        private int currentTypeId = 1;
         private string ErrorMessage { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
             ErrorMessage = "Sorry, an error has occured.";
             Item = await ItemService.GetItem(Id);
+
+            if (Item.Variants.Count > 0)
+            {
+                currentTypeId = Item.Variants[0].ItemTypeId;
+            }
+        }
+
+        private ItemVariantDTO GetSelectedVariant()
+        {
+            var variant = Item.Variants.FirstOrDefault(x => x.ItemTypeId == currentTypeId);
+            return variant;
         }
     }
 }
