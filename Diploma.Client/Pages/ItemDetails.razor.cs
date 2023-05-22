@@ -14,11 +14,11 @@ namespace Diploma.Client.Pages
         public IItemService ItemService { get; set; }
         private ItemDTO? Item { get; set; }
         private int currentTypeId = 1;
-        private string ErrorMessage { get; set; }
+        private string Message { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
-            ErrorMessage = "Sorry, an error has occured.";
+            Message = "Loading";
             Item = await ItemService.GetItem(Id);
 
             if (Item.Variants.Count > 0)

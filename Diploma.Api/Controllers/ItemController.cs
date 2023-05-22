@@ -74,5 +74,14 @@ namespace Diploma.Api.Controllers
 
             return Ok(search);
         }
+
+        [HttpGet]
+        [Route("featured")]
+        public async Task<ActionResult<List<Item>>> GetFeatured()
+        {
+            var featured = await _itemRepository.GetFeatured();
+            var featuredDTO = _mapper.Map<List<ItemDTO>>(featured);
+            return Ok(featuredDTO);
+        }
     }
 }

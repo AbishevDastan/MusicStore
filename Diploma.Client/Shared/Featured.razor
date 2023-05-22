@@ -1,0 +1,30 @@
+﻿@inject IItemService ItemService
+@implements IDisposable
+
+<center><h2>Featured Products</h2></center>
+@if (ItemService.Items == null || ItemService.Items.Count == 0)
+{
+    <span>ItemService.Message</span>
+}
+else
+{
+    <div class="container">
+        @foreach(var item in ItemService.Items)
+        {
+            @if(item.Featured)
+            {
+                <div class="featured">
+                    <div>
+                        <a href="item/@item.Id">
+                            <img src="@item.Image" /></a>
+                    </div>
+                    <h4><a href="item/@item.Id">@item.Name</a></h4>
+                    @if (item.Variants != null && item.Variants.Count >0)
+                    {
+                        <h5 class="price">$@item.Variants[0].Price</h5>
+                    }
+                </div>
+            }
+        }
+    </div>
+}

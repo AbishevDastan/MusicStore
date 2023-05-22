@@ -5,4 +5,11 @@
 
 <PageTitle>Diploma</PageTitle>
 
-<ItemsList />
+@if (SearchText == null && CategoryUrl == null)
+{
+    <Featured />
+}
+else
+{
+    <ItemsList />
+}

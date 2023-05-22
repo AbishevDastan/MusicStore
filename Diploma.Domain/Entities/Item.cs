@@ -15,5 +15,6 @@ namespace Diploma.Domain.Entities
         public Category? Category { get; set; } // CategoryModel
         public int CategoryId { get; set; }
         public List<ItemVariant> Variants { get; set; } = new List<ItemVariant>();
+        public bool Featured { get; set; } = false;
     }
 }

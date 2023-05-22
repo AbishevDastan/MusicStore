@@ -16,5 +16,6 @@ namespace Diploma.DTO
         public string CategoryUrl { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         //public List<ItemVariantDTO> Variants { get; set; } = new List<ItemVariantDTO>();
+        public bool Featured { get; set; } = false;
     }
 }

@@ -112,6 +112,16 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             return new List<string> (result);
 
         }
+
+        public async Task<List<Item>> GetFeatured()
+        {
+            var featured = await _dataContext.Items
+                .Where(i => i.Featured)
+                .Include(i => i.Variants)
+                .ToListAsync();
+
+            return featured;
+        }
     }
 }
         

@@ -27,7 +27,7 @@ namespace Diploma.BusinessLogic.Services.ItemService
         public async Task GetItems(string? categoryUrl)
         {
             var result = categoryUrl == null ?
-                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>("api/item") :
+                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>("api/item/featured") :
                  await _httpClient.GetFromJsonAsync<List<ItemDTO>>($"api/item/category/{categoryUrl}");
 
             if (result != null)

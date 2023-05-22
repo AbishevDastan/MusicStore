@@ -30,18 +30,38 @@ namespace Diploma.DataAccess
                 new Item
                 {
                     Id = 1,
-                    Name = "Guitar",
+                    Name = "Guitar1",
                     Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
                     Description = "TestTestTestTest1",
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Featured = true
                 },
 
                 new Item
                 {
                     Id = 2,
-                    Name = "Drums",
+                    Name = "Guitar2",
                     Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
                     Description = "TestTestTestTest2",
+                    CategoryId = 1
+                },
+
+                new Item
+                {
+                    Id = 3,
+                    Name = "Drums1",
+                    Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
+                    Description = "TestTestTestTest3",
+                    CategoryId = 2,
+                    Featured = true
+                },
+
+                new Item
+                {
+                    Id = 4,
+                    Name = "Drums2",
+                    Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
+                    Description = "TestTestTestTest4",
                     CategoryId = 2
                 });
 
@@ -142,6 +162,64 @@ namespace Diploma.DataAccess
                 new ItemVariant
                 {
                     ItemId = 2,
+                    ItemTypeId = 4,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 3,
+                    ItemTypeId = 1,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+
+                new ItemVariant
+                {
+                    ItemId = 3,
+                    ItemTypeId = 2,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 3,
+                    ItemTypeId = 3,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 3,
+                    ItemTypeId = 4,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 4,
+                    ItemTypeId = 1,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+
+                new ItemVariant
+                {
+                    ItemId = 4,
+                    ItemTypeId = 2,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 4,
+                    ItemTypeId = 3,
+                    Price = 100,
+                    InitialPrice = 170
+                },
+                new ItemVariant
+                {
+                    ItemId = 4,
                     ItemTypeId = 4,
                     Price = 100,
                     InitialPrice = 170
