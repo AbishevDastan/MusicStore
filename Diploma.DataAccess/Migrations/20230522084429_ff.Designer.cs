@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230522044735_fff")]
-    partial class fff
+    [Migration("20230522084429_ff")]
+    partial class ff
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,6 +242,62 @@ namespace Diploma.DataAccess.Migrations
                         new
                         {
                             ItemId = 2,
+                            ItemTypeId = 4,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            ItemTypeId = 1,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            ItemTypeId = 2,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            ItemTypeId = 3,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 3,
+                            ItemTypeId = 4,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 4,
+                            ItemTypeId = 1,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 4,
+                            ItemTypeId = 2,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 4,
+                            ItemTypeId = 3,
+                            InitialPrice = 170m,
+                            Price = 100m
+                        },
+                        new
+                        {
+                            ItemId = 4,
                             ItemTypeId = 4,
                             InitialPrice = 170m,
                             Price = 100m

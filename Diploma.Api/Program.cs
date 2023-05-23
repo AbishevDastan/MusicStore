@@ -34,13 +34,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseCors(policy =>
-//policy.WithOrigins("http://localhost:7207", "https://localhost:7207", "https://localhost:7015", "http://localhost:5291")
-//.AllowAnyMethod()
-//.WithHeaders(HeaderNames.ContentType)
-//);
+app.UseCors(policy =>
+policy.WithOrigins("https://localhost:7233", "http://localhost:5224", "https://localhost:7200", "http://localhost:5087") 
+.AllowAnyMethod()
+.WithHeaders(HeaderNames.ContentType)
+);
 
-app.UseCors(builder => builder.AllowAnyOrigin());
+//app.UseCors(builder => builder.AllowAnyOrigin());
 
 app.UseHttpsRedirection();
 

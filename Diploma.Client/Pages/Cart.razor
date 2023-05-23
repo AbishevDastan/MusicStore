@@ -1,0 +1,32 @@
+﻿@page "/cart"
+@inject ICartService CartService
+
+<PageTitle>Cart</PageTitle>
+
+@if (addedCartItems == null || addedCartItems.Count == 0)
+{
+    <span>@message</span>
+}
+else
+{
+    <div>
+        @foreach (var item in addedCartItems)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                <img src="@item.Image" class="image"/>
+            </div>
+            <div class="name">
+                <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
+                <span>@item.ItemType</span><br>
+                <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
+                <button class="btn-delete" @onclick="@(() => DeleteItemFromCart(item.ItemId, item.ItemTypeId))">Remove product</button>
+                </div>
+                <div class="cart-item-price">$@(item.Price * item.Quantity)</div>
+                </div>
+        }
+            <div class="cart-item-price">
+                Total (@addedCartItems.Count): $@addedCartItems.Sum(item => item.Price * item.Quantity);
+            </div>
+    </div>
+}

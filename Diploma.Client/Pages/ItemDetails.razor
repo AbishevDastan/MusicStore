@@ -1,5 +1,6 @@
 ﻿@page "/item/{id:int}"
 @using Diploma.BusinessLogic.Services.ItemService;
+@using Diploma.BusinessLogic.Services.CartService;
 @using Diploma.DTO;
 
 @if(Item == null)
@@ -38,8 +39,12 @@ else
                 {
                     <h6 class="text-muted initial-price">$@GetSelectedVariant().InitialPrice</h6>
                 }
-            }
+            
             <h4 class="price">$@GetSelectedVariant().Price</h4>
+            }
+            <button class="btn btn-primary" @onclick="AddItemToCart">
+                <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;
+            </button>
         </div>
     </div>
 }

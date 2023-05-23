@@ -1,3 +1,4 @@
+using Blazored.LocalStorage;
 using Diploma.BusinessLogic;
 using Diploma.Client;
 using Microsoft.AspNetCore.Components.Web;

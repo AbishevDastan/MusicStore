@@ -7,7 +7,7 @@
 namespace Diploma.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class fff : Migration
+    public partial class ff : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -131,7 +131,15 @@ namespace Diploma.DataAccess.Migrations
                     { 2, 1, 170m, 100m },
                     { 2, 2, 170m, 100m },
                     { 2, 3, 170m, 100m },
-                    { 2, 4, 170m, 100m }
+                    { 2, 4, 170m, 100m },
+                    { 3, 1, 170m, 100m },
+                    { 3, 2, 170m, 100m },
+                    { 3, 3, 170m, 100m },
+                    { 3, 4, 170m, 100m },
+                    { 4, 1, 170m, 100m },
+                    { 4, 2, 170m, 100m },
+                    { 4, 3, 170m, 100m },
+                    { 4, 4, 170m, 100m }
                 });
 
             migrationBuilder.CreateIndex(

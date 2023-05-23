@@ -1,4 +1,5 @@
-﻿using Diploma.BusinessLogic.Services.ItemService;
+﻿using Diploma.BusinessLogic.Services.CartService;
+using Diploma.BusinessLogic.Services.ItemService;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
@@ -12,6 +13,8 @@ namespace Diploma.Client.Pages
         public int Id { get; set; }
         [Inject]
         public IItemService ItemService { get; set; }
+        [Inject]
+        public ICartService CartService { get; set; }
         private ItemDTO? Item { get; set; }
         private int currentTypeId = 1;
         private string Message { get; set; }
@@ -31,6 +34,18 @@ namespace Diploma.Client.Pages
         {
             var variant = Item.Variants.FirstOrDefault(x => x.ItemTypeId == currentTypeId);
             return variant;
+        }
+
+        private async Task AddItemToCart()
+        {
+            var itemVariant = GetSelectedVariant();
+            var cartItem = new CartItemDTO
+            {
+                ItemId = itemVariant.ItemId,
+                ItemTypeId = itemVariant.ItemTypeId
+            };
+
+            await CartService.AddItemToCart(cartItem);
         }
     }
 }

@@ -13,6 +13,7 @@ namespace Diploma.Api
             CreateMap<ItemType, ItemTypeDTO>();
             CreateMap<ItemVariant, ItemVariantDTO>();
             CreateMap<ItemDTO, SearchItemDTO>();
+            CreateMap<CartItem, CartItemDTO>();
         }
     }
 }
