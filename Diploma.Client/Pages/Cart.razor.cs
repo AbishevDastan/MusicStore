@@ -38,6 +38,7 @@ namespace Diploma.Client.Pages
             item.Quantity = int.Parse(ev.Value.ToString());
             if (item.Quantity < 1)
                 item.Quantity = 1;
+            
             await CartService.UpdateItemsQuantity(item);
             
         }

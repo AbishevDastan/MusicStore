@@ -14,6 +14,8 @@ namespace Diploma.Api
             CreateMap<ItemVariant, ItemVariantDTO>();
             CreateMap<ItemDTO, SearchItemDTO>();
             CreateMap<CartItem, CartItemDTO>();
+            CreateMap<User, CreateUserDTO>();
+            CreateMap<User, AuthenticateUserDTO>();
         }
     }
 }

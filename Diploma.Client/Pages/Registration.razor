@@ -1,0 +1,27 @@
+﻿@page "/register"
+@inject IAuthenticationService AuthService
+
+<PageTitle>Registration</PageTitle>
+<h3>Registration</h3>
+<EditForm Model="user" OnValidSubmit="HandleRegistration">
+    <DataAnnotationsValidator />
+    <div class="mb-2">
+        <label for="email">Email</label>
+        <InputText id="email" @bind-Value="user.Email" class="form-control" />
+        <ValidationMessage For="@(() => user.Email)" />
+    </div>
+        <div class="mb-2">
+        <label for="password">Password</label>
+        <InputText id="password" @bind-Value="user.Password" class="form-control" typeof="password" />
+        <ValidationMessage For="@(() => user.Password)" />
+    </div>
+        <div class="mb-2">
+        <label for="confirmPassword">Confirm Password</label>
+        <InputText id="confirmPassword" @bind-Value="user.ConfirmPassword" class="form-control" />
+        <ValidationMessage For="@(() => user.ConfirmPassword)" />
+    </div>
+    <button typeof="submit" class="btn btn-primary">Create Account</button>
+    <div class="@messageCssClass">
+        <span>@message</span>
+    </div>
+</EditForm>

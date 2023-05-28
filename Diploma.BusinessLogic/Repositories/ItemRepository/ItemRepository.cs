@@ -22,17 +22,10 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
         public async Task<List<Item>> GetItems()
         {
-            //var response = new ServiceResponse<List<Item>>
-            //{
-            //    Data = await _dataContext.Items
-            //        .Include(p => p.Variants)
-            //        .ToListAsync()
-            //};
             var items = await _dataContext.Items
                         .Include(i => i.Variants)
                         .ToListAsync();
             return items;
-            //return response;
         }
 
         public async Task<Item> GetItem(int itemId)

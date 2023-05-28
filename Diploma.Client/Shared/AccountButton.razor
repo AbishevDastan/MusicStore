@@ -1,0 +1,10 @@
+﻿<div class="dropdown">
+    <button @onclick="ToggleAccountMenu"
+            @onfocusout="HideAccountMenu"
+            class="btn btn-secondary dropdown-toggle account-button">
+        <i class="oi oi-person"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-right @AccountMenuCssClass">
+         <a href="register" class="dropdown-item">Create Account</a>
+    </div>
+</div>
