@@ -2,8 +2,10 @@
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Diploma.Api.Controllers
 {
@@ -36,6 +38,20 @@ namespace Diploma.Api.Controllers
         {
             var response = await _authenticationRepository.Login(request.Email, request.Password);
             if (response.Success)
+            {
+                return Ok(response);
+            }
+            return BadRequest(response);
+        }
+
+        [HttpPost]
+        [Route("change-password")]
+        [Authorize]
+        public async Task<ActionResult<ResponseFromServer<bool>>> ChangePassword([FromBody] string newPassword)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var response = await _authenticationRepository.ChangePassword(int.Parse(userId), newPassword);
+            if (response.Success) 
             {
                 return Ok(response);
             }

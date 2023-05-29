@@ -12,5 +12,6 @@ namespace Diploma.BusinessLogic.Services.AuthenticationService
     {
         Task<ResponseFromServer<int>> Register(CreateUserDTO request);
         Task<ResponseFromServer<string>> Login(AuthenticateUserDTO request);
+        Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDTO request);
     }
 }

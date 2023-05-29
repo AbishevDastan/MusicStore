@@ -9,6 +9,8 @@
     <div class="dropdown-menu dropdown-menu-right @AccountMenuCssClass">
         <AuthorizeView>
             <Authorized>
+                <a href="userprofile" class="dropdown-item">Profile</a>
+                <hr />
                 <button class="dropdown-item" @onclick="Logout">Logout</button>
             </Authorized>
             <NotAuthorized>

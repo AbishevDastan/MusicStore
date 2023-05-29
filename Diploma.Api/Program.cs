@@ -1,7 +1,9 @@
 using Diploma.BusinessLogic;
 using Diploma.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,19 @@ builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DiplomaConnection"));
 });
+
+//Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(builder.Configuration.GetSection("ApplicationSettings:Secret").Value)),
+            ValidateIssuer = false,
+            ValidateAudience = false
+        };
+    });
 
 //Dependency resolver
 builder.Services.AddApiDependencies();
@@ -42,6 +57,7 @@ policy.WithOrigins("https://localhost:7233", "http://localhost:5224", "https://l
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

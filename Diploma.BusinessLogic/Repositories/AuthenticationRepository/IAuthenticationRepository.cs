@@ -13,5 +13,6 @@ namespace Diploma.BusinessLogic.Repositories.AuthenticationRepository
         Task<ResponseFromServer<int>> Register(User user, string password);
         Task<bool> UserRegistered(string email);
         Task<ResponseFromServer<string>> Login(string email, string password);
+        Task<ResponseFromServer<bool>> ChangePassword(int userid, string newPassword);
     }
 }

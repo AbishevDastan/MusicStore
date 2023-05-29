@@ -120,5 +120,30 @@ namespace Diploma.BusinessLogic.Repositories.AuthenticationRepository
 
             return response;
         }
+
+        public async Task<ResponseFromServer<bool>> ChangePassword(int userId, string newPassword)
+        {
+            var user = await _dataContext.Users.FindAsync(userId);
+            if (user == null)
+            {
+                return new ResponseFromServer<bool>
+                {
+                    Success = false,
+                    Message = "User not found."
+                };
+            }
+
+            CreateHash(newPassword, out byte[] hash, out byte[] salt);
+            user.Hash = hash;
+            user.Salt = salt;
+
+            await _dataContext.SaveChangesAsync();
+
+            return new ResponseFromServer<bool> 
+            { 
+                Data = true, 
+                Message = "The password has been changed successfully."
+            };
+        }
     }
 }
