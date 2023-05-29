@@ -18,6 +18,12 @@ namespace Diploma.BusinessLogic.Services.AuthenticationService
             _httpClient = httpClient;
         }
 
+        public async Task<ResponseFromServer<string>> Login(AuthenticateUserDTO request)
+        {
+            var result = await _httpClient.PostAsJsonAsync("api/authentication/login", request);
+            return await result.Content.ReadFromJsonAsync<ResponseFromServer<string>>();
+        }
+
         public async Task<ResponseFromServer<int>> Register(CreateUserDTO request)
         {
             var result = await _httpClient.PostAsJsonAsync("api/authentication/register", request);

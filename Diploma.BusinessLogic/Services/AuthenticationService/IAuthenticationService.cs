@@ -11,6 +11,6 @@ namespace Diploma.BusinessLogic.Services.AuthenticationService
     public interface IAuthenticationService
     {
         Task<ResponseFromServer<int>> Register(CreateUserDTO request);
-
+        Task<ResponseFromServer<string>> Login(AuthenticateUserDTO request);
     }
 }
