@@ -95,10 +95,7 @@ namespace Diploma.BusinessLogic.Repositories.AuthenticationRepository
             {
                 return true;
             }
-            else
-            {
                 return false;
-            }
         }
 
         public async Task<ResponseFromServer<string>> Login(string email, string password)

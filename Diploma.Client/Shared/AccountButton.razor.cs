@@ -1,4 +1,7 @@
-﻿namespace Diploma.Client.Shared
+﻿using Microsoft.AspNetCore.Components.Authorization;
+
+
+namespace Diploma.Client.Shared
 {
     public partial class AccountButton
     {
@@ -15,6 +18,13 @@
         {
             await Task.Delay(200);
             showAccountMenu = false;
+        }
+
+        private async Task Logout()
+        {
+            await LocalStorageService.RemoveItemAsync("token");
+            await AuthStateProvider.GetAuthenticationStateAsync();
+            NavigationManager.NavigateTo("");
         }
     }
 }

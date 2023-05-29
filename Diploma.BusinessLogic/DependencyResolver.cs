@@ -7,6 +7,7 @@ using Diploma.BusinessLogic.Services.AuthenticationService;
 using Diploma.BusinessLogic.Services.CartService;
 using Diploma.BusinessLogic.Services.CategoryService;
 using Diploma.BusinessLogic.Services.ItemService;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Diploma.BusinessLogic
@@ -34,6 +35,10 @@ namespace Diploma.BusinessLogic
 
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7233/") });
             services.AddBlazoredLocalStorage();
+
+            services.AddOptions();
+            services.AddAuthorizationCore();
+            services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
             return services;
         }
