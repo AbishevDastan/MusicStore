@@ -18,9 +18,8 @@ else
             </div>
             <div class="name">
                 <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
-                <span>@item.ItemType</span><br>
                 <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
-                <button class="btn-delete" @onclick="@(() => DeleteItemFromCart(item.ItemId, item.ItemTypeId))">Remove product</button>
+                <button class="btn-delete" @onclick="@(() => DeleteItemFromCart(item.ItemId))">Remove product</button>
                 </div>
                 <div class="cart-item-price">$@(item.Price * item.Quantity)</div>
                 </div>

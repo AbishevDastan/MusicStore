@@ -1,28 +1,40 @@
 ﻿@inject ICategoryService CategoryService
 
-<div class="top-row ps-3 navbar navbar-dark">
+@*<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Diploma</a>
+        <a class="navbar-brand" href="">Music Store</a>
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
-</div>
+</div>*@
 
 <div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                Home
-            </NavLink>
-        </div>
-        @foreach (var category in CategoryService.Categories)
+    <nav class="flex-row">
+
+        @*        @foreach (var category in CategoryService.Categories)
         {
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="@category.Url">
-                 @category.Name
-            </NavLink>
+        <NavLink class="nav-link" href="@category.Url">
+        @category.Name
+        </NavLink>
         </div>
-        }
+        }*@
+
+        @*<div class="nav-item px-3">
+            <div class="dropdown">
+                <button @onclick="ToggleCategoriesMenu" @onfocusout="HideCategoriesMenu" class="btn btn-dark dropdown-toggle categories-button">
+                    <h6>Categories</h6>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right @CategoriesMenuCssClass">
+                    @foreach (var category in CategoryService.Categories)
+                    {
+                        <a href="@category.Url" class="btn btn-dark dropdown-item">
+                            @category.Name
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>*@
     </nav>
 </div>

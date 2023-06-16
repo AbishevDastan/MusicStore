@@ -31,8 +31,7 @@ namespace Diploma.BusinessLogic.Services.CartService
                 cart = new List<CartItemDTO>();
             }
 
-            var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId
-            && i.ItemTypeId == cartItem.ItemTypeId);
+            var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
 
             if (theSameItem == null)
             {
@@ -47,15 +46,14 @@ namespace Diploma.BusinessLogic.Services.CartService
             OnChange.Invoke();
         }
 
-        public async Task DeleteItemFromCart(int itemId, int itemTypeId)
+        public async Task DeleteItemFromCart(int itemId)
         {
             var cart = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
             if (cart == null)
             {
                 return;
             }
-            var cartItem = cart.Find(i => i.ItemId == itemId
-                && i.ItemTypeId == itemTypeId);
+            var cartItem = cart.Find(i => i.ItemId == itemId);
             if (cartItem != null) 
             {
                 cart.Remove(cartItem);
@@ -89,8 +87,7 @@ namespace Diploma.BusinessLogic.Services.CartService
             {
                 return;
             }
-            var cartItem = cart.Find(i => i.ItemId == item.ItemId
-                && i.ItemTypeId == item.ItemTypeId);
+            var cartItem = cart.Find(i => i.ItemId == item.ItemId);
             if (cartItem != null)
             {
                 cartItem.Quantity = item.Quantity;

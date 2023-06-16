@@ -19,9 +19,9 @@ else
                             <img src="@item.Image" /></a>
                     </div>
                     <h4><a href="item/@item.Id">@item.Name</a></h4>
-                    @if (item.Variants != null && item.Variants.Count >0)
+                    @if (item != null)
                     {
-                        <h5 class="price">$@item.Variants[0].Price</h5>
+                        <h5 class="price">$@item.Price</h5>
                     }
                 </div>
             }

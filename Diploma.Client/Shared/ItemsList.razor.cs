@@ -17,20 +17,5 @@ namespace Diploma.Client.Shared
         {
             ItemService.ItemsChanged -= StateHasChanged;
         }
-
-        private string GetPriceMessage(ItemDTO item)
-        {
-            var variants = item.Variants;
-            if (variants.Count == 0) 
-            {
-                return string.Empty;
-            }
-            else if(variants.Count == 1) 
-            {
-                return $"{variants[0].Price}";
-            }
-            decimal minimalPrice = variants.Min(x => x.Price);
-            return $"Starting at ${minimalPrice}";
-        }   
     }
 }

@@ -1,0 +1,32 @@
+﻿﻿.show-menu {
+    display: block;
+}
+
+.categories-button {
+    background-color: #353E48;
+    border: none;
+    color: white;
+    margin-left: .5em;
+    transition-duration: 0.4s;
+}
+
+    .categories-button:hover {
+        background-color: #e0292a;
+        color: white;
+    }
+
+.dropdown-button {
+    background-color: white;
+    color: black;
+}
+    .dropdown-button:hover {
+        color: #e0292a;
+    }
+
+.top-row a {
+    margin-left: 0;
+}
+
+.dropdown-item:hover {
+    background-color: white;
+}

@@ -4,9 +4,18 @@
 
 .account-button {
     margin-left: .5em;
+    background-color: #353E48;
+    border: none;
 }
+    .account-button:hover {
+        color: white;
+        background-color: #e0292a;
+    }
 
 .top-row a {
+    margin-left: 0;
+}
+.dropdown-item {
     margin-left: 0;
 }
 

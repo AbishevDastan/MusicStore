@@ -9,11 +9,13 @@ namespace Diploma.DTO
 {
     public class CreateUserDTO
     {
-        [Required, EmailAddress]
+        [Required]
+        [EmailAddress]
         public string Email { get; set; }
-        [Required, StringLength(100, MinimumLength = 8)]
+        [Required]
+        [StringLength(50, MinimumLength = 8)]
         public string Password { get; set; }
-        [Compare("Password", ErrorMessage = "The passwords are not the same, try again.")]
+        [Compare("Password", ErrorMessage = "The passwords are must be the same, try again.")]
         public string ConfirmPassword { get; set; }
     }
 }

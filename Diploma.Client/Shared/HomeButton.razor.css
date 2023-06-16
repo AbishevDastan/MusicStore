@@ -1,4 +1,12 @@
 ﻿.home-button {
     margin-right: 10px;
     white-space: nowrap;
+    margin-left: .5em;
+    background-color: #353E48;
+    border: none;
 }
+
+    .home-button:hover {
+        color: white;
+        background-color: #e0292a;
+    }

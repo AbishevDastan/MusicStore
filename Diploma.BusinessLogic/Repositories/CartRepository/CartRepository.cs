@@ -32,23 +32,13 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 
                 if(item == null) { continue; }
 
-                var itemVariant = await _dataContext.ItemVariants
-                    .Where(v => v.ItemId == cartItem.ItemId
-                     && v.ItemTypeId == cartItem.ItemTypeId)
-                    .Include(v => v.ItemType)
-                    .FirstOrDefaultAsync();
-
-                if(itemVariant == null) { continue;}
-
                 var addedCartItem = new AddItemToCartDTO
                 {
                     ItemId = item.Id,
                     Name = item.Name,
                     Image = item.Image,
                     Quantity = cartItem.Quantity,
-                    Price = itemVariant.Price,
-                    ItemTypeId = itemVariant.ItemTypeId,
-                    ItemType = itemVariant.ItemType.Name
+                    Price = item.Price,
                 };
 
                 result.Add(addedCartItem);

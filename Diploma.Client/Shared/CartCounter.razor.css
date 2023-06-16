@@ -1,0 +1,9 @@
+﻿.cart-counter-button {
+    margin-left: .5em;
+    background-color: #353E48;
+    border: none;
+}
+.cart-counter-button:hover {
+    color: white;
+    background-color: #e0292a;
+}

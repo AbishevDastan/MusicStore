@@ -9,11 +9,9 @@ namespace Diploma.DTO
     public class AddItemToCartDTO
     {
         public int ItemId { get; set; }
-        public string Name { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
+        public string Name { get; set; } 
+        public string Image { get; set; } 
         public decimal Price { get; set; }
         public int Quantity { get; set; } = 1;
-        public int ItemTypeId { get; set; }
-        public string ItemType { get; set; } = string.Empty;
     }
 }

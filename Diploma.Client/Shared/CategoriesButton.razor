@@ -1,0 +1,15 @@
+﻿@inject ICategoryService CategoryService
+
+<div class="dropdown">
+    <button @onclick="ToggleCategoriesMenu" @onfocusout="HideCategoriesMenu" class="btn btn-dark btn-sm dropdown-toggle categories-button">
+        <h6>Categories</h6>
+    </button>
+    <div class="dropdown-menu @*dropdown-menu-right*@ @CategoriesMenuCssClass">
+        @foreach (var category in CategoryService.Categories)
+        {
+            <a href="@category.Url" class= "btn btn-dark dropdown-item">
+                @category.Name
+            </a>
+        }
+    </div>
+</div>

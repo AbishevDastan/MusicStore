@@ -1,7 +1,7 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1:focus {
@@ -63,10 +63,15 @@ a, .btn-link {
         content: "An error has occurred."
     }
 
-    .price {
-        color: green;
-    }
+.price {
+    color: green;
+}
 
-.body {
+.media {
+    display: flex;
+    align-items: flex-start;
+}
+
+.media-body {
     flex: 1;
 }

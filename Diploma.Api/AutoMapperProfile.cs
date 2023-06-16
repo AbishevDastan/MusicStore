@@ -10,8 +10,6 @@ namespace Diploma.Api
         {
             CreateMap<Item, ItemDTO>();
             CreateMap<Category, CategoryDTO>();
-            CreateMap<ItemType, ItemTypeDTO>();
-            CreateMap<ItemVariant, ItemVariantDTO>();
             CreateMap<ItemDTO, SearchItemDTO>();
             CreateMap<CartItem, CartItemDTO>();
             CreateMap<User, CreateUserDTO>();

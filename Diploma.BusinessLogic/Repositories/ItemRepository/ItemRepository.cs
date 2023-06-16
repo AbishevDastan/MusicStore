@@ -23,7 +23,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<Item>> GetItems()
         {
             var items = await _dataContext.Items
-                        .Include(i => i.Variants)
                         .ToListAsync();
             return items;
         }
@@ -31,8 +30,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<Item> GetItem(int itemId)
         {
             var item = await _dataContext.Items
-                .Include(i => i.Variants)
-                .ThenInclude(v => v.ItemType)
                 .FirstOrDefaultAsync(i => i.Id == itemId);
 
             return item;
@@ -42,7 +39,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         {
             var itemsByCategory = await _dataContext.Items
             .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()))
-            .Include(i => i.Variants)
             .ToListAsync();
 
             return itemsByCategory;
@@ -54,7 +50,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
                 || 
                 i.Description.ToLower().Contains(searchText.ToLower()))
-                .Include (i => i.Variants)
                 .ToListAsync();
 
             return result;
@@ -66,7 +61,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
                 ||
                 i.Description.ToLower().Contains(searchText.ToLower()))
-                .Include(i => i.Variants)
                 .ToListAsync();
 
             return result;
@@ -110,7 +104,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         {
             var featured = await _dataContext.Items
                 .Where(i => i.Featured)
-                .Include(i => i.Variants)
                 .ToListAsync();
 
             return featured;

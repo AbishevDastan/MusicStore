@@ -16,33 +16,19 @@ namespace Diploma.Client.Pages
         [Inject]
         public ICartService CartService { get; set; }
         private ItemDTO? Item { get; set; }
-        private int currentTypeId = 1;
         private string Message { get; set; }
 
         protected override async Task OnParametersSetAsync()
         {
             Message = "Loading";
             Item = await ItemService.GetItem(Id);
-
-            if (Item.Variants.Count > 0)
-            {
-                currentTypeId = Item.Variants[0].ItemTypeId;
-            }
-        }
-
-        private ItemVariantDTO GetSelectedVariant()
-        {
-            var variant = Item.Variants.FirstOrDefault(x => x.ItemTypeId == currentTypeId);
-            return variant;
         }
 
         private async Task AddItemToCart()
         {
-            var itemVariant = GetSelectedVariant();
             var cartItem = new CartItemDTO
             {
-                ItemId = itemVariant.ItemId,
-                ItemTypeId = itemVariant.ItemTypeId
+                ItemId = Item.Id,
             };
 
             await CartService.AddItemToCart(cartItem);

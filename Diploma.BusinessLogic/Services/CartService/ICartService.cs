@@ -14,7 +14,7 @@ namespace Diploma.BusinessLogic.Services.CartService
         Task AddItemToCart(CartItemDTO cartItemDTO);
         Task<List<CartItemDTO>> GetCartItems();
         Task<List<AddItemToCartDTO>> GetItemsFromCart();
-        Task DeleteItemFromCart(int itemId, int itemTypeId);
+        Task DeleteItemFromCart(int itemId);
         Task UpdateItemsQuantity(AddItemToCartDTO item);
     }
 }

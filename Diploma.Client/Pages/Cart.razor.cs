@@ -14,9 +14,9 @@ namespace Diploma.Client.Pages
             await LoadCart();
         }
 
-        private async Task DeleteItemFromCart(int itemId, int itemTypeId)
+        private async Task DeleteItemFromCart(int itemId)
         {
-            await CartService.DeleteItemFromCart(itemId, itemTypeId);
+            await CartService.DeleteItemFromCart(itemId);
             await LoadCart();
         }
 

@@ -1,27 +1,38 @@
-﻿.img {
+﻿﻿.media-img {
     max-height: 500px;
     max-width: 500px;
     border-radius: 6px;
     margin: 0 10px 10px 10px;
 }
 
-.img-wrapper {
-    text-align: center;
-    max-height: 500px;
+.media-img-wrapper {
     max-width: 500px;
+    max-height: 500px;
+    text-align: center;
 }
 
-.initial-price {
-    text-decoration: line-through;
+.add-to-cart-button {
+    margin-left: .5em;
+    background-color: #353E48;
+    border: none;
 }
 
-@media (max-width: 1023.98px){
-    .img {
+    .add-to-cart-button:hover {
+        color: white;
+        background-color: #e0292a;
+    }
+
+@media (max-width: 1023.98px) {
+    .media {
+        flex-direction: column;
+    }
+
+    .media-img {
         max-width: 300px;
     }
 
-    .img-wrapper {
+    .media-img-wrapper {
+        width: 100%;
         height: auto;
-        width: 100%
     }
 }
