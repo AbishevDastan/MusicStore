@@ -9,7 +9,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.BusinessLogic.Services.CartService
+namespace Diploma.Client.Services.CartService
 {
     public class CartService : ICartService
     {
@@ -23,12 +23,12 @@ namespace Diploma.BusinessLogic.Services.CartService
         }
         public event Action OnChange;
 
-        public async Task AddItemToCart(CartItemDTO cartItem)
+        public async Task AddItemToCart(CartItemDto cartItem)
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
-            if (cart == null) 
+            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            if (cart == null)
             {
-                cart = new List<CartItemDTO>();
+                cart = new List<CartItemDto>();
             }
 
             var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
@@ -48,13 +48,13 @@ namespace Diploma.BusinessLogic.Services.CartService
 
         public async Task DeleteItemFromCart(int itemId)
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
+            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
             if (cart == null)
             {
                 return;
             }
             var cartItem = cart.Find(i => i.ItemId == itemId);
-            if (cartItem != null) 
+            if (cartItem != null)
             {
                 cart.Remove(cartItem);
                 await _storage.SetItemAsync("cart", cart);
@@ -62,27 +62,27 @@ namespace Diploma.BusinessLogic.Services.CartService
             }
         }
 
-        public async Task<List<CartItemDTO>> GetCartItems()
+        public async Task<List<CartItemDto>> GetCartItems()
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
-            if (cart == null) 
+            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            if (cart == null)
             {
-                cart = new List<CartItemDTO>();
+                cart = new List<CartItemDto>();
             }
             return cart;
         }
 
-        public async Task<List<AddItemToCartDTO>> GetItemsFromCart()
+        public async Task<List<AddItemToCartDto>> GetItemsFromCart()
         {
-            var cartItems = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
+            var cartItems = await _storage.GetItemAsync<List<CartItemDto>>("cart");
             var response = await _httpClient.PostAsJsonAsync("api/cart/items", cartItems);
-            var addedCartItems = await response.Content.ReadFromJsonAsync<List<AddItemToCartDTO>>();
+            var addedCartItems = await response.Content.ReadFromJsonAsync<List<AddItemToCartDto>>();
             return addedCartItems;
         }
 
-        public async Task UpdateItemsQuantity(AddItemToCartDTO item)
+        public async Task UpdateItemsQuantity(AddItemToCartDto item)
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDTO>>("cart");
+            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
             if (cart == null)
             {
                 return;

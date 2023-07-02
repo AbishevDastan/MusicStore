@@ -5,7 +5,7 @@ namespace Diploma.Client.Pages
 {
     public partial class Registration
     {
-        CreateUserDTO user = new CreateUserDTO();
+        CreateUserDto user = new CreateUserDto();
 
         string message = string.Empty;
         string messageCssClass = string.Empty;

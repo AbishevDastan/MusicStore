@@ -7,7 +7,7 @@ namespace Diploma.Client.Pages
 {
     public partial class Login
     {
-        private AuthenticateUserDTO user = new AuthenticateUserDTO();
+        private AuthenticateUserDto user = new AuthenticateUserDto();
         private string previousUrl = string.Empty;
         private string ErrorMessage = string.Empty;
 

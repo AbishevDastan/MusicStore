@@ -1,0 +1,66 @@
+﻿@*@page "/admin/categories"
+@inject ICategoryService CategoryService
+@attribute [Authorize(Roles = "Admin")]
+@implements IDisposable
+
+<h3>Categories</h3>
+
+<div class="header">
+    <div class="col">Name</div>
+    <div class="col">Url</div>
+    <div class="col">Visible</div>
+    <div class="col"></div>
+</div>
+
+@foreach (var category in CategoryService.AdminCategories)
+{
+    @if (category.IsBeingEdited)
+    {
+        <EditForm Model="editingCategory" OnSubmit="UpdateCategory">
+            <div class="row">
+                <div class="col">
+                    <InputText @bind-Value="editingCategory.Name" class="form-control"></InputText>
+                </div>
+                <div class="col">
+                    <InputText @bind-Value="editingCategory.Url" class="form-control"></InputText>
+                </div>
+                <div class="col col-visible">
+                    <InputCheckbox @bind-Value="editingCategory.IsVisible" style="transform: scale(1.5,1.5);"></InputCheckbox>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="oi oi-cloud-upload"></i>
+                    </button>
+                    <button class="btn btn-primary" @onclick="CancelEditing">
+                        <i class="oi oi-circle-x"></i>
+                    </button>
+                </div>
+            </div>
+        </EditForm>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col">
+                @category.Name
+            </div>
+            <div class="col">
+                @category.Url
+            </div>
+            <div class="col col-visible">
+                <span>@(category.IsVisible ? "✔️" : "")</span>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" @onclick="(() => EditCategory(category))">
+                    <i class="oi oi-pencil"></i>
+                </button>
+                <button class="btn btn-primary" @onclick="(() => DeleteCategory(category.Id))">
+                    <i class="oi oi-trash"></i>
+                </button>
+            </div>
+        </div>
+    }
+}
+<button class="btn btn-primary" @onclick="CreateNewCategory">
+    <i class="oi oi-plus"></i> Add new category
+</button>*@

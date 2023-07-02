@@ -20,9 +20,9 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
             _dataContext = dataContext;
         }
 
-        public async Task<List<AddItemToCartDTO>> GetItemsFromCart(List<CartItemDTO> cartItems)
+        public async Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItemDto> cartItems)
         {
-            var result = new List<AddItemToCartDTO>();
+            var result = new List<AddItemToCartDto>();
 
             foreach (var cartItem in cartItems)
             {
@@ -32,7 +32,7 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 
                 if(item == null) { continue; }
 
-                var addedCartItem = new AddItemToCartDTO
+                var addedCartItem = new AddItemToCartDto
                 {
                     ItemId = item.Id,
                     Name = item.Name,

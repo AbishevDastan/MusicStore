@@ -3,11 +3,6 @@ using Diploma.BusinessLogic.Repositories.AuthenticationRepository;
 using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
-using Diploma.BusinessLogic.Services.AuthenticationService;
-using Diploma.BusinessLogic.Services.CartService;
-using Diploma.BusinessLogic.Services.CategoryService;
-using Diploma.BusinessLogic.Services.ItemService;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Diploma.BusinessLogic
@@ -27,18 +22,8 @@ namespace Diploma.BusinessLogic
 
         public static IServiceCollection AddClientDependencies(this IServiceCollection services)
         {
-            //Client
-            services.AddScoped<IItemService, ItemService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICartService, CartService>();
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-
             services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7233/") });
             services.AddBlazoredLocalStorage();
-
-            services.AddOptions();
-            services.AddAuthorizationCore();
-            services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
             return services;
         }

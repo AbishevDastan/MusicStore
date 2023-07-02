@@ -4,6 +4,7 @@ using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,37 +15,81 @@ namespace Diploma.Api.Controllers
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IMapper _mapper;
 
-        public CategoryController(ICategoryRepository categoryRepository, IMapper mapper)
+        public CategoryController(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
-            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Item>>> GetCategories()
+        public async Task<ActionResult<List<CategoryDto>>> GetCategories()
         {
-            var categories = await _categoryRepository.GetCategories();
-            var categoriesDTO = _mapper.Map<List<CategoryDTO>>(categories);
+            var categoriesDTO = await _categoryRepository.GetCategories();
 
             return Ok(categoriesDTO);
         }
 
+        //[HttpGet]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<List<CategoryDTO>>> GetAdminCategories()
+        //{
+        //    var categoriesDTO = await _categoryRepository.GetAdminCategories();
+
+        //    return Ok(categoriesDTO);
+        //}
+
         [HttpGet]
         [Route("{categoryId}")]
-        public async Task<ActionResult<Item>> GetCategory(int categoryId)
+        public async Task<ActionResult<CategoryDto>> GetCategory(int categoryId)
         {
-            var category = await _categoryRepository.GetCategory(categoryId);
-            if (category == null)
+            var categoryDTO = await _categoryRepository.GetCategory(categoryId);
+            if (categoryDTO == null)
             {
                 return NotFound();
             }
-            else
-            {
-                var categoryDTO = _mapper.Map<CategoryDTO>(category);
-                return Ok(categoryDTO);
-            }
+            
+            return Ok(categoryDTO);
         }
+
+        //[HttpPost]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<List<CategoryDTO>>> AddCategory(CategoryDTO categoryDto)
+        //{
+        //    var returnedCategory = await _categoryRepository.AddCategory(categoryDto);
+
+        //    return Ok(returnedCategory);
+        //}
+
+        //[HttpDelete]
+        //[Route("admin/{id}")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<List<CategoryDTO>>> RemoveCategory(int categoryId)
+        //{
+        //    var categoryDto = await _categoryRepository.GetCategory(categoryId);
+        //    if (categoryDto == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var result = await _categoryRepository.RemoveCategory(categoryId);
+
+        //    return Ok(result);
+        //}
+
+        //[HttpPut]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<List<CategoryDTO>>> UpdateCategory(CategoryDTO categoryDto)
+        //{
+        //    var returnedCategoryDto = await _categoryRepository.UpdateCategory(categoryDto);
+        //    if (categoryDto == null)
+        //    {
+        //        return NotFound("There is no such category.");
+        //    }
+
+        //    return Ok(returnedCategoryDto);
+        //}
     }
 }

@@ -1,12 +1,11 @@
-﻿using Diploma.BusinessLogic.Services.CartService;
-using Diploma.DTO;
+﻿using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
 
 namespace Diploma.Client.Pages
 {
     public partial class Cart
     {
-        List<AddItemToCartDTO> addedCartItems = null;
+        List<AddItemToCartDto> addedCartItems = null;
         string message = "Loading Shopping Cart page...";
 
         protected override async Task OnInitializedAsync()
@@ -25,7 +24,7 @@ namespace Diploma.Client.Pages
             if ((await CartService.GetCartItems()).Count == 0)
             {
                 message = "Your cart is empty.";
-                addedCartItems = new List<AddItemToCartDTO>();
+                addedCartItems = new List<AddItemToCartDto>();
             }
             else
             {
@@ -33,7 +32,7 @@ namespace Diploma.Client.Pages
             }
         }
 
-        private async Task UpdateItemsQuantity(ChangeEventArgs ev, AddItemToCartDTO item)
+        private async Task UpdateItemsQuantity(ChangeEventArgs ev, AddItemToCartDto item)
         {
             item.Quantity = int.Parse(ev.Value.ToString());
             if (item.Quantity < 1)

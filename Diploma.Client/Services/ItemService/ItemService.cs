@@ -8,7 +8,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.BusinessLogic.Services.ItemService
+namespace Diploma.Client.Services.ItemService
 {
     public class ItemService : IItemService
     {
@@ -21,14 +21,14 @@ namespace Diploma.BusinessLogic.Services.ItemService
             _httpClient = httpClient;
         }
 
-        public List<ItemDTO> Items { get; set; } = new List<ItemDTO>();
+        public List<ItemDto> Items { get; set; } = new List<ItemDto>();
         public string Message { get; set; } = "Loading items...";
 
         public async Task GetItems(string? categoryUrl)
         {
             var result = categoryUrl == null ?
-                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>("api/item/featured") :
-                 await _httpClient.GetFromJsonAsync<List<ItemDTO>>($"api/item/category/{categoryUrl}");
+                 await _httpClient.GetFromJsonAsync<List<ItemDto>>("api/item/featured") :
+                 await _httpClient.GetFromJsonAsync<List<ItemDto>>($"api/item/category/{categoryUrl}");
 
             if (result != null)
             {
@@ -38,16 +38,16 @@ namespace Diploma.BusinessLogic.Services.ItemService
             ItemsChanged?.Invoke();
         }
 
-        public async Task<ItemDTO> GetItem(int itemId)
+        public async Task<ItemDto> GetItem(int itemId)
         {
-            var result = await _httpClient.GetFromJsonAsync<ItemDTO>($"api/Item/{itemId}");
+            var result = await _httpClient.GetFromJsonAsync<ItemDto>($"api/Item/{itemId}");
             return result;
         }
 
         public async Task SearchItem(string searchText)
         {
-            var result = await _httpClient.GetFromJsonAsync<List<ItemDTO>>($"api/item/search/{searchText}");
-            if (result != null) 
+            var result = await _httpClient.GetFromJsonAsync<List<ItemDto>>($"api/item/search/{searchText}");
+            if (result != null)
             {
                 Items = result;
             }

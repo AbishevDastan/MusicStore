@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Diploma.DTO
 {
-    public class SearchItemDTO
+    public class SearchItemDto
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string Image { get; set; } 
-        public string Description { get; set; } 
+        public string Name { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
         /*public CategoryDTO? Category { get; set; }*/ // CategoryModel
-        public string CategoryUrl { get; set; } 
+        public string CategoryUrl { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         //public List<ItemVariantDTO> Variants { get; set; } = new List<ItemVariantDTO>();
         public bool Featured { get; set; } = false;

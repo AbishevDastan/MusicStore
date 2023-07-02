@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Diploma.DTO
 {
-    public class CartItemDTO
+    public class CartItemDto
     {
         public int UserId { get; set; }
         public int ItemId { get; set; }

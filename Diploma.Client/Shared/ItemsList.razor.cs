@@ -1,10 +1,4 @@
-﻿using Diploma.BusinessLogic.Services.ItemService;
-using Diploma.Domain;
-using Diploma.Domain.Entities;
-using Diploma.DTO;
-using System.Net.Http.Json;
-
-namespace Diploma.Client.Shared
+﻿namespace Diploma.Client.Shared
 {
     public partial class ItemsList
     {

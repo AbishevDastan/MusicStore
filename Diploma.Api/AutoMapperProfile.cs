@@ -8,12 +8,14 @@ namespace Diploma.Api
     {
         public AutoMapperProfile()
         {
-            CreateMap<Item, ItemDTO>();
-            CreateMap<Category, CategoryDTO>();
-            CreateMap<ItemDTO, SearchItemDTO>();
-            CreateMap<CartItem, CartItemDTO>();
-            CreateMap<User, CreateUserDTO>();
-            CreateMap<User, AuthenticateUserDTO>();
+            CreateMap<Item, ItemDto>();
+            CreateMap<Item, ItemDto>().ReverseMap();
+            CreateMap<Category, CategoryDto>();
+            CreateMap<Category, CategoryDto>().ReverseMap();
+            CreateMap<ItemDto, SearchItemDto>();
+            CreateMap<CartItem, CartItemDto>();
+            CreateMap<User, CreateUserDto>();
+            CreateMap<User, AuthenticateUserDto>();
         }
     }
 }

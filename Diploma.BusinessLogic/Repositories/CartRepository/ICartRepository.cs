@@ -9,6 +9,6 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 {
     public interface ICartRepository
     {
-        Task<List<AddItemToCartDTO>> GetItemsFromCart(List<CartItemDTO> cartItems);
+        Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItemDto> cartItems);
     }
 }

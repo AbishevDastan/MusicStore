@@ -18,7 +18,7 @@ namespace Diploma.Api.Controllers
 
         [HttpPost]
         [Route("items")]
-        public async Task<ActionResult<List<AddItemToCartDTO>>> GetItemsFromCart([FromBody]List<CartItemDTO> cartItems)
+        public async Task<ActionResult<List<AddItemToCartDto>>> GetItemsFromCart([FromBody]List<CartItemDto> cartItems)
         {
             var result = await _cartRepository.GetItemsFromCart(cartItems);
             return Ok(result);

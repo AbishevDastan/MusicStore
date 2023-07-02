@@ -1,5 +1,5 @@
-﻿using Diploma.BusinessLogic.Services.CartService;
-using Diploma.BusinessLogic.Services.ItemService;
+﻿using Diploma.Client.Services.CartService;
+using Diploma.Client.Services.ItemService;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
@@ -15,7 +15,7 @@ namespace Diploma.Client.Pages
         public IItemService ItemService { get; set; }
         [Inject]
         public ICartService CartService { get; set; }
-        private ItemDTO? Item { get; set; }
+        private ItemDto? Item { get; set; }
         private string Message { get; set; }
 
         protected override async Task OnParametersSetAsync()
@@ -26,7 +26,7 @@ namespace Diploma.Client.Pages
 
         private async Task AddItemToCart()
         {
-            var cartItem = new CartItemDTO
+            var cartItem = new CartItemDto
             {
                 ItemId = Item.Id,
             };

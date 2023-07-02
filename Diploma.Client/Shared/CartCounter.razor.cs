@@ -1,7 +1,4 @@
-﻿using Blazored.LocalStorage;
-using Diploma.BusinessLogic.Services.CartService;
-using Diploma.DTO;
-using Microsoft.AspNetCore.Components;
+﻿using Diploma.DTO;
 
 namespace Diploma.Client.Shared
 {
@@ -9,7 +6,7 @@ namespace Diploma.Client.Shared
     {
         private int GetCartItemsCount()
         {
-            var cart = SyncLocalStorageService.GetItem<List<CartItemDTO>>("cart");
+            var cart = SyncLocalStorageService.GetItem<List<CartItemDto>>("cart");
             return cart != null ? cart.Count : 0;
         }
 

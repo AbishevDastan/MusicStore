@@ -22,53 +22,47 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Item>>> GetItems()
+        public async Task<ActionResult<List<ItemDto>>> GetItems()
         {
-            var items = await _itemRepository.GetItems();
-            var itemsDTO = _mapper.Map<List<ItemDTO>>(items);
-
-            return Ok(itemsDTO);
+            var itemsDto = await _itemRepository.GetItems();
+            
+            return Ok(itemsDto);
         }
 
         [HttpGet]
         [Route("{itemId}")]
-        public async Task<ActionResult<Item>> GetItem(int itemId)
+        public async Task<ActionResult<ItemDto>> GetItem(int itemId)
         {
-            var item = await _itemRepository.GetItem(itemId);
-            if (item == null)
+            var itemDto = await _itemRepository.GetItem(itemId);
+            if (itemDto == null)
             {
                 return NotFound();
             }
-            else
-            {
-                var itemDTO = _mapper.Map<ItemDTO>(item);
-                return Ok(itemDTO);
-            }
+  
+            return Ok(itemDto);
         }
 
         [HttpGet]
         [Route("category/{categoryUrl}")]
-        public async Task<ActionResult<List<Item>>> GetItemsByCategory(string categoryUrl)
+        public async Task<ActionResult<List<ItemDto>>> GetItemsByCategory(string categoryUrl)
         { 
-            var itemsByCategory = await _itemRepository.GetItemsByCategory(categoryUrl);
-            var itemsByCategoryDTO = _mapper.Map<List<ItemDTO>>(itemsByCategory);
+            var itemsByCategoryDto = await _itemRepository.GetItemsByCategory(categoryUrl);
             
-            return Ok(itemsByCategoryDTO);
+            return Ok(itemsByCategoryDto);
         }
 
         [HttpGet]
         [Route("search/{searchText}")]
-        public async Task<ActionResult<List<Item>>> SearchItem(string searchText)
+        public async Task<ActionResult<List<ItemDto>>> SearchItem(string searchText)
         {
-            var search = await _itemRepository.SearchItem(searchText);
-            var searchItemDTO = _mapper.Map<List<ItemDTO>>(search);
-
-            return Ok(searchItemDTO);
+            var searchItemDto = await _itemRepository.SearchItem(searchText);
+            
+            return Ok(searchItemDto);
         }
 
         [HttpGet]
         [Route("searchsuggestions/{searchText}")]
-        public async Task<ActionResult<List<Item>>> GetItemSearchSuggestions(string searchText)
+        public async Task<ActionResult<List<ItemDto>>> GetItemSearchSuggestions(string searchText)
         {
             var search = await _itemRepository.GetItemSearchSuggestions(searchText);
 
@@ -77,11 +71,11 @@ namespace Diploma.Api.Controllers
 
         [HttpGet]
         [Route("featured")]
-        public async Task<ActionResult<List<Item>>> GetFeatured()
+        public async Task<ActionResult<List<ItemDto>>> GetFeatured()
         {
-            var featured = await _itemRepository.GetFeatured();
-            var featuredDTO = _mapper.Map<List<ItemDTO>>(featured);
-            return Ok(featuredDTO);
+            var featuredDto = await _itemRepository.GetFeatured();
+            
+            return Ok(featuredDto);
         }
     }
 }

@@ -46,6 +46,12 @@ namespace Diploma.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsRemoved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsVisible")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -62,12 +68,16 @@ namespace Diploma.DataAccess.Migrations
                         new
                         {
                             Id = 1,
+                            IsRemoved = false,
+                            IsVisible = true,
                             Name = "Guitars",
                             Url = "guitars"
                         },
                         new
                         {
                             Id = 2,
+                            IsRemoved = false,
+                            IsVisible = true,
                             Name = "Percussion",
                             Url = "percussion"
                         });
@@ -169,6 +179,10 @@ namespace Diploma.DataAccess.Migrations
                     b.Property<byte[]>("Hash")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<byte[]>("Salt")
                         .IsRequired()

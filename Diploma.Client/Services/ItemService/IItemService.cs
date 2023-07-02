@@ -7,14 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.BusinessLogic.Services.ItemService
+namespace Diploma.Client.Services.ItemService
 {
     public interface IItemService
     {
         event Action ItemsChanged;
-        List<ItemDTO> Items { get; set; }
+        List<ItemDto> Items { get; set; }
         Task GetItems(string? categoryUrl);
-        Task<ItemDTO> GetItem(int itemId);
+        Task<ItemDto> GetItem(int itemId);
         string Message { get; set; }
         Task SearchItem(string searchText);
         Task<List<string>> GetItemSearchSuggestions(string searchText);

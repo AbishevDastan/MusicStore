@@ -22,7 +22,7 @@ namespace Diploma.Api.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<ResponseFromServer<int>>> Register(CreateUserDTO request)
+        public async Task<ActionResult<ResponseFromServer<int>>> Register(CreateUserDto request)
         {
             var response = await _authenticationRepository.Register(new User { Email = request.Email}, request.Password);
             if(response.Success)
@@ -34,7 +34,7 @@ namespace Diploma.Api.Controllers
 
         [HttpPost]
         [Route("login")]
-        public async Task<ActionResult<ResponseFromServer<string>>> Login(AuthenticateUserDTO request)
+        public async Task<ActionResult<ResponseFromServer<string>>> Login(AuthenticateUserDto request)
         {
             var response = await _authenticationRepository.Login(request.Email, request.Password);
             if (response.Success)

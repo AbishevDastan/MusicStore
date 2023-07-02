@@ -4,7 +4,7 @@ namespace Diploma.Client.Pages
 {
     public partial class UserProfile
     {
-        ChangePasswordDTO request = new ChangePasswordDTO();
+        ChangePasswordDto request = new ChangePasswordDto();
         string message = string.Empty;
 
         private async Task ChangePassword()

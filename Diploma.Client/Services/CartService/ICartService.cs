@@ -6,15 +6,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.BusinessLogic.Services.CartService
+namespace Diploma.Client.Services.CartService
 {
     public interface ICartService
     {
         event Action OnChange;
-        Task AddItemToCart(CartItemDTO cartItemDTO);
-        Task<List<CartItemDTO>> GetCartItems();
-        Task<List<AddItemToCartDTO>> GetItemsFromCart();
+        Task AddItemToCart(CartItemDto cartItemDTO);
+        Task<List<CartItemDto>> GetCartItems();
+        Task<List<AddItemToCartDto>> GetItemsFromCart();
         Task DeleteItemFromCart(int itemId);
-        Task UpdateItemsQuantity(AddItemToCartDTO item);
+        Task UpdateItemsQuantity(AddItemToCartDto item);
     }
 }

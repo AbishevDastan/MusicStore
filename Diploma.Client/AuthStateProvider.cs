@@ -4,7 +4,7 @@ using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text.Json;
 
-namespace Diploma.BusinessLogic
+namespace Diploma.Client
 {
     public class AuthStateProvider : AuthenticationStateProvider
     {
@@ -24,7 +24,7 @@ namespace Diploma.BusinessLogic
             var identity = new ClaimsIdentity();
             _httpClient.DefaultRequestHeaders.Authorization = null;
 
-            if(!string.IsNullOrEmpty(token))
+            if (!string.IsNullOrEmpty(token))
             {
                 try
                 {
@@ -49,9 +49,11 @@ namespace Diploma.BusinessLogic
         {
             switch (base64.Length % 4)
             {
-                case 2: base64 += "==";
+                case 2:
+                    base64 += "==";
                     break;
-                case 3: base64 += "=";
+                case 3:
+                    base64 += "=";
                     break;
             }
             return Convert.FromBase64String(base64);

@@ -1,0 +1,7 @@
+﻿@inject AuthenticationStateProvider AuthenticationStateProvider
+@using System.Security.Claims
+
+@if(authorized)
+{
+    <a class="dropdown-item" href="admin/categories">Categories</a>
+}
