@@ -23,29 +23,29 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
             _mapper = mapper;
         }
 
-        //public async Task<List<CategoryDTO>> AddCategory(CategoryDTO categoryDto)//Needs to be done!!!
-        //{
-        //    categoryDto.IsBeingEdited = false;
-        //    categoryDto.IsNew = false;
+        public async Task<List<CategoryDto>> AddCategory(CategoryDto categoryDto)//Needs to be done!!!
+        {
+            categoryDto.IsBeingEdited = false;
+            categoryDto.IsNew = false;
 
-        //    var category = _mapper.Map<Category>(categoryDto);
+            var category = _mapper.Map<Category>(categoryDto);
 
-        //    await _dataContext.Categories.AddAsync(category);
-        //    await _dataContext.SaveChangesAsync();
+            await _dataContext.Categories.AddAsync(category);
+            await _dataContext.SaveChangesAsync();
 
-        //    return await GetAdminCategories();
-        //}
+            return await GetAdminCategories();
+        }
 
-        //public async Task<List<CategoryDTO>> GetAdminCategories()
-        //{
-        //    var categories = await _dataContext.Categories
-        //        .Where(c => !c.IsRemoved)
-        //        .ToListAsync();
+        public async Task<List<CategoryDto>> GetAdminCategories()
+        {
+            var categories = await _dataContext.Categories
+                .Where(c => !c.IsRemoved)
+                .ToListAsync();
 
-        //    var categoriesDTO = _mapper.Map<List<CategoryDTO>>(categories);
+            var categoriesDTO = _mapper.Map<List<CategoryDto>>(categories);
 
-        //    return categoriesDTO;
-        //}
+            return categoriesDTO;
+        }
 
         public async Task<List<CategoryDto>> GetCategories()
         {
@@ -67,28 +67,28 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
             return categoryDTO;
         }
 
-        //public async Task<List<CategoryDTO>> RemoveCategory(int categoryId)
-        //{
-        //    CategoryDTO categoryDto = await GetCategory(categoryId);
-        //    categoryDto.IsRemoved = true;
+        public async Task<List<CategoryDto>> RemoveCategory(int categoryId)
+        {
+            CategoryDto categoryDto = await GetCategory(categoryId);
+            categoryDto.IsRemoved = true;
 
-        //    await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
 
-        //    return await GetAdminCategories();
-        //}
+            return await GetAdminCategories();
+        }
 
-        //public async Task<List<CategoryDTO>> UpdateCategory(CategoryDTO categoryDto)
-        //{
-        //    var dbCategory = await GetCategory(categoryDto.Id);
-        //    dbCategory.Name = categoryDto.Name;
-        //    dbCategory.Url = categoryDto.Url;
-        //    dbCategory.IsVisible = categoryDto.IsVisible;
+        public async Task<List<CategoryDto>> UpdateCategory(CategoryDto categoryDto)
+        {
+            var dbCategory = await GetCategory(categoryDto.Id);
+            dbCategory.Name = categoryDto.Name;
+            dbCategory.Url = categoryDto.Url;
+            dbCategory.IsVisible = categoryDto.IsVisible;
 
-        //    var category = _mapper.Map<List<Category>>(dbCategory);
+            var category = _mapper.Map<List<Category>>(dbCategory);
 
-        //    await _dataContext.SaveChangesAsync();
+            await _dataContext.SaveChangesAsync();
 
-        //    return await GetAdminCategories();
-        //}
+            return await GetAdminCategories();
+        }
     }
 }

@@ -13,40 +13,40 @@ namespace Diploma.Client.Services.CategoryService
         }
 
         public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
-        //public List<CategoryDTO> AdminCategories { get; set; } = new List<CategoryDTO>();
+        public List<CategoryDto> AdminCategories { get; set; } = new List<CategoryDto>();
 
-        //public event Action OnChange;
+        public event Action OnChange;
 
-        //public async Task AddCategory(CategoryDTO categoryDTO)
-        //{
-        //    var response = await _httpClient.PostAsJsonAsync("api/category/admin", categoryDTO);
-        //    AdminCategories = (await response.Content.ReadFromJsonAsync<List<CategoryDTO>>());
-        //    await GetCategories();
-        //    OnChange.Invoke();
-        //}
+        public async Task AddCategory(CategoryDto categoryDto)
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/category/admin", categoryDto);
+            AdminCategories = (await response.Content.ReadFromJsonAsync<List<CategoryDto>>());
+            await GetCategories();
+            OnChange.Invoke();
+        }
 
-        //public CategoryDTO CreateCategory()
-        //{
-        //    var newCategory = new CategoryDTO
-        //    {
-        //        IsNew = true,
-        //        IsBeingEdited = true
-        //    };
+        public CategoryDto CreateCategory()
+        {
+            var newCategory = new CategoryDto
+            {
+                IsNew = true,
+                IsBeingEdited = true
+            };
 
-        //    AdminCategories.Add( newCategory );
-        //    OnChange.Invoke();
-        //    return newCategory;
-        //}
+            AdminCategories.Add(newCategory);
+            OnChange.Invoke();
+            return newCategory;
+        }
 
-        //public async Task GetAdminCategories()
-        //{
-        //    var response = await _httpClient.GetFromJsonAsync<List<CategoryDTO>>("api/category/admin");
+        public async Task GetAdminCategories()
+        {
+            var response = await _httpClient.GetFromJsonAsync<List<CategoryDto>>("api/category/admin");
 
-        //    if (response != null)
-        //    {
-        //        AdminCategories = response;
-        //    }
-        //}
+            if (response != null)
+            {
+                AdminCategories = response;
+            }
+        }
 
         public async Task GetCategories()
         {
@@ -64,20 +64,21 @@ namespace Diploma.Client.Services.CategoryService
             return result;
         }
 
-        //public async Task RemoveCategory(int categoryId)
-        //{
-        //    var response = await _httpClient.DeleteAsync($"api/category/admin/{categoryId}");
-        //    AdminCategories = await response.Content.ReadFromJsonAsync<List<CategoryDTO>>();
-        //    await GetCategories();
-        //    OnChange.Invoke();
-        //}
+        public async Task RemoveCategory(int categoryId)
+        {
+            var response = await _httpClient.DeleteAsync($"api/category/admin/{categoryId}");
+            AdminCategories = await response.Content.ReadFromJsonAsync<List<CategoryDto>>();
 
-        //public async Task UpdateCategory(CategoryDTO categoryDTO)
-        //{
-        //    var response = await _httpClient.PutAsJsonAsync($"api/category/admin", categoryDTO);
-        //    AdminCategories = (await response.Content.ReadFromJsonAsync<List<CategoryDTO>>());
-        //    await GetCategories();
-        //    OnChange.Invoke();
-        //}
+            await GetCategories();
+            OnChange.Invoke();
+        }
+
+        public async Task UpdateCategory(CategoryDto categoryDto)
+        {
+            var response = await _httpClient.PutAsJsonAsync($"api/category/admin", categoryDto);
+            AdminCategories = (await response.Content.ReadFromJsonAsync<List<CategoryDto>>());
+            await GetCategories();      
+            OnChange.Invoke();
+        }
     }
 }

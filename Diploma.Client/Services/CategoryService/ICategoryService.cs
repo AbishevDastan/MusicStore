@@ -11,15 +11,15 @@ namespace Diploma.Client.Services.CategoryService
 {
     public interface ICategoryService
     {
-        //event Action OnChange;
+        event Action OnChange;
         List<CategoryDto> Categories { get; set; }
-        //List<CategoryDTO> AdminCategories { get; set; }
+        List<CategoryDto> AdminCategories { get; set; }
         Task GetCategories();
-        //Task GetAdminCategories();
+        Task GetAdminCategories();
         Task<CategoryDto> GetCategory(int categoryId);
-        //Task AddCategory(CategoryDTO categoryDTO);
-        //Task RemoveCategory(int categoryId);
-        //Task UpdateCategory(CategoryDTO categoryDTO);
-        //CategoryDTO CreateCategory();
+        Task AddCategory(CategoryDto categoryDTO);
+        Task RemoveCategory(int categoryId);
+        Task UpdateCategory(CategoryDto categoryDTO);
+        CategoryDto CreateCategory();
     }
 }

@@ -1,4 +1,4 @@
-﻿@*@page "/admin/categories"
+﻿@page "/admin/categories"
 @inject ICategoryService CategoryService
 @attribute [Authorize(Roles = "Admin")]
 @implements IDisposable
@@ -63,4 +63,4 @@
 }
 <button class="btn btn-primary" @onclick="CreateNewCategory">
     <i class="oi oi-plus"></i> Add new category
-</button>*@
+</button>
