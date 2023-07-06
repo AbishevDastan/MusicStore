@@ -55,41 +55,39 @@ namespace Diploma.Api.Controllers
         [HttpPost]
         [Route("admin")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> AddCategory(CategoryDto categoryDto)
+        public async Task<ActionResult<List<CategoryDto>>> AddCategory(CreateCategoryDto dto)
         {
-            var returnedCategory = await _categoryRepository.AddCategory(categoryDto);
+            var returnedCategory = await _categoryRepository.AddCategory(dto);
 
-            return Ok(returnedCategory);
+            return returnedCategory;
         }
 
-        [HttpDelete]
-        [Route("admin/{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> RemoveCategory(int categoryId)
-        {
-            var categoryDto = await _categoryRepository.GetCategory(categoryId);
-            if (categoryDto == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete]
+        //[Route("admin/{id}")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult> RemoveCategory(int categoryId)
+        //{
+        //    var category = await _categoryRepository.GetCategory(categoryId);
+        //    if (category == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    await _categoryRepository.RemoveCategory(categoryId);
 
-            var result = await _categoryRepository.RemoveCategory(categoryId);
-
-            return Ok(result);
-        }
+        //}
 
         [HttpPut]
         [Route("admin")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> UpdateCategory(CategoryDto categoryDto)
+        public async Task<ActionResult<List<CategoryDto>>> UpdateCategory(Category category)
         {
-            var returnedCategoryDto = await _categoryRepository.UpdateCategory(categoryDto);
-            if (categoryDto == null)
+            var returnedCategory = await _categoryRepository.UpdateCategory(category);
+            if (category == null)
             {
-                return NotFound("There is no such category.");
+                return NotFound();
             }
 
-            return Ok(returnedCategoryDto);
+            return returnedCategory;
         }
     }
 }

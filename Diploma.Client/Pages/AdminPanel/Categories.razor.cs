@@ -1,4 +1,5 @@
-﻿using Diploma.DTO;
+﻿using Diploma.Domain.Entities;
+using Diploma.DTO;
 
 namespace Diploma.Client.Pages.AdminPanel
 {
@@ -43,9 +44,9 @@ namespace Diploma.Client.Pages.AdminPanel
             await CategoryService.GetAdminCategories();
         }
 
-        private async Task DeleteCategory(int id)
-        {
-            await CategoryService.RemoveCategory(id);
-        }
+        //private async Task DeleteCategory(int id)
+        //{
+        //    await CategoryService.RemoveCategory(id);
+        //}
     }
 }

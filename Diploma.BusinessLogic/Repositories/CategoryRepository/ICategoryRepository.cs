@@ -7,9 +7,9 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
     {
         Task<List<CategoryDto>> GetCategories();
         Task<List<CategoryDto>> GetAdminCategories();
-        Task<List<CategoryDto>> AddCategory(CategoryDto category);
-        Task<List<CategoryDto>> UpdateCategory(CategoryDto category);
-        Task<List<CategoryDto>> RemoveCategory(int categoryId);
+        Task<List<CategoryDto>> AddCategory(CreateCategoryDto category);
+        Task<List<CategoryDto>> UpdateCategory(Category category);
+        //Task RemoveCategory(int categoryId);
         Task<CategoryDto> GetCategory(int categoryId);
     }
 }

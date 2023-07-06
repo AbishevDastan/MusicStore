@@ -1,0 +1,70 @@
+﻿@*@page "/admin/item"
+@page "/admin/item/{id:int}"
+@inject IItemService ItemService
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JSRuntime
+
+@if (loading)
+{
+    <span>@msg</span>
+}
+else
+{
+    @if (item.IsBeingEdited)
+    {
+        <h3>Edit "@item.Name"</h3>
+
+    }
+    else if (item.IsNew)
+    {
+        <h3>Create a new item</h3>
+    }
+
+    <EditForm Model="item" OnValidSubmit="AddOrUpdateItem">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <div class="mb-0">
+            <label for="name">Name</label>
+            <InputText id="name" @bind-Value="item.Name" class="form-control"></InputText>
+        </div>
+        <div class="mb-0">
+            <label for="image">Image Url</label>
+            <InputText id="image" @bind-Value="item.Image" class="form-control"></InputText>
+        </div>
+        <div class="mb-0">
+            <img src="@item.Image" />
+        </div>
+        <div class="mb-0">
+            <label for="description">Description</label>
+            <InputTextArea id="description" @bind-Value="item.Description" class="form-control"></InputTextArea>
+        </div>
+        <hr />
+        <div class="mb-0">
+            <label for="category">Category</label>
+            <InputSelect id="category" @bind-Value="item.CategoryId" class="form-control">
+                @foreach (var category in CategoryService.AdminCategories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </InputSelect>
+        </div>
+        <hr />
+        <div class="form-check">
+            <InputCheckbox id="featured" @bind-Value="item.Featured" class="form-check-input"></InputCheckbox>
+            <label for="featured" class="form-check-label">Featured</label>
+        </div>
+        <div class="form-check">
+            <InputCheckbox id="visible" @bind-Value="item.IsVisible" class="form-check-input"></InputCheckbox>
+            <label for="visible" class="form-check-label">Visible</label>
+        </div>
+        <hr />
+        <button type="submit" class="btn btn-primary float-end">@btnText</button>
+        <ValidationSummary></ValidationSummary>
+    </EditForm>
+    @if (!item.IsNew)
+    {
+        <button type="button" class="btn btn-danger float-start" @onclick="RemoveItem">
+            Delete item
+        </button>
+    }
+}*@

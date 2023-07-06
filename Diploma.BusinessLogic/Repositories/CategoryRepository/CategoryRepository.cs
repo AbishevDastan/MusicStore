@@ -4,6 +4,7 @@ using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,17 +24,22 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
             _mapper = mapper;
         }
 
-        public async Task<List<CategoryDto>> AddCategory(CategoryDto categoryDto)//Needs to be done!!!
+        public async Task<List<CategoryDto>> AddCategory(CreateCategoryDto dto)
         {
-            categoryDto.IsBeingEdited = false;
-            categoryDto.IsNew = false;
+            dto.IsBeingEdited = false;
+            dto.IsNew = false;
 
-            var category = _mapper.Map<Category>(categoryDto);
+            var category = new Category
+            {
+                Name = dto.Name,
+                Url = dto.Url
+            };
 
-            await _dataContext.Categories.AddAsync(category);
+            _dataContext.Categories.Add(category);
             await _dataContext.SaveChangesAsync();
 
-            return await GetAdminCategories();
+            var categoryDto = await GetAdminCategories();
+            return categoryDto;
         }
 
         public async Task<List<CategoryDto>> GetAdminCategories()
@@ -67,24 +73,23 @@ namespace Diploma.BusinessLogic.Repositories.CategoryRepository
             return categoryDTO;
         }
 
-        public async Task<List<CategoryDto>> RemoveCategory(int categoryId)
+        //public async Task RemoveCategory(int categoryId)
+        //{
+        //    var category = await _dataContext.Categories.FirstOrDefaultAsync(c => c.Id == categoryId);
+
+        //    category.IsRemoved = true;
+
+        //    _dataContext.Categories.Remove(category);
+        //    await _dataContext.SaveChangesAsync();
+        //}
+
+        public async Task<List<CategoryDto>> UpdateCategory(Category category)
         {
-            CategoryDto categoryDto = await GetCategory(categoryId);
-            categoryDto.IsRemoved = true;
-
-            await _dataContext.SaveChangesAsync();
-
-            return await GetAdminCategories();
-        }
-
-        public async Task<List<CategoryDto>> UpdateCategory(CategoryDto categoryDto)
-        {
-            var dbCategory = await GetCategory(categoryDto.Id);
-            dbCategory.Name = categoryDto.Name;
-            dbCategory.Url = categoryDto.Url;
-            dbCategory.IsVisible = categoryDto.IsVisible;
-
-            var category = _mapper.Map<List<Category>>(dbCategory);
+            var dbCategory = await _dataContext.Categories.FirstOrDefaultAsync(c => c.Id == category.Id);
+            
+            dbCategory.Name = category.Name;
+            dbCategory.Url = category.Url;
+            dbCategory.IsVisible = category.IsVisible;
 
             await _dataContext.SaveChangesAsync();
 

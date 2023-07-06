@@ -3,6 +3,7 @@ using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,16 +18,20 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        //private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ItemRepository(DataContext dataContext, IMapper mapper)
+        public ItemRepository(DataContext dataContext, IMapper mapper /*IHttpContextAccessor httpContextAccessor*/)
         {
             _dataContext = dataContext;
             _mapper = mapper;
+            //_httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<List<ItemDto>> GetItems()
         {
-            var items = await _dataContext.Items.ToListAsync();
+            var items = await _dataContext.Items
+                /*.Where(i => !i.IsRemoved && i.IsVisible)*/
+                .ToListAsync();
             var itemsDto = _mapper.Map<List<ItemDto>>(items);
 
             return itemsDto;
@@ -34,7 +39,19 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
         public async Task<ItemDto> GetItem(int itemId)
         {
-            var item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId);
+            //Item item = null;
+
+            //if (_httpContextAccessor.HttpContext.User.IsInRole("Admin"))
+            //{
+            //    item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId && !i.IsRemoved);
+            //}
+            //else
+            //{
+            //     item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId && !i.IsRemoved && i.IsVisible);
+            //}
+
+
+            var item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId /*&& !i.IsRemoved && i.IsVisible*/);
             var itemDto = _mapper.Map<ItemDto>(item);
 
             return itemDto;
@@ -43,7 +60,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<ItemDto>> GetItemsByCategory(string categoryUrl)
         {
             var itemsByCategory = await _dataContext.Items
-            .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()))
+            .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
             .ToListAsync();
 
             var itemsByCategoryDto = _mapper.Map<List<ItemDto>>(itemsByCategory);
@@ -55,8 +72,8 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         {
             var searchItem = await _dataContext.Items
                 .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
-                || 
-                i.Description.ToLower().Contains(searchText.ToLower()))
+                ||
+                i.Description.ToLower().Contains(searchText.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
                 .ToListAsync();
 
             var searchItemDto = _mapper.Map<List<ItemDto>>(searchItem);
@@ -69,14 +86,14 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             var result = await _dataContext.Items
                 .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
                 ||
-                i.Description.ToLower().Contains(searchText.ToLower()))
+                i.Description.ToLower().Contains(searchText.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
                 .ToListAsync();
 
             var resultDto = _mapper.Map<List<ItemDto>>(result);
 
             return resultDto;
         }
-        
+
         public async Task<List<string>> GetItemSearchSuggestions(string searchText)
         {
             var items = await FindItemsBySearchText(searchText);
@@ -84,8 +101,8 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             List<string> result = new List<string>();
 
             foreach (var item in items)
-            { 
-                if(item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            {
+                if (item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 {
                     result.Add(item.Name);
                 }
@@ -97,7 +114,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                     var words = item.Description.Split()
                         .Select(i => i.Trim(punctuation));
 
-                    foreach (var word in words) 
+                    foreach (var word in words)
                     {
                         if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase)
                             && !result.Contains(word))
@@ -107,20 +124,71 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                     }
                 }
             }
-            return new List<string> (result);
+            return new List<string>(result);
         }
 
         public async Task<List<ItemDto>> GetFeatured()
         {
             var featured = await _dataContext.Items
-                .Where(i => i.Featured)
+                .Where(i => i.Featured /*&& !i.IsRemoved && i.IsVisible*/)
                 .ToListAsync();
 
             var featuredDto = _mapper.Map<List<ItemDto>>(featured);
 
             return featuredDto;
         }
+
+
+        //Admin Panel
+        //public async Task<List<ItemDto>> GetAdminItems()
+        //{
+        //    var items = await _dataContext.Items
+        //        .Where(i => !i.IsRemoved)
+        //        .ToListAsync();
+
+        //    var itemsDto = _mapper.Map<List<ItemDto>>(items);
+
+        //    return itemsDto;
+        //}
+
+        //public async Task<bool> RemoveItem(int itemId)
+        //{
+        //    var item = await _dataContext.Items.FindAsync(itemId);
+
+        //    item.IsRemoved = true;
+
+        //    _dataContext.Items.Remove(item);
+        //    await _dataContext.SaveChangesAsync();
+
+        //    return true;
+        //}
+
+        //public async Task<ItemDto> UpdateItem(Item item)
+        //{
+        //    var dbItem = await _dataContext.Items.FindAsync(item.Id);
+
+        //    dbItem.Name = item.Name;
+        //    dbItem.Description = item.Description;
+        //    dbItem.CategoryId = item.CategoryId;
+        //    dbItem.Image = item.Image;
+        //    dbItem.IsVisible = item.IsVisible;
+
+        //    await _dataContext.SaveChangesAsync();
+
+        //    var itemDto = _mapper.Map<ItemDto>(item);
+
+        //    return itemDto;
+        //}
+
+        //public async Task<ItemDto> AddItem(Item item)
+        //{
+        //    _dataContext.Items.Add(item);
+        //    await _dataContext.SaveChangesAsync();
+
+        //    var itemDto = _mapper.Map<ItemDto>(item);
+        //    return itemDto;
+        //}
     }
 }
-        
-    
+
+

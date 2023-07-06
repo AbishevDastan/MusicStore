@@ -14,12 +14,14 @@ namespace Diploma.Client.Services.CategoryService
         event Action OnChange;
         List<CategoryDto> Categories { get; set; }
         List<CategoryDto> AdminCategories { get; set; }
+
         Task GetCategories();
-        Task GetAdminCategories();
         Task<CategoryDto> GetCategory(int categoryId);
+
+        Task GetAdminCategories();
         Task AddCategory(CategoryDto categoryDTO);
-        Task RemoveCategory(int categoryId);
-        Task UpdateCategory(CategoryDto categoryDTO);
         CategoryDto CreateCategory();
+        //Task RemoveCategory(int categoryId);
+        Task UpdateCategory(CategoryDto categoryDTO);
     }
 }

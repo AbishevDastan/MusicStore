@@ -1,18 +1,54 @@
 ﻿@inherits LayoutComponentBase
+@inject MudThemeProvider _mudThemeProvider
 
-<div class="page">
-    <main>
-        <div class="top-row px-4">
-            <HomeButton />
-            @*<NavMenu />*@
-            <CategoriesButton />
-            <Search />
-            <CartCounter />
-            <AccountButton/>
+<MudThemeProvider @ref="@_mudThemeProvider" IsDarkMode="_mudThemeProvider.IsDarkMode"/>
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Style="background-color: #353E48;
+                          height: 4rem;
+                          display: flex;
+                          overflow: hidden;
+                          justify-content: space-between;">
+        <HomeButton />
+        <div>
+            <MudButton Size="Size.Small" OnClick="@(() => DrawerToggle(Anchor.Start))">Categories</MudButton>
         </div>
+        <Search />
+        <CartCounter />
+        <AccountButton />
+        <MudToggleIconButton @bind-Toggled="@_mudThemeProvider.IsDarkMode"
+                             Icon="@Icons.Material.Filled.LightMode" 
+                             Color="@Color.Error" Title="Off"
+                             ToggledIcon="@Icons.Material.Filled.DarkMode" 
+                             ToggledColor="@Color.Success" 
+                             ToggledTitle="On" />
+    </MudAppBar>
 
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
-</div>
+    <MudDrawer @bind-Open="@_drawerOpen"
+               Anchor="@anchor" 
+               Elevation="1" 
+               Variant="@DrawerVariant.Temporary">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">Categories</MudText>
+        </MudDrawerHeader>
+        <CategoriesNavMenu />
+    </MudDrawer>
+
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    bool _drawerOpen = false;
+    Anchor anchor;
+
+    void DrawerToggle(Anchor anchor)
+    {
+        _drawerOpen = !_drawerOpen;
+        this.anchor = anchor;
+    }
+}
+

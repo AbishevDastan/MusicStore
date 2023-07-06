@@ -4,7 +4,9 @@ using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Diploma.Api.Controllers
 {
@@ -25,7 +27,7 @@ namespace Diploma.Api.Controllers
         public async Task<ActionResult<List<ItemDto>>> GetItems()
         {
             var itemsDto = await _itemRepository.GetItems();
-            
+
             return Ok(itemsDto);
         }
 
@@ -38,16 +40,16 @@ namespace Diploma.Api.Controllers
             {
                 return NotFound();
             }
-  
+
             return Ok(itemDto);
         }
 
         [HttpGet]
         [Route("category/{categoryUrl}")]
         public async Task<ActionResult<List<ItemDto>>> GetItemsByCategory(string categoryUrl)
-        { 
+        {
             var itemsByCategoryDto = await _itemRepository.GetItemsByCategory(categoryUrl);
-            
+
             return Ok(itemsByCategoryDto);
         }
 
@@ -56,7 +58,7 @@ namespace Diploma.Api.Controllers
         public async Task<ActionResult<List<ItemDto>>> SearchItem(string searchText)
         {
             var searchItemDto = await _itemRepository.SearchItem(searchText);
-            
+
             return Ok(searchItemDto);
         }
 
@@ -74,8 +76,57 @@ namespace Diploma.Api.Controllers
         public async Task<ActionResult<List<ItemDto>>> GetFeatured()
         {
             var featuredDto = await _itemRepository.GetFeatured();
-            
+
             return Ok(featuredDto);
         }
+
+        //Admin Panel
+        //[HttpGet]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<List<ItemDto>>> GetAdminItems()
+        //{
+        //    var itemsDto = await _itemRepository.GetAdminItems();
+
+        //    return Ok(itemsDto);
+        //}
+
+        //[HttpPost]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<ItemDto>> AddItem(Item dto)
+        //{
+        //    var returnedItem = await _itemRepository.AddItem(dto);
+
+        //    return returnedItem;
+        //}
+
+        //[HttpDelete]
+        //[Route("admin/{id}")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<bool>> RemoveItem(int itemId)
+        //{
+        //    var item = await _itemRepository.GetItem(itemId);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var result = await _itemRepository.RemoveItem(itemId);
+        //    return result;
+        //}
+
+        //[HttpPut]
+        //[Route("admin")]
+        //[Authorize(Roles = "Admin")]
+        //public async Task<ActionResult<ItemDto>> UpdateItem(Item item)
+        //{
+        //    var returnedItem = await _itemRepository.UpdateItem(item);
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return returnedItem;
+        //}
     }
 }

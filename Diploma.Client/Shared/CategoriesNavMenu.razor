@@ -1,0 +1,8 @@
+﻿@inject ICategoryService CategoryService
+
+<MudNavMenu>
+    @foreach (var category in CategoryService.Categories)
+    {
+        <MudNavLink Match="NavLinkMatch.All" Href="@category.Url">@category.Name</MudNavLink>
+    }
+</MudNavMenu>

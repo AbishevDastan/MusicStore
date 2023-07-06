@@ -13,10 +13,17 @@ namespace Diploma.Client.Services.ItemService
     {
         event Action ItemsChanged;
         List<ItemDto> Items { get; set; }
+        //List<ItemDto> AdminItems { get; set; }
+        string Message { get; set; }
+
         Task GetItems(string? categoryUrl);
         Task<ItemDto> GetItem(int itemId);
-        string Message { get; set; }
         Task SearchItem(string searchText);
         Task<List<string>> GetItemSearchSuggestions(string searchText);
+
+        //Task GetAdminItems();
+        //Task<ItemDto> AddItem(ItemDto item);
+        //Task<ItemDto> UpdateItem(ItemDto item);
+        //Task RemoveItem(ItemDto item);
     }
 }
