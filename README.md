@@ -3,7 +3,7 @@ An e-commerce application.
 
 ## Description
 
-This application is a part of the diploma thesis that I'm working on, it is an e-commerce web project, the functionality of which includes role-based authorization and authintication of the user, Admin Panel with CRUD operations available for products and categories, an option to adding products to the shopping cart and placing orders. 
+This application is a part of the diploma thesis that I'm working on. It is an e-commerce web project, the functionality of which includes role-based authorization and authintication of the user, Admin Panel with CRUD operations available for products and categories, an option to adding products to the shopping cart and placing orders. 
 
 ## Technology Stack
 * Frameworks: ASP.NET Core Web API | Blazor WebAssembly | Entity Framework (EF) Core
