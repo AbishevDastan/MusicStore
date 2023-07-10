@@ -14,7 +14,7 @@ This application is a part of the diploma thesis that I'm working on, it is an e
 ## Getting Started
 
 ### Dependencies
-* NuGet Packages:
+NuGet Packages:
 * Microsoft.AspNetCore.Authentication.JwtBearer
 * Microsoft.AspNetCore.Components.Authorization
 * Microsoft.AspNetCore.Components.WebAssembly
