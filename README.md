@@ -1,63 +1,50 @@
 # MusicStore
-An e-commerce application
+An e-commerce application.
 
 ## Description
 
-This application is a part of the diploma thesis that I'm working on, it is 
+This application is a part of the diploma thesis that I'm working on, it is an e-commerce web project, the functionality of which includes role-based authorization and authintication of the user, Admin Panel with CRUD operations available for products and categories, an option to adding products to the shopping cart and placing orders. 
 
 ## Technology Stack
-* FASP.NET Core Web API
-* Blazor WebAssembly
-* Entity Framework (EF) Core
-* Microsoft SQL Server
-* C#
-* HTML/CSS
-* MudBlazor
+* Frameworks: ASP.NET Core Web API | Blazor WebAssembly | Entity Framework (EF) Core
+* Programming Languages: C# | HTML/CSS
+* Database: Microsoft SQL Server
+* Libraries: MudBlazor
 
 ## Getting Started
 
 ### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
+* NuGet Packages:
+** Microsoft.AspNetCore.Authentication.JwtBearer
+** Microsoft.AspNetCore.Components.Authorization
+** Microsoft.AspNetCore.Components.WebAssembly
+** Microsoft.AspNetCore.Components.WebAssembly.DevServer
+** Microsoft.AspNetCore.Http.Abstractions
+** Microsoft.AspNetCore.WebUtilities
+** Microsoft.EntityFrameworkCore
+** Microsoft.EntityFrameworkCore.Design
+** Microsoft.EntityFrameworkCore.Tools
+** Microsoft.EntityFrameworkCore.SqlServer
+** MudBlazor
+** Blazored.LocalStorage
+** Newtonsoft.Json
+** Swashbuckle.AspNetCore
+** AutoMapper.Extensions.Microsoft.DependencyInjection
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+* Place the folder with the project anywhere on the PC
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
+* Adding an Entity Framework (EF) Core migration 
 ```
-code blocks for commands
+dotnet ef migrations add [NAME HERE] --project Diploma.DataAccess --startup-project Diploma.Api
 ```
-
-## Help
-
-Any advise for common problems or issues.
+* Creating the local database and seeding the data
 ```
-command to run if program contains helper info
+dotnet ef database update --project Diploma.DataAccess --startup-project Diploma.Api
 ```
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+* Set Diploma.Api and Diploma.Client as startup projects via right-clicking the solution in Solution Explorer and going to Properties. 
+```
+* Run the application 
