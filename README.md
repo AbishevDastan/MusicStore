@@ -46,5 +46,4 @@ dotnet ef migrations add [NAME HERE] --project Diploma.DataAccess --startup-proj
 dotnet ef database update --project Diploma.DataAccess --startup-project Diploma.Api
 ```
 * Set Diploma.Api and Diploma.Client as startup projects via right-clicking the solution in Solution Explorer and going to Properties. 
-```
 * Run the application 
