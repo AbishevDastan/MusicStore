@@ -1,11 +1,6 @@
-﻿using AutoMapper;
-using Diploma.BusinessLogic.Repositories.CategoryRepository;
-using Diploma.DataAccess;
-using Diploma.Domain;
-using Diploma.Domain.Entities;
+﻿using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diploma.Api.Controllers
@@ -22,72 +17,55 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<CategoryDto>>> GetCategories()
+        public async Task<List<CategoryDto>> GetCategories()
         {
-            var categoriesDTO = await _categoryRepository.GetCategories();
-
-            return Ok(categoriesDTO);
+            return await _categoryRepository.GetCategories();
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public async Task<CategoryDto?> GetCategory(int id)
+        {
+            return await _categoryRepository.GetCategory(id);
+        }
+
+        //Admin Panel
         [HttpGet]
         [Route("admin")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> GetAdminCategories()
+        public async Task<List<CategoryDto>> GetAdminCategories()
         {
-            var categoriesDTO = await _categoryRepository.GetAdminCategories();
-
-            return Ok(categoriesDTO);
-        }
-
-        [HttpGet]
-        [Route("{categoryId}")]
-        public async Task<ActionResult<CategoryDto>> GetCategory(int categoryId)
-        {
-            var categoryDTO = await _categoryRepository.GetCategory(categoryId);
-            if (categoryDTO == null)
-            {
-                return NotFound();
-            }
-            
-            return Ok(categoryDTO);
+            return await _categoryRepository.GetAdminCategories();
         }
 
         [HttpPost]
         [Route("admin")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> AddCategory(CreateCategoryDto dto)
+        public async Task<CategoryDto?> CreateCategory(CategoryDto categoryDto)
         {
-            var returnedCategory = await _categoryRepository.AddCategory(dto);
-
-            return returnedCategory;
+            return await _categoryRepository.CreateCategory(categoryDto);
         }
 
-        //[HttpDelete]
-        //[Route("admin/{id}")]
-        //[Authorize(Roles = "Admin")]
-        //public async Task<ActionResult> RemoveCategory(int categoryId)
-        //{
-        //    var category = await _categoryRepository.GetCategory(categoryId);
-        //    if (category == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    await _categoryRepository.RemoveCategory(categoryId);
+        [HttpDelete]
+        [Route("admin/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> RemoveCategory(int id)
+        {
+            //var category = await _categoryRepository.GetCategory(categoryId);
+            //if (category == null)
+            //{
+            //    return false;
+            //}
+            return await _categoryRepository.DeleteCategory(id);
+        }
 
-        //}
 
         [HttpPut]
-        [Route("admin")]
+        [Route("admin/{id}")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult<List<CategoryDto>>> UpdateCategory(Category category)
+        public async Task<CategoryDto?> UpdateCategory(int id, CategoryDto categoryDto)
         {
-            var returnedCategory = await _categoryRepository.UpdateCategory(category);
-            if (category == null)
-            {
-                return NotFound();
-            }
-
-            return returnedCategory;
+            return await _categoryRepository.UpdateCategory(id, categoryDto);
         }
     }
 }

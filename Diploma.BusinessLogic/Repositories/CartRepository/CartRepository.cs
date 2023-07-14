@@ -36,7 +36,7 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
                 {
                     ItemId = item.Id,
                     Name = item.Name,
-                    Image = item.Image,
+                    ImageUrl = item.ImageUrl,
                     Quantity = cartItem.Quantity,
                     Price = item.Price,
                 };

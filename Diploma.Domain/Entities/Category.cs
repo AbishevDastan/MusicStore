@@ -1,17 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Diploma.Domain.Entities
 {
     public class Category
     {
         public int Id { get; set; }
+        [Required]
         public string Name { get; set; } = string.Empty;
+        [Required]
         public string Url { get; set; } = string.Empty;
-        public bool IsVisible { get; set; } = true;
-        public bool IsRemoved { get; set; } = false;
-        [NotMapped]
-        public bool IsBeingEdited { get; set; } = false;
-        [NotMapped]
-        public bool IsNew { get; set; } = false;
+        [Required]
+        public string ImageUrl {get; set; } = string.Empty;
     }
 }

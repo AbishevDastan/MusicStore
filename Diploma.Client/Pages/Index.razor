@@ -3,12 +3,18 @@
 @page "/{categoryUrl}"
 @inject IItemService ItemService
 
-<PageTitle>Diploma</PageTitle>
+<PageTitle>Music Store</PageTitle>
 
-@if (SearchText == null && CategoryUrl == null)
+@*@if (SearchText == null && CategoryUrl == null)
 {
     <Carousel/>
-@*    <Featured />
-*@
+    <Categories />
     <ItemsList />
 }
+else
+{
+    <ItemsList />
+}
+*@
+
+<ItemsList/>

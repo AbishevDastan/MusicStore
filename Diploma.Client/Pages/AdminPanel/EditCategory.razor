@@ -1,0 +1,36 @@
+﻿@page "/category/admin"
+@page "/category/admin/{id:int}"
+@attribute [Authorize(Roles = "Admin")]
+@inject ICategoryService CategoryService
+@inject NavigationManager NavigationManager
+
+@if (Id is null)
+{
+    <PageTitle>Create a new Category</PageTitle>
+}
+else
+{
+    <PageTitle>Edit @categoryDto.Name</PageTitle>
+}
+
+<EditForm Model="categoryDto" OnSubmit="HandleSubmit">
+    <MudCard>
+        <MudCardContent>
+            <MudTextField Label="Name"
+            @bind-Value="categoryDto.Name"
+                          For="@(() => categoryDto.Name)">
+            </MudTextField>
+            <MudTextField Label="URL"
+            @bind-Value="categoryDto.Url"
+                          For="@(() => categoryDto.Url)">
+            </MudTextField>
+            <MudTextField Label="Image URL"
+            @bind-Value="categoryDto.ImageUrl"
+                          For="@(() => categoryDto.ImageUrl)">
+            </MudTextField>
+        </MudCardContent>
+    </MudCard>
+    <br />
+    <MudButton ButtonType="ButtonType.Submit">@btnText</MudButton>
+@*    <MudButton OnClick="DeleteCategory">Delete Category</MudButton>
+*@</EditForm>

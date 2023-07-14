@@ -1,52 +1,32 @@
-﻿using Diploma.Domain.Entities;
-using Diploma.DTO;
+﻿using Diploma.DTO;
+using Microsoft.AspNetCore.Components;
 
 namespace Diploma.Client.Pages.AdminPanel
 {
     public partial class Categories
     {
-        CategoryDto editingCategory = null;
+        public int? Id { get; set; }
+
+        CategoryDto categoryDto = new CategoryDto { Name = "New Product" };
 
         protected override async Task OnInitializedAsync()
         {
             await CategoryService.GetAdminCategories();
-            CategoryService.OnChange += StateHasChanged;
         }
 
-        public void Dispose()
+        void ShowCategory(int categoryId)
         {
-            CategoryService.OnChange -= StateHasChanged;
+            NavigationManager.NavigateTo($"category/admin/{categoryId}");
         }
 
-        private void CreateNewCategory()
+        void CreateNewCategory()
         {
-            editingCategory = CategoryService.CreateCategory();
+            NavigationManager.NavigateTo("/category/admin");
         }
 
-        private void EditCategory(CategoryDto category)
+        async Task DeleteCategory()
         {
-            category.IsBeingEdited = true;
-            editingCategory = category;
+            await CategoryService.DeleteCategory(categoryDto.Id);
         }
-
-        private async Task UpdateCategory()
-        {
-            if (editingCategory.IsNew)
-                await CategoryService.AddCategory(editingCategory);
-            else
-                await CategoryService.UpdateCategory(editingCategory);
-            editingCategory = new CategoryDto();
-        }
-
-        private async Task CancelEditing()
-        {
-            editingCategory = new CategoryDto();
-            await CategoryService.GetAdminCategories();
-        }
-
-        //private async Task DeleteCategory(int id)
-        //{
-        //    await CategoryService.RemoveCategory(id);
-        //}
     }
 }

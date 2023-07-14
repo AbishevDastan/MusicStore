@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230706071910_1")]
+    [Migration("20230714165813_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -49,11 +49,9 @@ namespace Diploma.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsRemoved")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsVisible")
-                        .HasColumnType("bit");
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,24 +64,6 @@ namespace Diploma.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            IsRemoved = false,
-                            IsVisible = true,
-                            Name = "Guitars",
-                            Url = "guitars"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            IsRemoved = false,
-                            IsVisible = true,
-                            Name = "Percussion",
-                            Url = "percussion"
-                        });
                 });
 
             modelBuilder.Entity("Diploma.Domain.Entities.Item", b =>
@@ -101,10 +81,7 @@ namespace Diploma.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("Featured")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Image")
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -120,48 +97,6 @@ namespace Diploma.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Items");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            Description = "TestTestTestTest1",
-                            Featured = true,
-                            Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                            Name = "Guitar1",
-                            Price = 75m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 1,
-                            Description = "TestTestTestTest2",
-                            Featured = false,
-                            Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                            Name = "Guitar2",
-                            Price = 55m
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 2,
-                            Description = "TestTestTestTest3",
-                            Featured = true,
-                            Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                            Name = "Drums1",
-                            Price = 45m
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CategoryId = 2,
-                            Description = "TestTestTestTest4",
-                            Featured = false,
-                            Image = "https://images.unsplash.com/photo-1638718619061-54b56803f459?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTJ8fGpwZ3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=1000&q=60",
-                            Name = "Drums2",
-                            Price = 65m
-                        });
                 });
 
             modelBuilder.Entity("Diploma.Domain.Entities.User", b =>

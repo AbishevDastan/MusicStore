@@ -1,48 +1,38 @@
-﻿@*@page "/admin/items"
+﻿@page "/items/admin"
+@attribute [Authorize(Roles = "Admin")]
 @inject IItemService ItemService
 @inject NavigationManager NavigationManager
-@attribute [Authorize(Roles = "Admin")]
 
-<h3>Products</h3>
 
-@if (ItemService.AdminItems == null)
-{
-    <span>Loading Items...</span>
-}
-else
-{
-    <button class="btn btn-primary float-end" @onclick="CreateItem">
-        <i class="oi oi-plus"></i> Add new product
-    </button>
-    <table class="table">
-        <thead>
-            <tr>
-                <th></th>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Visible</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <Virtualize Items="ItemService.AdminItems" Context="item">
-                <tr>
-                    <td>
-                        <img src="@item.Image" />
-                    </td>
-                <td>@item.Name</td>
-                
-                <span>@item.Price</span>
+<MudTable Items="ItemService.AdminItems" Hover="true" Bordered="true">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Items</MudText>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Description</MudTh>
+        <MudTh>Price</MudTh>
+        <MudTh>Image URL</MudTh>
+        <MudTh>Category</MudTh>
 
-                <td>@(item.IsVisible ? "✔️" : "")</td>
-                <td>
-                    <button class="btn btn-primary" @onclick="(() => EditItem(item.Id))">
-                        <i class="oi oi-pencil"></i>
-                    </button>
-                </td>
-            </tr>
-        </Virtualize>
-    </tbody>
-</table>
-}
-*@
+        <MudTh></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Name">@context.Name</MudTd>
+        <MudTd DataLabel="Description">@context.Description</MudTd>
+        <MudTd DataLabel="Price">@context.Price</MudTd>
+        <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
+        <MudTd DataLabel="Category">@context.CategoryId</MudTd>
+        <MudTd>
+            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowItem(context.Id))">
+            </MudIconButton>
+        </MudTd>
+    </RowTemplate>
+
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+<MudButton OnClick="CreateNewItem">
+    Create New Item
+</MudButton>

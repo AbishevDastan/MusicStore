@@ -1,16 +1,8 @@
 ﻿using AutoMapper;
 using Diploma.DataAccess;
-using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diploma.BusinessLogic.Repositories.ItemRepository
 {
@@ -18,20 +10,16 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
-        //private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public ItemRepository(DataContext dataContext, IMapper mapper /*IHttpContextAccessor httpContextAccessor*/)
+        public ItemRepository(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
             _mapper = mapper;
-            //_httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<List<ItemDto>> GetItems()
         {
-            var items = await _dataContext.Items
-                /*.Where(i => !i.IsRemoved && i.IsVisible)*/
-                .ToListAsync();
+            var items = await _dataContext.Items.ToListAsync();
             var itemsDto = _mapper.Map<List<ItemDto>>(items);
 
             return itemsDto;
@@ -39,19 +27,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
         public async Task<ItemDto> GetItem(int itemId)
         {
-            //Item item = null;
-
-            //if (_httpContextAccessor.HttpContext.User.IsInRole("Admin"))
-            //{
-            //    item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId && !i.IsRemoved);
-            //}
-            //else
-            //{
-            //     item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId && !i.IsRemoved && i.IsVisible);
-            //}
-
-
-            var item = await _dataContext.Items.FirstOrDefaultAsync(i => i.Id == itemId /*&& !i.IsRemoved && i.IsVisible*/);
+            var item = await _dataContext.Items.FindAsync(itemId);
             var itemDto = _mapper.Map<ItemDto>(item);
 
             return itemDto;
@@ -60,7 +36,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<ItemDto>> GetItemsByCategory(string categoryUrl)
         {
             var itemsByCategory = await _dataContext.Items
-            .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
+            .Where(i => i.Category.Url.ToLower().Equals(categoryUrl.ToLower()))
             .ToListAsync();
 
             var itemsByCategoryDto = _mapper.Map<List<ItemDto>>(itemsByCategory);
@@ -127,67 +103,64 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             return new List<string>(result);
         }
 
-        public async Task<List<ItemDto>> GetFeatured()
+        //Admin Panel
+        public async Task<List<ItemDto>> GetAdminItems()
         {
-            var featured = await _dataContext.Items
-                .Where(i => i.Featured /*&& !i.IsRemoved && i.IsVisible*/)
-                .ToListAsync();
+            var items = await _dataContext.Items.ToListAsync();
+            var itemsDto = _mapper.Map<List<ItemDto>>(items);
 
-            var featuredDto = _mapper.Map<List<ItemDto>>(featured);
-
-            return featuredDto;
+            return itemsDto;
         }
 
+        public async Task<ItemDto> CreateItem(ItemDto itemDto)
+        {
+            var item = new Item
+            {
+                Name = itemDto.Name,
+                Description = itemDto.Description,
+                ImageUrl = itemDto.ImageUrl,
+                Price = itemDto.Price,
+                CategoryId = itemDto.CategoryId
+            };
 
-        //Admin Panel
-        //public async Task<List<ItemDto>> GetAdminItems()
-        //{
-        //    var items = await _dataContext.Items
-        //        .Where(i => !i.IsRemoved)
-        //        .ToListAsync();
+            _dataContext.Items.Add(item);
+            await _dataContext.SaveChangesAsync();
 
-        //    var itemsDto = _mapper.Map<List<ItemDto>>(items);
+            itemDto = _mapper.Map<ItemDto>(item);
 
-        //    return itemsDto;
-        //}
+            return itemDto;
+        }
 
-        //public async Task<bool> RemoveItem(int itemId)
-        //{
-        //    var item = await _dataContext.Items.FindAsync(itemId);
+        public async Task<bool> DeleteItem(int itemId)
+        {
+            var item = await _dataContext.Items.FindAsync(itemId);
+            if (item == null)
+            {
+                return false;
+            }
+            _dataContext.Items.Remove(item);
+            await _dataContext.SaveChangesAsync();
 
-        //    item.IsRemoved = true;
+            return true;
+        }
 
-        //    _dataContext.Items.Remove(item);
-        //    await _dataContext.SaveChangesAsync();
+        public async Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto)
+        {
+            var item = await _dataContext.Items.FindAsync(itemId);
 
-        //    return true;
-        //}
+            if (item != null)
+            {
+                item.Name = itemDto.Name;
+                item.Description = itemDto.Description;
+                item.CategoryId = itemDto.CategoryId;
+                item.ImageUrl = itemDto.ImageUrl;
 
-        //public async Task<ItemDto> UpdateItem(Item item)
-        //{
-        //    var dbItem = await _dataContext.Items.FindAsync(item.Id);
+                await _dataContext.SaveChangesAsync();
+            }
+            itemDto = _mapper.Map<ItemDto>(item);
 
-        //    dbItem.Name = item.Name;
-        //    dbItem.Description = item.Description;
-        //    dbItem.CategoryId = item.CategoryId;
-        //    dbItem.Image = item.Image;
-        //    dbItem.IsVisible = item.IsVisible;
-
-        //    await _dataContext.SaveChangesAsync();
-
-        //    var itemDto = _mapper.Map<ItemDto>(item);
-
-        //    return itemDto;
-        //}
-
-        //public async Task<ItemDto> AddItem(Item item)
-        //{
-        //    _dataContext.Items.Add(item);
-        //    await _dataContext.SaveChangesAsync();
-
-        //    var itemDto = _mapper.Map<ItemDto>(item);
-        //    return itemDto;
-        //}
+            return itemDto;
+        }
     }
 }
 

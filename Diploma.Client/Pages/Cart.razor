@@ -5,7 +5,7 @@
 
 @if (addedCartItems == null || addedCartItems.Count == 0)
 {
-    <span>@message</span>
+    <span>@message</span>//Loading???
 }
 else
 {
@@ -14,7 +14,7 @@ else
         {
             <div class="container">
                 <div class="image-wrapper">
-                <img src="@item.Image" class="image"/>
+                <img src="@item.ImageUrl" class="image"/>
             </div>
             <div class="name">
                 <h5><a href="/item/@item.ItemId">@item.Name</a></h5>

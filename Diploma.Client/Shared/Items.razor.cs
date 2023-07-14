@@ -1,6 +1,6 @@
 ﻿namespace Diploma.Client.Shared
 {
-    public partial class Featured
+    public partial class Items
     {
         protected override void OnInitialized()
         {

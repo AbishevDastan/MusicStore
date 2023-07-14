@@ -1,34 +1,26 @@
 ﻿@inherits LayoutComponentBase
 @inject MudThemeProvider _mudThemeProvider
 
-<MudThemeProvider @ref="@_mudThemeProvider" IsDarkMode="_mudThemeProvider.IsDarkMode"/>
+<MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Style="background-color: #353E48;
-                          height: 4rem;
-                          display: flex;
-                          overflow: hidden;
-                          justify-content: space-between;">
-        <HomeButton />
-        <div>
+    <MudAppBar Style="background-color: #FAFAFA; height: 3.5rem;">
+        <MudContainer Class="d-flex justify-end align-center flex-grow-1 gap-4 ms-auto">
+            <Logo />
+            <HomeButton />
             <MudButton Size="Size.Small" OnClick="@(() => DrawerToggle(Anchor.Start))">Categories</MudButton>
-        </div>
-        <Search />
-        <CartCounter />
-        <AccountButton />
-        <MudToggleIconButton @bind-Toggled="@_mudThemeProvider.IsDarkMode"
-                             Icon="@Icons.Material.Filled.LightMode" 
-                             Color="@Color.Error" Title="Off"
-                             ToggledIcon="@Icons.Material.Filled.DarkMode" 
-                             ToggledColor="@Color.Success" 
-                             ToggledTitle="On" />
+            <ContactButton />
+            <SearchButton />
+            <CartCounter />
+            <AccountButton />
+        </MudContainer>
     </MudAppBar>
 
     <MudDrawer @bind-Open="@_drawerOpen"
-               Anchor="@anchor" 
-               Elevation="1" 
+               Anchor="@anchor"
+               Elevation="1"
                Variant="@DrawerVariant.Temporary">
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">Categories</MudText>
@@ -50,5 +42,22 @@
         _drawerOpen = !_drawerOpen;
         this.anchor = anchor;
     }
+
+    private readonly MudTheme _currentTheme = new()
+        {
+            Palette = new PaletteLight
+            {
+                Primary = "#0A7BCF",
+                Secondary = "#4CAF50",
+                Info = "#64a7e2",
+                Success = "#2ECC40",
+                Warning = "#FFC107",
+                Error = "#FF0000",
+                AppbarBackground = "#FAFAFA",
+                TextPrimary = "#0A7BCF",
+                TextSecondary = "#4CAF50",
+                // more color properties
+            }
+        };
 }
 

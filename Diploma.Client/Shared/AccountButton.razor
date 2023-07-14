@@ -2,22 +2,16 @@
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
-<div class="dropdown">
-    <button @onclick="ToggleAccountMenu" @onfocusout="HideAccountMenu" class="btn btn-dark dropdown-toggle account-button">
-        <i class="oi oi-person"></i>
-    </button>
-    <div class="dropdown-menu dropdown-menu-right @AccountMenuCssClass">
-        <AuthorizeView>
-            <Authorized>
-                <a href="userprofile" class="dropdown-item">Profile</a>
-                <hr />
-                <button class="dropdown-item" @onclick="Logout">Logout</button>
-                <AdminMenu/>
-            </Authorized>
-            <NotAuthorized>
-                <a href="register" class="dropdown-item">Create Account</a>
-                <a href="login?returnUrl=@NavigationManager.ToBaseRelativePath(NavigationManager.Uri)" class="dropdown-item">Login</a>
-            </NotAuthorized>
-        </AuthorizeView>
-    </div>
-</div> 
+<MudMenu Icon="@Icons.Material.Filled.Person">
+    <AuthorizeView>
+        <Authorized>
+            <MudMenuItem Href="userprofile">Profile</MudMenuItem>
+            <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
+            <AdminMenu/>
+        </Authorized>
+        <NotAuthorized>
+            <MudMenuItem Href="register">Create Account</MudMenuItem>
+            <MudMenuItem Href="login">Login</MudMenuItem>
+        </NotAuthorized>
+    </AuthorizeView>
+</MudMenu>

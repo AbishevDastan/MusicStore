@@ -3,18 +3,33 @@
 
 @if (ItemService.Items == null || ItemService.Items.Count == null)
 {
-    <span>@ItemService.Message</span>
+    <Loading />
 }
 
 else
 {
-<ul class="list-unstyled">
+@*    <MudList>
+        <MudCard>
+            @foreach (var itemDto in ItemService.Items)
+            {
+                <MudCardMedia Image="@itemDto.ImageUrl" Height="200" />
+                <MudCardContent>
+                    <MudText Typo="Typo.h4">
+                        <MudLink Href="@itemDto.Id"></MudLink>
+                    </MudText>
+                    <MudText Typo="Typo.body2">Old paint found on a stone house door.</MudText>
+                    <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
+                </MudCardContent>
+            }
+        </MudCard>
+    </MudList>*@
+    <ul class="list-unstyled">
     @foreach (var item in ItemService.Items)
     {
     <li>
         <div class="img-wrapper">
             <a href="/item/@item.Id">
-                <img class="img" src="@item.Image" alt="@item.Name">
+                <img class="img" src="@item.ImageUrl" alt="@item.Name">
             </a>
         </div>
 

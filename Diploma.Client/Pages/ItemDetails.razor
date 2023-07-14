@@ -1,27 +1,25 @@
 ﻿@page "/item/{id:int}"
+@inject ICartService cartService
+@inject IItemService itemService
 @using Diploma.Client.Services.ItemService;
 @using Diploma.Client.Services.CartService;
 @using Diploma.DTO;
 
-@if(Item == null)
+@if (itemDto == null)
 {
-   @* <DisplayErrorMessage ErrorMessage="@Error">Sorry, the error has occured while loading the product.</DisplayErrorMessage>*@
-    <span>@Message</span>
+    <Loading />
 }
 else
 {
-    <div class="media">
-        <div class="media-img-wrapper mr-2">
-            <img class="media-img" src="@Item.Image" alt="@Item.Name"/>
-        </div>
-
-        <div class="media-body">
-            <h2 class="mb-0">@Item.Name</h2>
-            <p>@Item.Description</p>
-            <h4 class="price">$@Item.Price</h4>
-            <button class="btn btn-primary add-to-cart-button" @onclick="AddItemToCart">
-                <i class="oi oi-cart"></i>&nbsp;&nbsp;&nbsp;Add to Cart
-            </button>
-        </div>
-    </div>
+    <MudContainer>
+        <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name"></MudImage>
+        <MudContainer>
+            <MudText Typo="Typo.h2">@itemDto.Name</MudText>
+            <MudText Typo="Typo.body1">@itemDto.Description</MudText>
+            <MudText Typo="Typo.h4">@itemDto.Price</MudText>
+            <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" OnClick="AddItemToCart">
+                &nbsp;&nbsp;&nbsp;Add to Cart
+            </MudIconButton>
+        </MudContainer>
+    </MudContainer>
 }

@@ -6,7 +6,7 @@ namespace Diploma.Client.Pages
     public partial class Cart
     {
         List<AddItemToCartDto> addedCartItems = null;
-        string message = "Loading Shopping Cart page...";
+        string message;
 
         protected override async Task OnInitializedAsync()
         {

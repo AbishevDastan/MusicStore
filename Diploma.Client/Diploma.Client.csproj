@@ -34,4 +34,8 @@
     <ProjectReference Include="..\Diploma.DTO\Diploma.DTO.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 </Project>

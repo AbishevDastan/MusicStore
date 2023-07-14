@@ -2,7 +2,6 @@
 @inject ISyncLocalStorageService SyncLocalStorageService
 @implements IDisposable
 
-<a href="cart" class="btn btn-dark cart-counter-button">
-    <i class="oi oi-cart"></i>
+<MudIconButton Href="cart" Icon="@Icons.Material.Filled.ShoppingCart">
         <span class="badge">@GetCartItemsCount()</span>
-</a>
+</MudIconButton>

@@ -1,20 +1,22 @@
-﻿//namespace Diploma.Client.Pages.AdminPanel
-//{
-//    public partial class Items
-//    {
-//        protected override async Task OnInitializedAsync()
-//        {
-//            await ItemService.GetAdminItems();
-//        }
+﻿using Microsoft.AspNetCore.Components;
 
-//        void EditItem(int itemId)
-//        {
-//            NavigationManager.NavigateTo($"admin/item/{itemId}");
-//        }
+namespace Diploma.Client.Pages.AdminPanel
+{
+    public partial class Items
+    {        
+        protected override async Task OnInitializedAsync()
+        {
+           await ItemService.GetAdminItems();
+        }
 
-//        void CreateItem()
-//        {
-//            NavigationManager.NavigateTo("admin/item");
-//        }
-//    }
-//}
+        void ShowItem(int itemId)
+        {
+            NavigationManager.NavigateTo($"item/admin/{itemId}");
+        }
+
+        void CreateNewItem()
+        {
+            NavigationManager.NavigateTo("/item/admin");
+        }
+    }
+}
