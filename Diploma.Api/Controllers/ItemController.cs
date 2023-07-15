@@ -24,7 +24,7 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{itemId}")]
+        [Route("{id}")]
         public async Task<ItemDto?> GetItem(int id)
         {
             return await _itemRepository.GetItem(id);

@@ -7,7 +7,7 @@ namespace Diploma.Client.Pages
     {
         [Parameter]
         public int Id { get; set; }
-        private ItemDto? itemDto { get; set; }
+        private ItemDto? itemDto { get; set; } = new ItemDto();
 
         protected override async Task OnParametersSetAsync()
         {

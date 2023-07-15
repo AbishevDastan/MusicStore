@@ -2,6 +2,9 @@
 @inject ISyncLocalStorageService SyncLocalStorageService
 @implements IDisposable
 
-<MudIconButton Href="cart" Icon="@Icons.Material.Filled.ShoppingCart">
-        <span class="badge">@GetCartItemsCount()</span>
-</MudIconButton>
+<MudTooltip Text="Shopping Cart">
+    <MudBadge Overlap="true" Content="GetCartItemsCount()">
+        <MudIconButton Href="cart" Icon="@Icons.Material.Filled.ShoppingCart">
+        </MudIconButton>
+    </MudBadge>
+</MudTooltip>

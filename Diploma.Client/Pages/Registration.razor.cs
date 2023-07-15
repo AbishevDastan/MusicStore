@@ -1,5 +1,4 @@
 ﻿using Diploma.DTO;
-using System.Net;
 
 namespace Diploma.Client.Pages
 {
@@ -7,17 +6,18 @@ namespace Diploma.Client.Pages
     {
         CreateUserDto user = new CreateUserDto();
 
-        string message = string.Empty;
-        string messageCssClass = string.Empty;
+        bool success;
 
         async Task HandleRegistration()
         {
             var result = await AuthService.Register(user);
-            message = result.Message;
-            if (result.Success)
-                messageCssClass = "text-success";
-            else
-                messageCssClass = "text-danger";
+            success = true;
+            StateHasChanged();
+        }
+
+        void GoToLogin()
+        {
+            NavigationManager.NavigateTo("login");
         }
     }
 }

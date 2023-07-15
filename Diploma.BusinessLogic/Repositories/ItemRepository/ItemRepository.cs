@@ -25,7 +25,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             return itemsDto;
         }
 
-        public async Task<ItemDto> GetItem(int itemId)
+        public async Task<ItemDto?> GetItem(int itemId)
         {
             var item = await _dataContext.Items.FindAsync(itemId);
             var itemDto = _mapper.Map<ItemDto>(item);

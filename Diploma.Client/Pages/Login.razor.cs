@@ -10,6 +10,7 @@ namespace Diploma.Client.Pages
         private AuthenticateUserDto user = new AuthenticateUserDto();
         private string previousUrl = string.Empty;
         private string ErrorMessage = string.Empty;
+        bool success;
 
         protected override void OnInitialized()
         {
@@ -22,17 +23,24 @@ namespace Diploma.Client.Pages
         private async Task HandleLogin()
         {
             var result = await AuthService.Login(user);
-            if(result.Success)
+            if (result.Success)
             {
                 ErrorMessage = string.Empty;
                 await LocalStorageService.SetItemAsync("token", result.Data);
                 await AuthStateProvider.GetAuthenticationStateAsync();
                 NavigationManager.NavigateTo(previousUrl);
+                success = true;
+                StateHasChanged();
             }
             else
             {
-                ErrorMessage = result.Message;
+                ErrorMessage = "Error occured. Please, try again.";
             }
+        }
+
+        void GoToRegistration()
+        {
+            NavigationManager.NavigateTo("register");
         }
     }
 }

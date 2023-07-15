@@ -11,15 +11,21 @@
 }
 else
 {
-    <MudContainer>
-        <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name"></MudImage>
-        <MudContainer>
-            <MudText Typo="Typo.h2">@itemDto.Name</MudText>
-            <MudText Typo="Typo.body1">@itemDto.Description</MudText>
-            <MudText Typo="Typo.h4">@itemDto.Price</MudText>
-            <MudIconButton Icon="@Icons.Material.Filled.ShoppingCart" OnClick="AddItemToCart">
-                &nbsp;&nbsp;&nbsp;Add to Cart
-            </MudIconButton>
-        </MudContainer>
-    </MudContainer>
+    <MudGrid>
+        <MudItem lg="2" md="6" sm="12">
+            <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name" Width="250" Height="240" />
+        </MudItem>
+        <MudItem lg="6" md="6" sm="12">
+            <MudPaper Class="pa-4">
+                <MudItem md="12" sm="12">
+                    <MudText Typo="Typo.h4">@itemDto.Name</MudText>
+                </MudItem>
+                &nbsp;
+                <MudText Typo="Typo.body1">@itemDto.Description</MudText>
+                &nbsp;&nbsp;&nbsp;
+                <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">Add to Shopping Cart</MudButton>
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
 }

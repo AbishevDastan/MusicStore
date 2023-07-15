@@ -1,27 +1,44 @@
 ﻿@page "/register"
 @inject IAuthenticationService AuthService
+@inject NavigationManager NavigationManager
 
-<PageTitle>Registration</PageTitle>
-<h3>Registration</h3>
-<EditForm Model="user" OnValidSubmit="HandleRegistration">
-    <DataAnnotationsValidator />
-    <div class="mb-2">
-        <label for="email">Email</label>
-        <InputText id="email" @bind-Value="user.Email" class="form-control" />
-        <ValidationMessage For="@(() => user.Email)" />
-    </div>
-        <div class="mb-2">
-        <label for="password">Password</label>
-        <InputText id="password" @bind-Value="user.Password" class="form-control" typeof="password" />
-        <ValidationMessage For="@(() => user.Password)" />
-    </div>
-        <div class="mb-2">
-        <label for="confirmPassword">Confirm Password</label>
-        <InputText id="confirmPassword" @bind-Value="user.ConfirmPassword" class="form-control" />
-        <ValidationMessage For="@(() => user.ConfirmPassword)" />
-    </div>
-    <button typeof="submit" class="btn btn-primary">Create Account</button>
-    <div class="@messageCssClass">
-        <span>@message</span>
-    </div>
-</EditForm>
+<MudContainer Class="justify-content-center">
+    <EditForm Model="@user" OnValidSubmit="HandleRegistration">
+        <DataAnnotationsValidator />
+        <MudGrid Justify="Justify.Center">
+            <MudItem xs="12" sm="7">
+                <MudCard>
+                    <MudCardHeader Class="justify-content-center">
+                        <MudText Align="Align.Center" Typo="Typo.h4">Registration</MudText>
+                    </MudCardHeader>
+                    <MudCardContent>
+                        <MudTextField Label="Email Address" Class="mt-3"
+                        @bind-Value="user.Email" For="@(() => user.Email)" />
+                        <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                        @bind-Value="user.Password" For="@(() => user.Password)" InputType="InputType.Password" />
+                        <MudTextField Label="Confirm Password" HelperText="Repeat the password" Class="mt-3"
+                        @bind-Value="user.ConfirmPassword" For="@(() => user.ConfirmPassword)" InputType="InputType.Password" />
+                    </MudCardContent>
+                    <MudCardActions Class="align-content-center">
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Default" FullWidth="true" Class="ml-auto">Register</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            </MudItem>
+            <MudItem xs="6" sm="7">
+                @if (success)
+                {
+                    <MudText Align="Align.Center" Color="Color.Success">User account created successfully!</MudText>
+                }
+                else
+                {
+                    <MudText Color="@Color.Error" Align="Align.Center">
+                        <ValidationSummary />
+                    </MudText>
+                }
+            </MudItem>
+            <MudItem xs="6" sm="7">
+                <MudButton OnClick="GoToLogin">Already have an account?</MudButton>
+            </MudItem>
+        </MudGrid>
+    </EditForm>
+</MudContainer>

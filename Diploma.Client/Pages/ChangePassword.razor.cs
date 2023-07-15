@@ -2,15 +2,16 @@
 
 namespace Diploma.Client.Pages
 {
-    public partial class UserProfile
+    public partial class ChangePassword
     {
         ChangePasswordDto request = new ChangePasswordDto();
-        string message = string.Empty;
+        bool success;
 
-        private async Task ChangePassword()
+        private async Task ProvideNewPassword()
         {
             var result = await AuthService.ChangePassword(request);
-            message = result.Message;
+            success = true;
+            StateHasChanged();
         }
     }
 }
