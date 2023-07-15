@@ -1,13 +1,8 @@
 ﻿using Blazored.LocalStorage;
-using Diploma.Domain.Entities;
+using Diploma.Client.Pages;
 using Diploma.DTO;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diploma.Client.Services.CartService
 {
@@ -15,16 +10,27 @@ namespace Diploma.Client.Services.CartService
     {
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _storage;
+        private readonly AuthenticationStateProvider _authStateProvider;
 
-        public CartService(HttpClient httpClient, ILocalStorageService storage)
+        public CartService(HttpClient httpClient, ILocalStorageService storage, AuthenticationStateProvider authStateProvider)
         {
             _httpClient = httpClient;
             _storage = storage;
+            _authStateProvider = authStateProvider;
         }
         public event Action OnChange;
 
         public async Task AddItemToCart(CartItemDto cartItem)
         {
+            if ((await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated)
+            {
+                Console.WriteLine("Authenticated");
+            }
+            else
+            {
+                Console.WriteLine("Not authenticated");
+            }
+
             var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
             if (cart == null)
             {
@@ -78,6 +84,25 @@ namespace Diploma.Client.Services.CartService
             var response = await _httpClient.PostAsJsonAsync("api/cart/items", cartItems);
             var addedCartItems = await response.Content.ReadFromJsonAsync<List<AddItemToCartDto>>();
             return addedCartItems;
+        }
+
+        public async Task PutCartItemsToDatabase(bool clearCartLocally = false)
+        {
+            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            if(cart != null)
+            {
+                await _httpClient.PostAsJsonAsync("api/cart", cart);
+            }
+            else
+            {
+                return;
+            }
+
+            if(clearCartLocally)
+            {
+                await _storage.RemoveItemAsync("cart");
+            }
+
         }
 
         public async Task UpdateItemsQuantity(AddItemToCartDto item)

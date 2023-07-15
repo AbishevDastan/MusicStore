@@ -1,4 +1,5 @@
-﻿using Diploma.DTO;
+﻿using Diploma.Domain.Entities;
+using Diploma.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,9 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 {
     public interface ICartRepository
     {
-        Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItemDto> cartItems);
+        Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItem> cartItems);
+        Task<List<AddItemToCartDto>> PutCartItemsToDatabase(List<CartItem> cartItems, int userId);
+
+
     }
 }

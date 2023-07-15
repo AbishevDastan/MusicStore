@@ -1,7 +1,9 @@
 ﻿using Diploma.BusinessLogic.Repositories.CartRepository;
+using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Diploma.Api.Controllers
 {
@@ -18,9 +20,18 @@ namespace Diploma.Api.Controllers
 
         [HttpPost]
         [Route("items")]
-        public async Task<ActionResult<List<AddItemToCartDto>>> GetItemsFromCart([FromBody]List<CartItemDto> cartItems)
+        public async Task<ActionResult<List<AddItemToCartDto>>> GetItemsFromCart([FromBody] List<CartItem> cartItems)
         {
             var result = await _cartRepository.GetItemsFromCart(cartItems);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        [Route("items")]
+        public async Task<ActionResult<List<AddItemToCartDto>>> PutCartItemsToDatabase(List<CartItem> cartItems)
+        {
+            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var result = await _cartRepository.PutCartItemsToDatabase(cartItems, userId);
             return Ok(result);
         }
     }

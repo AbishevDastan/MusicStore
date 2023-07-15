@@ -8,39 +8,74 @@
 
 else
 {
-@*    <MudList>
-        <MudCard>
-            @foreach (var itemDto in ItemService.Items)
-            {
-                <MudCardMedia Image="@itemDto.ImageUrl" Height="200" />
-                <MudCardContent>
-                    <MudText Typo="Typo.h4">
-                        <MudLink Href="@itemDto.Id"></MudLink>
-                    </MudText>
-                    <MudText Typo="Typo.body2">Old paint found on a stone house door.</MudText>
-                    <MudText Typo="Typo.body2">This photo was taken in a small village in Istra Croatia.</MudText>
-                </MudCardContent>
-            }
-        </MudCard>
-    </MudList>*@
-    <ul class="list-unstyled">
-    @foreach (var item in ItemService.Items)
-    {
-    <li>
-        <div class="img-wrapper">
-            <a href="/item/@item.Id">
-                <img class="img" src="@item.ImageUrl" alt="@item.Name">
-            </a>
-        </div>
+    <MudList>
+        @foreach (var itemDto in ItemService.Items)
+        {
+            <MudListItem>
+                <MudCard>
+                    <MudCardContent>
+                        <MudItem md="5">
+                            <a href="/item/@itemDto.Id">
+                                <img class="img" src="@itemDto.ImageUrl" alt="@itemDto.Name">
+                            </a>
+                        </MudItem>
 
-        <div class="body">
-            <a href="/item/@item.Id">
-                <h4>@item.Name</h4>
-            </a>
-            <p>@item.Description</p>
-            <h5 class="price">$@item.Price</h5>
-        </div>
-    </li>
-    }
-</ul>
+                        <MudItem md="5" sm="5">
+                            <a href="/item/@itemDto.Id">
+                                <MudText Typo="Typo.h4">@itemDto.Name</MudText>
+                            </a>
+                            <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                        </MudItem>
+                    </MudCardContent>
+                </MudCard>
+            </MudListItem>
+            }
+    </MudList>
+    @*    <MudList>
+        @foreach (var itemDto in ItemService.Items)
+        {
+            <MudListItem>
+                <MudGrid>
+                    <MudItem lg="2" md="6" sm="12">
+                        <a href="/item/@itemDto.Id">
+                            <img class="img" src="@itemDto.ImageUrl" alt="@itemDto.Name">
+                        </a>
+                    </MudItem>
+                    <MudItem lg="6" md="6" sm="12">
+                        <MudPaper Class="pa-4">
+                            <MudItem md="12" sm="12">
+                                <MudText Typo="Typo.h4">@itemDto.Name</MudText>
+                            </MudItem>
+                            &nbsp;
+                            <MudText Typo="Typo.body1">@itemDto.Description</MudText>
+                            &nbsp;&nbsp;&nbsp;
+                            <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                        </MudPaper>
+                    </MudItem>
+                </MudGrid>
+            </MudListItem>
+        }
+    </MudList>*@
+
+
+    @*    <ul class="list-unstyled">
+        @foreach (var item in ItemService.Items)
+        {
+            <li>
+                <div class="img-wrapper">
+                    <a href="/item/@item.Id">
+                        <img class="img" src="@item.ImageUrl" alt="@item.Name">
+                    </a>
+                </div>
+
+                <div class="body">
+                    <a href="/item/@item.Id">
+                        <h4>@item.Name</h4>
+                    </a>
+                    <p>@item.Description</p>
+                    <h5 class="price">$@item.Price</h5>
+                </div>
+            </li>
+        }
+    </ul>*@
 }

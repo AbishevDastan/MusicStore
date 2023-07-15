@@ -28,6 +28,7 @@ namespace Diploma.Client.Pages
                 ErrorMessage = string.Empty;
                 await LocalStorageService.SetItemAsync("token", result.Data);
                 await AuthStateProvider.GetAuthenticationStateAsync();
+                await CartService.PutCartItemsToDatabase(true);
                 NavigationManager.NavigateTo(previousUrl);
                 success = true;
                 StateHasChanged();

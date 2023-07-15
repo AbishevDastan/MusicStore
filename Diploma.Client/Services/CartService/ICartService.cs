@@ -16,5 +16,6 @@ namespace Diploma.Client.Services.CartService
         Task<List<AddItemToCartDto>> GetItemsFromCart();
         Task DeleteItemFromCart(int itemId);
         Task UpdateItemsQuantity(AddItemToCartDto item);
+        Task PutCartItemsToDatabase(bool clearCartLocally);
     }
 }
