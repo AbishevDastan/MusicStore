@@ -1,10 +1,5 @@
 ﻿using Diploma.Domain;
 using Diploma.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Diploma.Client.Services.AuthenticationService
 {
@@ -13,5 +8,6 @@ namespace Diploma.Client.Services.AuthenticationService
         Task<ResponseFromServer<int>> Register(CreateUserDto request);
         Task<ResponseFromServer<string>> Login(AuthenticateUserDto request);
         Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDto request);
+        Task<bool> IsAuthenticated();
     }
 }

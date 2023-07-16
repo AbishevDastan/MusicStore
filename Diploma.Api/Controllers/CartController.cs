@@ -27,12 +27,18 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpPost]
-        [Route("items")]
         public async Task<ActionResult<List<AddItemToCartDto>>> PutCartItemsToDatabase(List<CartItem> cartItems)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             var result = await _cartRepository.PutCartItemsToDatabase(cartItems, userId);
             return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("cart-items-count")]
+        public async Task<ActionResult<int>> GetNumberOfCartItems(int userId)
+        { 
+            return await _cartRepository.GetNumberOfCartItems(userId);    
         }
     }
 }

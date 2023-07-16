@@ -3,12 +3,6 @@ using Diploma.DataAccess;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Diploma.BusinessLogic.Repositories.CartRepository
 {
@@ -49,12 +43,18 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
             return result;
         }
 
+        public async Task<int> GetNumberOfCartItems(int userId)
+        {
+            var count = (await _dataContext.CartItems
+                .Where(ci => ci.UserId == userId).ToListAsync()).Count;
+            return count;
+        }
+
         public async Task<List<AddItemToCartDto>> PutCartItemsToDatabase(List<CartItem> cartItems, int userId)
         {
             cartItems.ForEach(ci => ci.UserId = userId);
-            var cartItemsDto = _mapper.Map<CartItem>(cartItems);
 
-            _dataContext.CartItems.AddRange(cartItemsDto);
+            _dataContext.CartItems.AddRange(cartItems);
             await _dataContext.SaveChangesAsync();
 
             return await GetItemsFromCart(await _dataContext.CartItems

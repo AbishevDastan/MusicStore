@@ -1,4 +1,5 @@
-﻿using Diploma.DTO;
+﻿using Diploma.Domain.Entities;
+using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
 
 namespace Diploma.Client.Pages
@@ -16,7 +17,7 @@ namespace Diploma.Client.Pages
 
         private async Task AddItemToCart()
         {
-            var cartItem = new CartItemDto
+            var cartItem = new CartItem
             {
                 ItemId = itemDto.Id,
             };

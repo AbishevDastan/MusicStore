@@ -29,6 +29,7 @@ namespace Diploma.Client.Pages
                 await LocalStorageService.SetItemAsync("token", result.Data);
                 await AuthStateProvider.GetAuthenticationStateAsync();
                 await CartService.PutCartItemsToDatabase(true);
+                await CartService.GetNumberOfCartItems();
                 NavigationManager.NavigateTo(previousUrl);
                 success = true;
                 StateHasChanged();

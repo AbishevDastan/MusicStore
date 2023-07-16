@@ -1,5 +1,6 @@
 ﻿using Diploma.Domain;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Components.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace Diploma.Client.Services.AuthenticationService
     public class AuthenticationService : IAuthenticationService
     {
         private readonly HttpClient _httpClient;
+        private readonly AuthenticationStateProvider _authStateProvider;
 
-        public AuthenticationService(HttpClient httpClient)
+        public AuthenticationService(HttpClient httpClient, AuthenticationStateProvider authStateProvider)
         {
             _httpClient = httpClient;
+            _authStateProvider = authStateProvider;
         }
 
         public async Task<ResponseFromServer<int>> Register(CreateUserDto request)
@@ -34,6 +37,11 @@ namespace Diploma.Client.Services.AuthenticationService
         {
             var result = await _httpClient.PostAsJsonAsync("api/authentication/change-password", request.Password);
             return await result.Content.ReadFromJsonAsync<ResponseFromServer<bool>>();
+        }
+
+        public async Task<bool> IsAuthenticated()
+        {
+            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
         }
     }
 }

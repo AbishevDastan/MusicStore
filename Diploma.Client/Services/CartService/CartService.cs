@@ -1,5 +1,7 @@
 ﻿using Blazored.LocalStorage;
 using Diploma.Client.Pages;
+using Diploma.Client.Services.AuthenticationService;
+using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
@@ -11,18 +13,20 @@ namespace Diploma.Client.Services.CartService
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _storage;
         private readonly AuthenticationStateProvider _authStateProvider;
+        private readonly IAuthenticationService _authService;
 
-        public CartService(HttpClient httpClient, ILocalStorageService storage, AuthenticationStateProvider authStateProvider)
+        public CartService(HttpClient httpClient, ILocalStorageService storage, AuthenticationStateProvider authStateProvider, IAuthenticationService authService)
         {
             _httpClient = httpClient;
             _storage = storage;
             _authStateProvider = authStateProvider;
+            _authService = authService;
         }
         public event Action OnChange;
 
-        public async Task AddItemToCart(CartItemDto cartItem)
+        public async Task AddItemToCart(CartItem cartItem)
         {
-            if ((await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated)
+            if (await _authService.IsAuthenticated())
             {
                 Console.WriteLine("Authenticated");
             }
@@ -31,10 +35,10 @@ namespace Diploma.Client.Services.CartService
                 Console.WriteLine("Not authenticated");
             }
 
-            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
-                cart = new List<CartItemDto>();
+                cart = new List<CartItem>();
             }
 
             var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
@@ -49,12 +53,12 @@ namespace Diploma.Client.Services.CartService
             }
 
             await _storage.SetItemAsync("cart", cart);
-            OnChange.Invoke();
+            await GetNumberOfCartItems();
         }
 
         public async Task DeleteItemFromCart(int itemId)
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
                 return;
@@ -64,41 +68,57 @@ namespace Diploma.Client.Services.CartService
             {
                 cart.Remove(cartItem);
                 await _storage.SetItemAsync("cart", cart);
-                OnChange.Invoke();
+                await GetNumberOfCartItems();
             }
         }
 
-        public async Task<List<CartItemDto>> GetCartItems()
+        public async Task<List<CartItem>> GetCartItems()
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            await GetNumberOfCartItems();
+            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
-                cart = new List<CartItemDto>();
+                cart = new List<CartItem>();
             }
             return cart;
         }
 
         public async Task<List<AddItemToCartDto>> GetItemsFromCart()
         {
-            var cartItems = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            var cartItems = await _storage.GetItemAsync<List<CartItem>>("cart");
             var response = await _httpClient.PostAsJsonAsync("api/cart/items", cartItems);
             var addedCartItems = await response.Content.ReadFromJsonAsync<List<AddItemToCartDto>>();
             return addedCartItems;
         }
 
-        public async Task PutCartItemsToDatabase(bool clearCartLocally = false)
+        public async Task GetNumberOfCartItems()
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
-            if(cart != null)
+            if (await _authService.IsAuthenticated())
             {
-                await _httpClient.PostAsJsonAsync("api/cart", cart);
+                var cartItemsCount = await _httpClient.GetFromJsonAsync<int>("api/cart/cart-items-count");
+                await _storage.SetItemAsync<int>("cartItemsCount", cartItemsCount);
             }
             else
             {
+                var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
+                await _storage.SetItemAsync<int>("cartItemsCount", cart != null ? cart.Count : 0);
+            }
+            OnChange.Invoke();
+        }
+
+        public async Task PutCartItemsToDatabase(bool clearCartLocally = false)
+        {
+            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
+            if (cart == null)
+            {
                 return;
             }
+            else
+            {
+                await _httpClient.PostAsJsonAsync("api/cart", cart);
+            }
 
-            if(clearCartLocally)
+            if (clearCartLocally)
             {
                 await _storage.RemoveItemAsync("cart");
             }
@@ -107,7 +127,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task UpdateItemsQuantity(AddItemToCartDto item)
         {
-            var cart = await _storage.GetItemAsync<List<CartItemDto>>("cart");
+            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
             {
                 return;

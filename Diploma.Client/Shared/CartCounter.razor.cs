@@ -1,6 +1,4 @@
-﻿using Diploma.DTO;
-
-namespace Diploma.Client.Shared
+﻿namespace Diploma.Client.Shared
 {
     public partial class CartCounter
     {
@@ -8,16 +6,17 @@ namespace Diploma.Client.Shared
 
         private int GetCartItemsCount()
         {
-            var cart = SyncLocalStorageService.GetItem<List<CartItemDto>>("cart");
-            if (cart != null)
-            {
-                return cart.Count;
-            }
-            else
-            {
-                BadgeContent = null;
-                return 0;
-            }
+            var cartItemsCount = SyncLocalStorageService.GetItem<int>("cartItemsCount");
+            //if (cartItemsCount != null)
+            //{
+                BadgeContent = cartItemsCount;
+                return cartItemsCount;
+            //}
+            //else
+            //{
+            //    BadgeContent = null;
+            //    return 0;
+            //}
         }
 
         protected override void OnInitialized()
