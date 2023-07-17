@@ -24,9 +24,9 @@ namespace Diploma.Client.Pages.AdminPanel
             NavigationManager.NavigateTo("/category/admin");
         }
 
-        async Task DeleteCategory()
-        {
-            await CategoryService.DeleteCategory(categoryDto.Id);
-        }
+        //async Task DeleteCategory()
+        //{
+        //    await CategoryService.DeleteCategory(categoryDto.Id);
+        //}
     }
 }

@@ -15,6 +15,7 @@ namespace Diploma.Client.Pages.AdminPanel
         protected override async Task OnInitializedAsync()
         {
             await CategoryService.GetAdminCategories();
+            btnText = Id == null ? "Save" : "Update Product";
         }
 
         protected override async Task OnParametersSetAsync()

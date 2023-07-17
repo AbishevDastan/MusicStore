@@ -8,7 +8,9 @@
 <MudLayout>
     <MudAppBar Style="background-color: #FAFAFA; height: 4rem;">
         <MudContainer Class="d-flex justify-end align-center flex-grow-1 gap-4 ms-auto">
-            <Logo />
+            <div class="align-start" style="flex: 1;">
+                <Logo />
+            </div>
             <HomeButton />
             <MudButton Size="Size.Small" OnClick="@(() => DrawerToggle(Anchor.Start))">Categories</MudButton>
             <ContactButton />

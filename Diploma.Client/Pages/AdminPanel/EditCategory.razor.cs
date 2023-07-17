@@ -10,11 +10,11 @@ namespace Diploma.Client.Pages.AdminPanel
 
         string btnText = string.Empty;
 
-        CategoryDto categoryDto = new CategoryDto { Name = "New Product" };
+        CategoryDto categoryDto = new CategoryDto {};
 
         protected override void OnInitialized()
         {
-            btnText = Id == null ? "Save New Category" : "Update Category";
+            btnText = Id == null ? "Save" : "Update Category";
         }
 
         protected override async Task OnParametersSetAsync()
@@ -45,9 +45,9 @@ namespace Diploma.Client.Pages.AdminPanel
             }
         }
 
-        //async Task DeleteCategory()
-        //{
-        //    await CategoryService.DeleteCategory(categoryDto.Id);
-        //}
+        async Task DeleteCategory()
+        {
+            await CategoryService.DeleteCategory(categoryDto.Id);
+        }
     }
 }

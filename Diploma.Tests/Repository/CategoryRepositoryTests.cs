@@ -66,7 +66,7 @@ namespace Diploma.Tests.Repository
             int categoryId = 1;
             var dataContext = await GetDataContext();
             var categoryRepository = new CategoryRepository(dataContext, _mapper);
-            var category = A.Fake<CategoryDto>();
+            var category = A.Fake<Category>();
             var categoryDto = A.Fake<CategoryDto>();
             A.CallTo(() => _mapper.Map<CategoryDto>(category)).Returns(categoryDto);
 
@@ -94,6 +94,62 @@ namespace Diploma.Tests.Repository
             //Assert
             result.Should().NotBeNull();
             result.Should().BeOfType<Task<List<CategoryDto>>>();
+        }
+
+        [Fact]
+        public async void CategoryRepository_CreateCategory_ReturnsTaskWithCategoryDto()
+        {
+            //Arrange
+            var dataContext = await GetDataContext();
+            var categoryRepository = new CategoryRepository(dataContext, _mapper);
+            var category = A.Fake<Category>();
+            var categoryDto = A.Fake<CategoryDto>();
+            A.CallTo(() => _mapper.Map<CategoryDto>(category)).Returns(categoryDto);
+
+            //Act
+            var result = categoryRepository.CreateCategory(categoryDto);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<Task<CategoryDto>>();
+        }
+
+        [Fact]
+        public async void CategoryRepository_DeleteCategory_ReturnsTrue()
+        {
+            //Arrange
+            var categoryId = 1;
+            var dataContext = await GetDataContext();
+            var categoryRepository = new CategoryRepository(dataContext, _mapper);
+            var category = A.Fake<Category>();
+            var categoryDto = A.Fake<CategoryDto>();
+            A.CallTo(() => _mapper.Map<CategoryDto>(category)).Returns(categoryDto);
+
+            //Act
+            var result = categoryRepository.DeleteCategory(categoryId);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<Task<bool>>();
+        }
+
+        [Fact]
+        public async void CategoryRepository_UpdateCategory_ReturnsTaskWithCategoryDto()
+        {
+            //Arrange
+            var categoryId = 1;
+            var dataContext = await GetDataContext();
+            var categoryRepository = new CategoryRepository(dataContext, _mapper);
+            var category = A.Fake<Category>();
+            var categoryDto = A.Fake<CategoryDto>();
+            A.CallTo(() => _mapper.Map<CategoryDto>(category)).Returns(categoryDto);
+
+            //Act
+            var result = categoryRepository.UpdateCategory(categoryId, categoryDto);
+
+            //Assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType<Task<CategoryDto>>();
         }
 
         //Bogus data generator
