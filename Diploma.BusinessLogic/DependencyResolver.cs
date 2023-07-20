@@ -1,8 +1,11 @@
 ﻿using Blazored.LocalStorage;
+using Diploma.BusinessLogic.AuthenticationHandlers.HashManager;
+using Diploma.BusinessLogic.AuthenticationHandlers.JwtManager;
 using Diploma.BusinessLogic.Repositories.AuthenticationRepository;
 using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
+using Diploma.BusinessLogic.Repositories.UserRepository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Diploma.BusinessLogic
@@ -16,6 +19,9 @@ namespace Diploma.BusinessLogic
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICartRepository, CartRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IJwtManager, JwtManager>();
+            services.AddScoped<IHashManager, HashManager>();
 
             return services;
         }

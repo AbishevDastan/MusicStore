@@ -9,7 +9,7 @@ namespace Diploma.Client.Pages
 
         private async Task ProvideNewPassword()
         {
-            var result = await AuthService.ChangePassword(request);
+            var result = await UserService.ChangePassword(request);
             success = true;
             StateHasChanged();
         }

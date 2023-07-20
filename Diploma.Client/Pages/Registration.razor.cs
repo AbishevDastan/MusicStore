@@ -10,7 +10,7 @@ namespace Diploma.Client.Pages
 
         async Task HandleRegistration()
         {
-            var result = await AuthService.Register(user);
+            var result = await UserService.Register(user);
             success = true;
             StateHasChanged();
         }

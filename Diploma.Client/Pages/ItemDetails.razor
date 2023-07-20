@@ -1,9 +1,6 @@
 ﻿@page "/item/{id:int}"
-@inject ICartService cartService
-@inject IItemService itemService
-@using Diploma.Client.Services.ItemService;
-@using Diploma.Client.Services.CartService;
-@using Diploma.DTO;
+@inject ICartService CartService
+@inject IItemService ItemService
 
 @if (itemDto == null)
 {

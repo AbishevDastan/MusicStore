@@ -5,9 +5,6 @@ namespace Diploma.Client.Services.AuthenticationService
 {
     public interface IAuthenticationService
     {
-        Task<ResponseFromServer<int>> Register(CreateUserDto request);
         Task<ResponseFromServer<string>> Login(AuthenticateUserDto request);
-        Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDto request);
-        Task<bool> IsAuthenticated();
     }
 }

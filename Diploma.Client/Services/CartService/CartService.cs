@@ -1,9 +1,7 @@
 ﻿using Blazored.LocalStorage;
-using Diploma.Client.Pages;
-using Diploma.Client.Services.AuthenticationService;
+using Diploma.Client.Services.UserService;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
-using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.CartService
@@ -12,21 +10,19 @@ namespace Diploma.Client.Services.CartService
     {
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _storage;
-        private readonly AuthenticationStateProvider _authStateProvider;
-        private readonly IAuthenticationService _authService;
+        private readonly IUserService _userService;
 
-        public CartService(HttpClient httpClient, ILocalStorageService storage, AuthenticationStateProvider authStateProvider, IAuthenticationService authService)
+        public CartService(HttpClient httpClient, ILocalStorageService storage, IUserService userService)
         {
             _httpClient = httpClient;
             _storage = storage;
-            _authStateProvider = authStateProvider;
-            _authService = authService;
+            _userService = userService;
         }
         public event Action OnChange;
 
         public async Task AddItemToCart(CartItem cartItem)
         {
-            if (await _authService.IsAuthenticated())
+            if (await _userService.IsAuthenticated())
             {
                 Console.WriteLine("Authenticated");
             }
@@ -93,7 +89,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task GetNumberOfCartItems()
         {
-            if (await _authService.IsAuthenticated())
+            if (await _userService.IsAuthenticated())
             {
                 var cartItemsCount = await _httpClient.GetFromJsonAsync<int>("api/cart/cart-items-count");
                 await _storage.SetItemAsync<int>("cartItemsCount", cartItemsCount);

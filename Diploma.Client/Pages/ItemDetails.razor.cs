@@ -12,7 +12,7 @@ namespace Diploma.Client.Pages
 
         protected override async Task OnParametersSetAsync()
         {
-            itemDto = await itemService.GetItem(Id);
+            itemDto = await ItemService.GetItem(Id);
         }
 
         private async Task AddItemToCart()
@@ -22,7 +22,7 @@ namespace Diploma.Client.Pages
                 ItemId = itemDto.Id,
             };
 
-            await cartService.AddItemToCart(cartItem);
+            await CartService.AddItemToCart(cartItem);
         }
     }
 }

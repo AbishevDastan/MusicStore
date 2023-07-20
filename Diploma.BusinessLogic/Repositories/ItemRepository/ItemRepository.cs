@@ -47,14 +47,10 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<ItemDto>> SearchItem(string searchText)
         {
             var searchItem = await _dataContext.Items
-                .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
-                ||
-                i.Description.ToLower().Contains(searchText.ToLower()))
+                .Where(i => i.Name.ToLower().Contains(searchText.ToLower()))
                 .ToListAsync();
 
-            var searchItemDto = _mapper.Map<List<ItemDto>>(searchItem);
-
-            return searchItemDto;
+            return _mapper.Map<List<ItemDto>>(searchItem);
         }
 
         public async Task<List<string>> GetItemSearchSuggestions(string searchText)
@@ -68,23 +64,6 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 if (item.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 {
                     result.Add(item.Name);
-                }
-
-                if (item.Description != null)
-                {
-                    var punctuation = item.Description.Where(char.IsPunctuation)
-                        .Distinct().ToArray();
-                    var words = item.Description.Split()
-                        .Select(i => i.Trim(punctuation));
-
-                    foreach (var word in words)
-                    {
-                        if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase)
-                            && !result.Contains(word))
-                        {
-                            result.Add(word);
-                        }
-                    }
                 }
             }
             return new List<string>(result);
