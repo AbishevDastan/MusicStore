@@ -49,7 +49,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             var searchItem = await _dataContext.Items
                 .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
                 ||
-                i.Description.ToLower().Contains(searchText.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
+                i.Description.ToLower().Contains(searchText.ToLower()))
                 .ToListAsync();
 
             var searchItemDto = _mapper.Map<List<ItemDto>>(searchItem);
@@ -57,22 +57,9 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             return searchItemDto;
         }
 
-        public async Task<List<ItemDto>> FindItemsBySearchText(string searchText)
-        {
-            var result = await _dataContext.Items
-                .Where(i => i.Name.ToLower().Contains(searchText.ToLower())
-                ||
-                i.Description.ToLower().Contains(searchText.ToLower()) /*&& !i.IsRemoved && i.IsVisible*/)
-                .ToListAsync();
-
-            var resultDto = _mapper.Map<List<ItemDto>>(result);
-
-            return resultDto;
-        }
-
         public async Task<List<string>> GetItemSearchSuggestions(string searchText)
         {
-            var items = await FindItemsBySearchText(searchText);
+            var items = await SearchItem(searchText);
 
             List<string> result = new List<string>();
 

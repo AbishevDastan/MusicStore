@@ -9,12 +9,12 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
     public class CartRepository : ICartRepository
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
+        //private readonly IMapper _mapper;
 
-        public CartRepository(DataContext dataContext, IMapper mapper)
+        public CartRepository(DataContext dataContext/*, IMapper mapper*/)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
+            //_mapper = mapper;
         }
 
         public async Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItem> cartItems)

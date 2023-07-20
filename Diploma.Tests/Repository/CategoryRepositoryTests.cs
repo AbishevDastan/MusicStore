@@ -47,9 +47,9 @@ namespace Diploma.Tests.Repository
             //Arrange
             var dataContext = await GetDataContext();
             var categoryRepository = new CategoryRepository(dataContext, _mapper);
-            var categoriesDto = A.Fake<ICollection<CategoryDto>>();
-            var categoriesDtoList = A.Fake<List<CategoryDto>>();
-            A.CallTo(() => _mapper.Map<List<CategoryDto>>(categoriesDto)).Returns(categoriesDtoList);
+            var categories = A.Fake<ICollection<Category>>();
+            var categoriesDto = A.Fake<List<CategoryDto>>();
+            A.CallTo(() => _mapper.Map<List<CategoryDto>>(categories)).Returns(categoriesDto);
 
             //Act
             var result = categoryRepository.GetCategories();
@@ -84,12 +84,12 @@ namespace Diploma.Tests.Repository
             //Arrange
             var dataContext = await GetDataContext();
             var categoryRepository = new CategoryRepository(dataContext, _mapper);
-            var categoriesDto = A.Fake<ICollection<CategoryDto>>();
-            var categoriesDtoList = A.Fake<List<CategoryDto>>();
-            A.CallTo(() => _mapper.Map<List<CategoryDto>>(categoriesDto)).Returns(categoriesDtoList);
+            var categories = A.Fake<ICollection<Category>>();
+            var categoriesDto = A.Fake<List<CategoryDto>>();
+            A.CallTo(() => _mapper.Map<List<CategoryDto>>(categories)).Returns(categoriesDto);
 
             //Act
-            var result = categoryRepository.GetCategories();
+            var result = categoryRepository.GetAdminCategories();
 
             //Assert
             result.Should().NotBeNull();
@@ -115,7 +115,7 @@ namespace Diploma.Tests.Repository
         }
 
         [Fact]
-        public async void CategoryRepository_DeleteCategory_ReturnsTrue()
+        public async void CategoryRepository_DeleteCategory_ReturnsBoolean()
         {
             //Arrange
             var categoryId = 1;
