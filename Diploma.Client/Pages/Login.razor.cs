@@ -1,7 +1,5 @@
 ﻿using Diploma.DTO;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.Data.SqlClient;
 
 namespace Diploma.Client.Pages
 {
@@ -28,7 +26,7 @@ namespace Diploma.Client.Pages
                 ErrorMessage = string.Empty;
                 await LocalStorageService.SetItemAsync("token", result.Data);
                 await AuthStateProvider.GetAuthenticationStateAsync();
-                await CartService.PutCartItemsToDatabase(true);
+                await CartService.PostCartItemsToDatabase(true);
                 await CartService.GetNumberOfCartItems();
                 NavigationManager.NavigateTo(previousUrl);
                 success = true;

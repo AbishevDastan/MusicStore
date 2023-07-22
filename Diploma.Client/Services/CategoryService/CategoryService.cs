@@ -20,6 +20,8 @@ namespace Diploma.Client.Services.CategoryService
 
         public List<CategoryDto> Categories { get; set; } = new List<CategoryDto>();
         public List<CategoryDto> AdminCategories { get; set; } = new List<CategoryDto>();
+        public event Action CategoriesChanged;
+
 
         string ICategoryService.Message { get; set; } = "Loading Categories...";
 
@@ -31,6 +33,8 @@ namespace Diploma.Client.Services.CategoryService
             {
                 Categories = response;
             }
+
+            CategoriesChanged?.Invoke();
         }
 
         public async Task<CategoryDto?> GetCategory(int id)
@@ -51,6 +55,8 @@ namespace Diploma.Client.Services.CategoryService
             {
                 AdminCategories = response;
             }
+            CategoriesChanged?.Invoke();
+
         }
 
         public async Task CreateCategory(CategoryDto categoryDto)
@@ -59,15 +65,15 @@ namespace Diploma.Client.Services.CategoryService
             _navigationManager.NavigateTo("categories/admin");
         }
 
-        public async Task DeleteCategory(int id)
-        {
-            await _httpClient.DeleteAsync($"api/category/admin/{id}");
-            _navigationManager.NavigateTo("categories/admin");
-        }
-
         public async Task UpdateCategory(int id, CategoryDto categoryDto)
         {
             await _httpClient.PutAsJsonAsync($"api/category/admin/{id}", categoryDto);
+            _navigationManager.NavigateTo("categories/admin");
+        }
+
+        public async Task DeleteCategory(int id)
+        {
+            await _httpClient.DeleteAsync($"api/category/admin/{id}");
             _navigationManager.NavigateTo("categories/admin");
         }
     }

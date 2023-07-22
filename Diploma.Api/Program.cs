@@ -45,6 +45,9 @@ builder.Services.AddAuthorization(options => options.DefaultPolicy =
 //Dependency resolver
 builder.Services.AddApiDependencies();
 
+//HttpContextAccessor
+builder.Services.AddHttpContextAccessor();
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

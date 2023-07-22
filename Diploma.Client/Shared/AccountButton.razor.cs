@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
-
-
-namespace Diploma.Client.Shared
+﻿namespace Diploma.Client.Shared
 {
     public partial class AccountButton
     {

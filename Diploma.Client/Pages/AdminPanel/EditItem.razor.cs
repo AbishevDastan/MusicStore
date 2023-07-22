@@ -10,7 +10,7 @@ namespace Diploma.Client.Pages.AdminPanel
 
         string btnText = string.Empty;
 
-        ItemDto itemDto = new ItemDto();
+        ItemDto itemDto = new() { };
 
         protected override async Task OnInitializedAsync()
         {

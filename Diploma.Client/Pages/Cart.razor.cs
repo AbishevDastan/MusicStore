@@ -21,14 +21,11 @@ namespace Diploma.Client.Pages
 
         private async Task LoadCart()
         {
-            if ((await CartService.GetCartItems()).Count == 0)
+            await CartService.GetNumberOfCartItems();
+            addedCartItems = await CartService.GetCartItemsLocally();
+            if (addedCartItems == null || addedCartItems.Count == 0)
             {
                 message = "Your cart is empty.";
-                addedCartItems = new List<AddItemToCartDto>();
-            }
-            else
-            {
-                addedCartItems = await CartService.GetItemsFromCart();
             }
         }
 
@@ -37,9 +34,9 @@ namespace Diploma.Client.Pages
             item.Quantity = int.Parse(ev.Value.ToString());
             if (item.Quantity < 1)
                 item.Quantity = 1;
-            
+
             await CartService.UpdateItemsQuantity(item);
-            
+
         }
     }
 }

@@ -24,67 +24,70 @@ namespace Diploma.Client.Services.CartService
         {
             if (await _userService.IsAuthenticated())
             {
-                Console.WriteLine("Authenticated");
+                await _httpClient.PostAsJsonAsync("api/cart/add", cartItem);
             }
             else
             {
-                Console.WriteLine("Not authenticated");
-            }
+                var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
+                if (cart == null)
+                {
+                    cart = new List<CartItem>();
+                }
 
-            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-            if (cart == null)
-            {
-                cart = new List<CartItem>();
-            }
+                var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
 
-            var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
+                if (theSameItem == null)
+                {
+                    cart.Add(cartItem);
+                }
+                else
+                {
+                    theSameItem.Quantity += cartItem.Quantity;
+                }
 
-            if (theSameItem == null)
-            {
-                cart.Add(cartItem);
+                await _storage.SetItemAsync("cart", cart);
             }
-            else
-            {
-                theSameItem.Quantity += cartItem.Quantity;
-            }
-
-            await _storage.SetItemAsync("cart", cart);
             await GetNumberOfCartItems();
         }
 
         public async Task DeleteItemFromCart(int itemId)
         {
-            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-            if (cart == null)
+            if (await _userService.IsAuthenticated())
             {
-                return;
+                await _httpClient.DeleteAsync($"api/cart/{itemId}");
             }
-            var cartItem = cart.Find(i => i.ItemId == itemId);
-            if (cartItem != null)
+            else
             {
-                cart.Remove(cartItem);
-                await _storage.SetItemAsync("cart", cart);
-                await GetNumberOfCartItems();
+                var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
+                if (cart == null)
+                {
+                    return;
+                }
+                var cartItem = cart.Find(i => i.ItemId == itemId);
+                if (cartItem != null)
+                {
+                    cart.Remove(cartItem);
+                    await _storage.SetItemAsync("cart", cart);
+                }
             }
         }
 
-        public async Task<List<CartItem>> GetCartItems()
+        public async Task<List<AddItemToCartDto>> GetCartItemsLocally()
         {
-            await GetNumberOfCartItems();
-            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-            if (cart == null)
+            if (await _userService.IsAuthenticated())
             {
-                cart = new List<CartItem>();
+                return await _httpClient.GetFromJsonAsync<List<AddItemToCartDto>>("api/cart");
             }
-            return cart;
-        }
-
-        public async Task<List<AddItemToCartDto>> GetItemsFromCart()
-        {
-            var cartItems = await _storage.GetItemAsync<List<CartItem>>("cart");
-            var response = await _httpClient.PostAsJsonAsync("api/cart/items", cartItems);
-            var addedCartItems = await response.Content.ReadFromJsonAsync<List<AddItemToCartDto>>();
-            return addedCartItems;
+            else
+            {
+                var cartItems = await _storage.GetItemAsync<List<CartItem>>("cart");
+                if (cartItems == null)
+                {
+                    return new List<AddItemToCartDto>();
+                }
+                var response = await _httpClient.PostAsJsonAsync("api/cart/items", cartItems);
+                return await response.Content.ReadFromJsonAsync<List<AddItemToCartDto>>();
+            }
         }
 
         public async Task GetNumberOfCartItems()
@@ -97,12 +100,12 @@ namespace Diploma.Client.Services.CartService
             else
             {
                 var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-                await _storage.SetItemAsync<int>("cartItemsCount", cart != null ? cart.Count : 0);
+                await _storage.SetItemAsync<int>("cartItemsCount", cart == null ? 0 : cart.Count);
             }
             OnChange.Invoke();
         }
 
-        public async Task PutCartItemsToDatabase(bool clearCartLocally = false)
+        public async Task PostCartItemsToDatabase(bool clearCartLocally = false)
         {
             var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
             if (cart == null)
@@ -123,16 +126,28 @@ namespace Diploma.Client.Services.CartService
 
         public async Task UpdateItemsQuantity(AddItemToCartDto item)
         {
-            var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-            if (cart == null)
+            if (await _userService.IsAuthenticated())
             {
-                return;
+                var request = new CartItem
+                {
+                    ItemId = item.ItemId,
+                    Quantity = item.Quantity
+                };
+                await _httpClient.PutAsJsonAsync("api/cart/update", request);
             }
-            var cartItem = cart.Find(i => i.ItemId == item.ItemId);
-            if (cartItem != null)
+            else
             {
-                cartItem.Quantity = item.Quantity;
-                await _storage.SetItemAsync("cart", cart);
+                var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
+                if (cart == null)
+                {
+                    return;
+                }
+                var cartItem = cart.Find(i => i.ItemId == item.ItemId);
+                if (cartItem != null)
+                {
+                    cartItem.Quantity = item.Quantity;
+                    await _storage.SetItemAsync("cart", cart);
+                }
             }
         }
     }

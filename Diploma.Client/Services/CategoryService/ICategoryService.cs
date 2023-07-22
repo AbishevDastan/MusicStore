@@ -1,5 +1,4 @@
-﻿using Diploma.Domain.Entities;
-using Diploma.DTO;
+﻿using Diploma.DTO;
 
 namespace Diploma.Client.Services.CategoryService
 {
@@ -7,6 +6,8 @@ namespace Diploma.Client.Services.CategoryService
     {
         List<CategoryDto> Categories { get; set; }
         List<CategoryDto> AdminCategories { get; set; }
+        event Action CategoriesChanged;
+
         string Message { get; set; }
 
         Task GetCategories();

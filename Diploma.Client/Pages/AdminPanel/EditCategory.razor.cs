@@ -10,7 +10,7 @@ namespace Diploma.Client.Pages.AdminPanel
 
         string btnText = string.Empty;
 
-        CategoryDto categoryDto = new CategoryDto {};
+        CategoryDto categoryDto = new() { };
 
         protected override void OnInitialized()
         {

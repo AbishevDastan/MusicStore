@@ -82,6 +82,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         {
             var item = new Item
             {
+                Id = itemDto.Id,
                 Name = itemDto.Name,
                 Description = itemDto.Description,
                 ImageUrl = itemDto.ImageUrl,
@@ -118,8 +119,9 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             {
                 item.Name = itemDto.Name;
                 item.Description = itemDto.Description;
-                item.CategoryId = itemDto.CategoryId;
                 item.ImageUrl = itemDto.ImageUrl;
+                item.Price = itemDto.Price;
+                item.CategoryId = itemDto.CategoryId;
 
                 await _dataContext.SaveChangesAsync();
             }

@@ -5,8 +5,12 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 {
     public interface ICartRepository
     {
-        Task<List<AddItemToCartDto>> GetItemsFromCart(List<CartItem> cartItems);
-        Task<List<AddItemToCartDto>> PutCartItemsToDatabase(List<CartItem> cartItems, int userId);
-        Task<int> GetNumberOfCartItems(int userId);
+        Task<bool> AddCartItemsToDatabase(CartItem cartItem);
+        Task<bool> UpdateNumberOfCartItems(CartItem cartItem);
+        Task<bool> RemoveCartItemsFromDatabase(int itemId);
+        Task<List<AddItemToCartDto>> PostCartItemsToDatabase(List<CartItem> cartItems);
+        Task<List<AddItemToCartDto>> GetCartItemsFromDatabase();
+        Task<List<AddItemToCartDto>> GetCartItemsLocally(List<CartItem> cartItems);
+        Task<int> GetNumberOfCartItems();
     }
 }

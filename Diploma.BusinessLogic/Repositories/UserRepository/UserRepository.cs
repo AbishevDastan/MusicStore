@@ -2,7 +2,9 @@
 using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Diploma.BusinessLogic.Repositories.UserRepository
 {
@@ -10,11 +12,13 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
     {
         private readonly DataContext _dataContext;
         private readonly IHashManager _hashManager;
+        private readonly IHttpContextAccessor _accessor;
 
-        public UserRepository(DataContext dataContext, IHashManager hashManager)
+        public UserRepository(DataContext dataContext, IHashManager hashManager, IHttpContextAccessor accessor)
         {
             _dataContext = dataContext;
             _hashManager = hashManager;
+            _accessor = accessor;
         }
         public async Task<ResponseFromServer<bool>> ChangePassword(int userId, string newPassword)
         {
@@ -61,6 +65,11 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
 
             return new ResponseFromServer<int> { Data = user.Id, Message = "Success!" };
 
+        }
+
+        public int GetUserId()
+        {
+            return int.Parse(_accessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         }
 
         public async Task<bool> UserRegistered(string email)

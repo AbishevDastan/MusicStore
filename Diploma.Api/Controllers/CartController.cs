@@ -1,9 +1,7 @@
 ﻿using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Diploma.Api.Controllers
 {
@@ -18,27 +16,51 @@ namespace Diploma.Api.Controllers
             _cartRepository = cartRepository;
         }
 
-        [HttpPost]
-        [Route("items")]
-        public async Task<ActionResult<List<AddItemToCartDto>>> GetItemsFromCart([FromBody] List<CartItem> cartItems)
+        [HttpGet]
+        public async Task<ActionResult<List<AddItemToCartDto>>> GetCartItemsFromDatabase()
         {
-            var result = await _cartRepository.GetItemsFromCart(cartItems);
-            return Ok(result);
+            return Ok(await _cartRepository.GetCartItemsFromDatabase());
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<AddItemToCartDto>>> PutCartItemsToDatabase(List<CartItem> cartItems)
+        public async Task<ActionResult<List<AddItemToCartDto>>> PostCartItemsToDatabase(List<CartItem> cartItems)
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var result = await _cartRepository.PutCartItemsToDatabase(cartItems, userId);
-            return Ok(result);
+            return Ok(await _cartRepository.PostCartItemsToDatabase(cartItems));
+        }
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<ActionResult<List<bool>>> UpdateNumberOfCartItems(CartItem cartItem)
+        {
+            return Ok(await _cartRepository.UpdateNumberOfCartItems(cartItem));
+        }
+
+        [HttpPost]
+        [Route("add")]
+        public async Task<ActionResult<List<bool>>> AddCartItemToDatabase(CartItem cartItem)
+        {
+            return Ok(await _cartRepository.AddCartItemsToDatabase(cartItem));
+        }
+
+        [HttpDelete]
+        [Route("{itemId}")]
+        public async Task<ActionResult<List<AddItemToCartDto>>> RemoveCartItemFromDatabase(int itemId)
+        {
+            return Ok(await _cartRepository.RemoveCartItemsFromDatabase(itemId));
+        }
+
+        [HttpPost]
+        [Route("items")]
+        public async Task<ActionResult<List<AddItemToCartDto>>> GetCartItemsLocally([FromBody] List<CartItem> cartItems)
+        {
+            return Ok(await _cartRepository.GetCartItemsLocally(cartItems));
         }
 
         [HttpGet]
         [Route("cart-items-count")]
-        public async Task<ActionResult<int>> GetNumberOfCartItems(int userId)
-        { 
-            return await _cartRepository.GetNumberOfCartItems(userId);    
+        public async Task<int> GetNumberOfCartItems()
+        {
+            return await _cartRepository.GetNumberOfCartItems();
         }
     }
 }

@@ -7,11 +7,10 @@ namespace Diploma.Client.Services.CartService
     {
         event Action OnChange;
         Task AddItemToCart(CartItem cartItemDTO);
-        Task<List<CartItem>> GetCartItems();
-        Task<List<AddItemToCartDto>> GetItemsFromCart();
+        Task<List<AddItemToCartDto>> GetCartItemsLocally();
         Task DeleteItemFromCart(int itemId);
         Task UpdateItemsQuantity(AddItemToCartDto item);
-        Task PutCartItemsToDatabase(bool clearCartLocally);
+        Task PostCartItemsToDatabase(bool clearCartLocally);
         Task GetNumberOfCartItems();
     }
 }

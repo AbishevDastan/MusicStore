@@ -74,20 +74,20 @@ namespace Diploma.Api.Controllers
             return await _itemRepository.CreateItem(itemDto);
         }
 
-        [HttpDelete]
-        [Route("admin/{id}")]
-        [Authorize(Roles = "Admin")]
-        public async Task<bool> RemoveItem(int itemId)
-        {
-            return await _itemRepository.DeleteItem(itemId);
-        }
-
         [HttpPut]
-        [Route("admin")]
+        [Route("admin/{id}")]
         [Authorize(Roles = "Admin")]
         public async Task<ItemDto?> UpdateItem(int id, ItemDto itemDto)
         {
             return await _itemRepository.UpdateItem(id, itemDto);
+        }
+
+        [HttpDelete]
+        [Route("admin/{id}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<bool> RemoveItem(int id)
+        {
+            return await _itemRepository.DeleteItem(id);
         }
     }
 }

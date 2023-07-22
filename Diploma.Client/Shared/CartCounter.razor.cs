@@ -7,16 +7,8 @@
         private int GetCartItemsCount()
         {
             var cartItemsCount = SyncLocalStorageService.GetItem<int>("cartItemsCount");
-            //if (cartItemsCount != null)
-            //{
-                BadgeContent = cartItemsCount;
-                return cartItemsCount;
-            //}
-            //else
-            //{
-            //    BadgeContent = null;
-            //    return 0;
-            //}
+            BadgeContent = cartItemsCount;
+            return cartItemsCount;
         }
 
         protected override void OnInitialized()
