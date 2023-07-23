@@ -11,11 +11,11 @@ namespace Diploma.DataAccess.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Email).IsRequired();
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.Hash).IsRequired();
-            builder.Property(x => x.Salt).IsRequired();
-            builder.Property(x => x.Role).IsRequired();
+            builder.Property(x => x.Email);
+            builder.Property(x => x.CreatedAt);
+            builder.Property(x => x.Hash);
+            builder.Property(x => x.Salt);
+            builder.Property(x => x.Role);
 
             builder.ToTable("Users");
         }

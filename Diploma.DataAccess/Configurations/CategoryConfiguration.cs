@@ -11,9 +11,9 @@ namespace Diploma.DataAccess.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Url).IsRequired();
-            builder.Property(x => x.ImageUrl).IsRequired();
+            builder.Property(x => x.Name);
+            builder.Property(x => x.Url);
+            builder.Property(x => x.ImageUrl);
 
             builder.ToTable("Categories");
         }

@@ -13,8 +13,8 @@ namespace Diploma.DataAccess.Configurations
 
             builder.Property(o => o.Total)
                 .HasColumnType("decimal(18,2)");
-            builder.Property(x => x.PlacedAt).IsRequired();
-            builder.Property(x => x.UserId).IsRequired();
+            builder.Property(x => x.PlacedAt);
+            builder.Property(x => x.UserId);
 
             builder.HasMany(x => x.OrderItems);
 

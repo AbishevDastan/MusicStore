@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230723110224_1")]
+    [Migration("20230723112454_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -27,16 +27,16 @@ namespace Diploma.DataAccess.Migrations
 
             modelBuilder.Entity("Diploma.Domain.Entities.CartItem", b =>
                 {
-                    b.Property<int?>("UserId")
+                    b.Property<int>("ItemId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ItemId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("UserId", "ItemId");
+                    b.HasKey("ItemId", "UserId");
 
                     b.ToTable("CartItems", (string)null);
                 });
@@ -179,7 +179,7 @@ namespace Diploma.DataAccess.Migrations
                     b.HasOne("Diploma.Domain.Entities.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");

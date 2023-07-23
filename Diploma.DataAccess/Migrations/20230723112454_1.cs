@@ -21,7 +21,7 @@ namespace Diploma.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItems", x => new { x.UserId, x.ItemId });
+                    table.PrimaryKey("PK_CartItems", x => new { x.ItemId, x.UserId });
                 });
 
             migrationBuilder.CreateTable(
@@ -90,7 +90,8 @@ namespace Diploma.DataAccess.Migrations
                         name: "FK_Items_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

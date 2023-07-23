@@ -11,16 +11,16 @@ namespace Diploma.DataAccess.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
-            builder.Property(x => x.Name).IsRequired();
-            builder.Property(x => x.Description).IsRequired();
-            builder.Property(x => x.ImageUrl).IsRequired();
-            builder.Property(x => x.ImageUrl).IsRequired();
+            builder.Property(x => x.Name);
+            builder.Property(x => x.Description);
+            builder.Property(x => x.ImageUrl);
+            builder.Property(x => x.ImageUrl);
             builder.Property(i => i.Price).HasColumnType("decimal(18,2)");
-
-            builder.HasOne(x => x.Category)
-                .WithMany()
-                .HasForeignKey(x => x.CategoryId)
-                .OnDelete(DeleteBehavior.ClientCascade);
+            builder.Property(x => x.CategoryId);
+            //builder.HasOne(x => x.Category)
+            //    .WithMany()
+            //    .HasForeignKey(x => x.CategoryId)
+            //    .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.ToTable("Items");
         }
