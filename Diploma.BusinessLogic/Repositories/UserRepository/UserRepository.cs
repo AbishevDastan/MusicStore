@@ -67,7 +67,7 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
 
         }
 
-        public int GetUserId()
+        public int? GetUserId()
         {
             return int.Parse(_accessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         }

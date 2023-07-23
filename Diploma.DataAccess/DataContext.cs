@@ -1,4 +1,5 @@
-﻿using Diploma.Domain.Entities;
+﻿using Diploma.DataAccess.Configurations;
+using Diploma.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.DataAccess
@@ -6,21 +7,23 @@ namespace Diploma.DataAccess
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Item>()
-                .Property(p => p.Price)
-                .HasColumnType("decimal(18,2)");
-
-            modelBuilder.Entity<CartItem>()
-                .HasKey(ci => new { ci.UserId, ci.ItemId});
+            new ItemConfiguration().Configure(modelBuilder.Entity<Item>());
+            new CategoryConfiguration().Configure(modelBuilder.Entity<Category>());
+            new UserConfiguration().Configure(modelBuilder.Entity<User>());
+            new OrderConfiguration().Configure(modelBuilder.Entity<Order>());
+            new OrderItemConfiguration().Configure(modelBuilder.Entity<OrderItem>());
+            new CartItemConfiguration().Configure(modelBuilder.Entity<CartItem>());
         }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Item> Items { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Category> Categories { get; set; }
     }
