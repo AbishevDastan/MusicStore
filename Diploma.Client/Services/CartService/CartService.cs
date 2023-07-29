@@ -1,4 +1,5 @@
 ﻿using Blazored.LocalStorage;
+using Diploma.Client.Services.AuthenticationService;
 using Diploma.Client.Services.UserService;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
@@ -10,19 +11,19 @@ namespace Diploma.Client.Services.CartService
     {
         private readonly HttpClient _httpClient;
         private readonly ILocalStorageService _storage;
-        private readonly IUserService _userService;
+        private readonly IAuthenticationService _authenticationService;
 
-        public CartService(HttpClient httpClient, ILocalStorageService storage, IUserService userService)
+        public CartService(HttpClient httpClient, ILocalStorageService storage, IAuthenticationService authenticationService)
         {
             _httpClient = httpClient;
             _storage = storage;
-            _userService = userService;
+            _authenticationService = authenticationService;
         }
         public event Action OnChange;
 
         public async Task AddItemToCart(CartItem cartItem)
         {
-            if (await _userService.IsAuthenticated())
+            if (await _authenticationService.IsAuthenticated())
             {
                 await _httpClient.PostAsJsonAsync("api/cart/add", cartItem);
             }
@@ -52,7 +53,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task DeleteItemFromCart(int itemId)
         {
-            if (await _userService.IsAuthenticated())
+            if (await _authenticationService.IsAuthenticated())
             {
                 await _httpClient.DeleteAsync($"api/cart/{itemId}");
             }
@@ -74,7 +75,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task<List<AddItemToCartDto>> GetCartItemsLocally()
         {
-            if (await _userService.IsAuthenticated())
+            if (await _authenticationService.IsAuthenticated())
             {
                 return await _httpClient.GetFromJsonAsync<List<AddItemToCartDto>>("api/cart");
             }
@@ -92,7 +93,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task GetNumberOfCartItems()
         {
-            if (await _userService.IsAuthenticated())
+            if (await _authenticationService.IsAuthenticated())
             {
                 var cartItemsCount = await _httpClient.GetFromJsonAsync<int>("api/cart/cart-items-count");
                 await _storage.SetItemAsync<int>("cartItemsCount", cartItemsCount);
@@ -126,7 +127,7 @@ namespace Diploma.Client.Services.CartService
 
         public async Task UpdateItemsQuantity(AddItemToCartDto item)
         {
-            if (await _userService.IsAuthenticated())
+            if (await _authenticationService.IsAuthenticated())
             {
                 var request = new CartItem
                 {

@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;

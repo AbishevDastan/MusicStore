@@ -2,7 +2,7 @@
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 
-namespace Diploma.Api
+namespace Diploma.Api.Helpers
 {
     public class AutoMapperProfile : Profile
     {
@@ -16,6 +16,7 @@ namespace Diploma.Api
             CreateMap<CartItem, CartItemDto>();
             CreateMap<User, CreateUserDto>();
             CreateMap<User, AuthenticateUserDto>();
+            CreateMap<User, UserDto>();
         }
     }
 }

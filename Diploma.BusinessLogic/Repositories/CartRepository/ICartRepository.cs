@@ -9,7 +9,7 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
         Task<bool> UpdateNumberOfCartItems(CartItem cartItem);
         Task<bool> RemoveCartItemsFromDatabase(int itemId);
         Task<List<AddItemToCartDto>> PostCartItemsToDatabase(List<CartItem> cartItems);
-        Task<List<AddItemToCartDto>> GetCartItemsFromDatabase();
+        Task<List<AddItemToCartDto>> GetCartItemsFromDatabase(int? userId = null);
         Task<List<AddItemToCartDto>> GetCartItemsLocally(List<CartItem> cartItems);
         Task<int> GetNumberOfCartItems();
     }

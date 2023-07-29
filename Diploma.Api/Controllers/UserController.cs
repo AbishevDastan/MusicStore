@@ -1,4 +1,5 @@
-﻿using Diploma.BusinessLogic.Repositories.UserRepository;
+﻿using AutoMapper;
+using Diploma.BusinessLogic.Repositories.UserRepository;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
@@ -14,10 +15,12 @@ namespace Diploma.Api.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository)
+        public UserController(IUserRepository userRepository, IMapper mapper)
         {
             _userRepository = userRepository;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -44,6 +47,19 @@ namespace Diploma.Api.Controllers
                 return Ok(response);
             }
             return BadRequest(response);
+        }
+
+        [HttpGet]
+        [Route("user")]
+        public async Task<ActionResult<UserDto>> GetUser(int userId)
+        {
+            var user = await _userRepository.GetUser(userId);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            var userDto = _mapper.Map<UserDto>(user);
+            return Ok(userDto);
         }
     }
 }

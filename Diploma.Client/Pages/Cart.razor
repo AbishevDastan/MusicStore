@@ -1,4 +1,5 @@
 ﻿@page "/cart"
+@inject IOrderService OrderService
 @inject ICartService CartService
 
 <PageTitle>Cart</PageTitle>
@@ -28,4 +29,5 @@ else
                 Total (@addedCartItems.Count): $@addedCartItems.Sum(item => item.Price * item.Quantity);
             </div>
     </div>
+    <MudButton OnClick="PlaceOrder">Place an order</MudButton>
 }

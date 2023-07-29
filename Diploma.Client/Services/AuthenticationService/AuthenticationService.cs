@@ -18,5 +18,16 @@ namespace Diploma.Client.Services.AuthenticationService
             var result = await _httpClient.PostAsJsonAsync("api/authentication/login", request);
             return await result.Content.ReadFromJsonAsync<ResponseFromServer<string>>();
         }
+
+        public async Task<bool> IsAuthenticated()
+        {
+            var response = await _httpClient.GetAsync($"api/authentication/is-authenticated");
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Something went wrong...");
+                Console.WriteLine(await response.Content.ReadFromJsonAsync<bool>());
+            }
+            return await response.Content.ReadFromJsonAsync<bool>();
+        }
     }
 }

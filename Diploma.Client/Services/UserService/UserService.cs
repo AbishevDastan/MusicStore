@@ -1,4 +1,6 @@
-﻿using Diploma.Domain;
+﻿using Diploma.DataAccess;
+using Diploma.Domain;
+using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
@@ -27,9 +29,9 @@ namespace Diploma.Client.Services.UserService
             return await result.Content.ReadFromJsonAsync<ResponseFromServer<bool>>();
         }
 
-        public async Task<bool> IsAuthenticated()
-        {
-            return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
-        }
+        //public async Task<bool> IsAuthenticated()
+        //{
+        //    return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
+        //}
     }
 }

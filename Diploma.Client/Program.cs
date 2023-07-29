@@ -5,6 +5,7 @@ using Diploma.Client.Services.AuthenticationService;
 using Diploma.Client.Services.CartService;
 using Diploma.Client.Services.CategoryService;
 using Diploma.Client.Services.ItemService;
+using Diploma.Client.Services.OrderService;
 using Diploma.Client.Services.UserService;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -22,6 +23,7 @@ builder.Services.AddClientDependencies();
 builder.Services.AddScoped<IItemService, ItemService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 

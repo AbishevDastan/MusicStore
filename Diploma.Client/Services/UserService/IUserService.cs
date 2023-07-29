@@ -7,6 +7,6 @@ namespace Diploma.Client.Services.UserService
     {
         Task<ResponseFromServer<int>> Register(CreateUserDto request);
         Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDto request);
-        Task<bool> IsAuthenticated();
+        //Task<bool> IsAuthenticated();
     }
 }

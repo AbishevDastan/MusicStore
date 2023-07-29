@@ -15,12 +15,9 @@ namespace Diploma.DataAccess.Configurations
             builder.Property(x => x.Description);
             builder.Property(x => x.ImageUrl);
             builder.Property(x => x.ImageUrl);
-            builder.Property(i => i.Price).HasColumnType("decimal(18,2)");
+            builder.Property(i => i.Price)
+                .HasColumnType("decimal(18,2)");
             builder.Property(x => x.CategoryId);
-            //builder.HasOne(x => x.Category)
-            //    .WithMany()
-            //    .HasForeignKey(x => x.CategoryId)
-            //    .OnDelete(DeleteBehavior.ClientCascade);
 
             builder.ToTable("Items");
         }

@@ -1,10 +1,10 @@
+using Diploma.Api.Helpers;
 using Diploma.BusinessLogic;
+using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Models;
@@ -43,7 +43,7 @@ builder.Services.AddAuthorization(options => options.DefaultPolicy =
     .Build());
 
 //Dependency resolver
-builder.Services.AddApiDependencies();
+builder.Services.AddApiDependencies().AddScoped<IUserContext, UserContext>();
 
 //HttpContextAccessor
 builder.Services.AddHttpContextAccessor();

@@ -67,11 +67,6 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
 
         }
 
-        public int GetUserId()
-        {
-            return int.Parse(_accessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
-        }
-
         public async Task<bool> UserRegistered(string email)
         {
             if (await _dataContext.Users.AnyAsync(user => user.Email.ToLower()
@@ -80,6 +75,11 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
                 return true;
             }
             return false;
+        }
+
+        public async Task<User> GetUser(int userId)
+        {
+             return await _dataContext.Users.FindAsync(userId);
         }
     }
 }

@@ -38,5 +38,10 @@ namespace Diploma.Client.Pages
             await CartService.UpdateItemsQuantity(item);
 
         }
+
+        private async Task PlaceOrder()
+        {
+            await OrderService.PlaceOrder();
+        }
     }
 }
