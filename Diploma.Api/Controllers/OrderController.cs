@@ -1,4 +1,5 @@
 ﻿using Diploma.BusinessLogic.Repositories.OrderRepository;
+using Diploma.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +16,17 @@ namespace Diploma.Api.Controllers
             _orderRepository = orderRepository;
         }
 
-        //[HttpPost]
-        //public async Task<bool> PlaceOrder()
-        //{
-        //    return await _orderRepository.PlaceOrder();
-        //}
+        [HttpPost]
+        public async Task<bool> PlaceOrder()
+        {
+            return await _orderRepository.PlaceOrder();
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<List<OrderOverview>>> GetOrders()
+        {
+            var result = await _orderRepository.GetUserOrders();
+            return Ok(result);
+        }
     }
 }

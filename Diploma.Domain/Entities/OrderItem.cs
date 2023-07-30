@@ -6,7 +6,8 @@
         public int ItemId { get; set; }
         public Order Order { get; set; }
         public int OrderId { get; set; }
-        public decimal Total { get; set; }
+        public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }
+        //public bool IsApproved { get; set; }
     }
 }
