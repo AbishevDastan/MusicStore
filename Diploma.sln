@@ -18,7 +18,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diploma.BusinessLogic", "Di
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diploma.DTO", "Diploma.DTO\Diploma.DTO.csproj", "{24D0B3D1-5454-4A75-9CA5-1068EE4685F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diploma.Tests", "Diploma.Tests\Diploma.Tests.csproj", "{D6E9B4D1-FC32-445A-BF0D-2CAF60AC8D65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Diploma.Tests", "Diploma.Tests\Diploma.Tests.csproj", "{D6E9B4D1-FC32-445A-BF0D-2CAF60AC8D65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

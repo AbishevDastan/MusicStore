@@ -1,0 +1,15 @@
+﻿using Diploma.DTO;
+using System.Net.Http.Json;
+
+namespace Diploma.Client.Pages.AdminPanel
+{
+    public partial class AdminOrders
+    {
+        private List<OrderOverview> orders;
+
+        protected override async Task OnInitializedAsync()
+        {
+            orders = await _orderService.GetOrdersForAdmin();
+        }
+    }
+}

@@ -1,0 +1,31 @@
+﻿@page "/orders/admin"
+@attribute [Authorize(Roles = "Admin")]
+@inject IOrderService _orderService
+
+<h3>All Orders</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Price</th>
+            <th>Items</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (orders != null)
+        {
+            @foreach (var order in orders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.TotalPrice</td>
+                    <td>@order.Item</td>
+                    <td>@order.Status</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

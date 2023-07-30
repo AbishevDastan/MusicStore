@@ -1,7 +1,10 @@
 ﻿using Diploma.Client.Services.AuthenticationService;
 using Diploma.Client.Services.UserService;
+using Diploma.DTO;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
+using System.Net.Http.Json;
+using static System.Net.WebRequestMethods;
 
 namespace Diploma.Client.Services.OrderService
 {
@@ -20,6 +23,11 @@ namespace Diploma.Client.Services.OrderService
             _userService = userService;
             _authenticationStateProvider = authenticationStateProvider;
             _authenticationService = authenticationService;
+        }
+
+        public async Task<List<OrderOverview>> GetOrdersForAdmin()
+        {
+            return await _httpClient.GetFromJsonAsync<List<OrderOverview>>("api/order/admin");
         }
         public async Task PlaceOrder()
         {
