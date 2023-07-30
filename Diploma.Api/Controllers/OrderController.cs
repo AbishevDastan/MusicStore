@@ -23,7 +23,7 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderOverview>>> GetOrders()
+        public async Task<ActionResult<List<OrderOverview>>> GetUserOrders()
         {
             var result = await _orderRepository.GetUserOrders();
             return Ok(result);

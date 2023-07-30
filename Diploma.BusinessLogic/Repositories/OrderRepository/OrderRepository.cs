@@ -12,14 +12,12 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
     {
         private readonly DataContext _dataContext;
         private readonly ICartRepository _cartRepository;
-        private readonly IUserRepository _userRepository;
         private readonly IUserContext _userContext;
 
-        public OrderRepository(DataContext dataContext, ICartRepository cartRepository, IUserRepository userRepository, IUserContext userContext)
+        public OrderRepository(DataContext dataContext, ICartRepository cartRepository, IUserContext userContext)
         {
             _dataContext = dataContext;
             _cartRepository = cartRepository;
-            _userRepository = userRepository;
             _userContext = userContext;
         }
 
@@ -32,19 +30,23 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 .OrderByDescending(o => o.OrderDate)
                 .ToListAsync();
 
-            var order = new List<OrderOverview>();
-            orders.ForEach(o => order.Add(new OrderOverview
+            var orderOverviewList = new List<OrderOverview>();
+            foreach (var order in orders)
             {
-                Id = o.Id,
-                OrderDate = o.OrderDate,
-                TotalPrice = o.TotalPrice,
-                Item = o.OrderItems.Any() ?
-                    $"{o.OrderItems.First().Item.Name} and" +
-                    $" {o.OrderItems.Count - 1} more..." :
-                    o.OrderItems.First().Item.Name
-            }));
-
-            return order;
+                var orderOverview = new OrderOverview
+                {
+                    Id = order.Id,
+                    OrderDate = order.OrderDate,
+                    TotalPrice = order.TotalPrice,
+                    Item = order.OrderItems.Any() ?
+                    $"{order.OrderItems.First().Item.Name} and" +
+                    $" {order.OrderItems.Count - 1} more..." :
+                    order.OrderItems.First().Item.Name,
+                    Status = order.Status
+                };
+                orderOverviewList.Add(orderOverview);
+            }
+            return orderOverviewList;
         }
 
         public async Task<bool> PlaceOrder()
@@ -72,7 +74,8 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 UserId = _userContext.GetUserId(),
                 OrderDate = DateTime.Now,
                 TotalPrice = total,
-                OrderItems = orderItems
+                OrderItems = orderItems,
+                Status = OrderStatus.Pending
             };
 
             _dataContext.Orders.Add(order);
