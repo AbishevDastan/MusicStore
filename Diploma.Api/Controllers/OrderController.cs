@@ -1,7 +1,9 @@
 ﻿using Diploma.BusinessLogic.Repositories.OrderRepository;
 using Diploma.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace Diploma.Api.Controllers
 {
@@ -23,10 +25,21 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderOverview>>> GetUserOrders()
+        public async Task<ActionResult<List<OrderOverview>>> GetOrdersForUser()
         {
-            var result = await _orderRepository.GetUserOrders();
+            var result = await _orderRepository.GetOrdersForUser();
             return Ok(result);
+        }
+
+        //Admin Panel
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("admin")]
+        public async Task<ActionResult> GetOrdersForAdmin()
+        {
+            var orders = await _orderRepository.GetAllOrders();
+            return Ok(orders);
         }
     }
 }

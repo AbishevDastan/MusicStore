@@ -1,6 +1,5 @@
 ﻿using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.BusinessLogic.Repositories.CartRepository;
-using Diploma.BusinessLogic.Repositories.UserRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
@@ -21,7 +20,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             _userContext = userContext;
         }
 
-        public async Task<List<OrderOverview>> GetUserOrders()
+        public async Task<List<OrderOverview>> GetOrdersForUser()
         {
             var orders = await _dataContext.Orders
                 .Include(o => o.OrderItems)
@@ -82,6 +81,35 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             await _dataContext.SaveChangesAsync();
 
             return true;
+        }
+
+        //Admin Panel
+        public async Task<List<OrderOverview>> GetAllOrders()
+        {
+            var orders = await _dataContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Item)
+                .OrderByDescending(o => o.OrderDate)
+                .ToListAsync();
+
+            var orderOverviewList = new List<OrderOverview>();
+            foreach (var order in orders)
+            {
+                var orderOverview = new OrderOverview
+                {
+                    Id = order.Id,
+                    OrderDate = order.OrderDate,
+                    TotalPrice = order.TotalPrice,
+                    Item = order.OrderItems.Any() ?
+                        $"{order.OrderItems.First().Item.Name} and" +
+                        $" {order.OrderItems.Count - 1} more..." :
+                        order.OrderItems.First().Item.Name,
+                    Status = order.Status
+                };
+                orderOverviewList.Add(orderOverview);
+            }
+
+            return orderOverviewList;
         }
     }
 }

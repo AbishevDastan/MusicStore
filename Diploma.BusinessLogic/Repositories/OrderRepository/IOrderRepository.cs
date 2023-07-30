@@ -4,7 +4,8 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
 {
     public interface IOrderRepository
     {
-        Task<List<OrderOverview>> GetUserOrders();
+        Task<List<OrderOverview>> GetOrdersForUser();
+        Task<List<OrderOverview>> GetAllOrders();
         Task<bool> PlaceOrder();
     }
 }
