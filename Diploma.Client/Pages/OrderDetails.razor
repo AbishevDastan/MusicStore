@@ -1,0 +1,43 @@
+﻿@page "/order/{orderId:int}"
+@inject IOrderService _orderService
+
+<MudText Variant="TypoVariant.H4">Order Details</MudText>
+
+@if (order == null)
+{
+    <Loading/>
+}
+else
+{
+    <h3>Order from @order.OrderDate</h3>
+
+    <div>
+        @foreach (var item in order.Items)
+        {
+            <div class="container">
+                <div class="image-wrapper">
+                    <img src="@item.ImageUrl" class="image" />
+                </div>
+                <div class="name">
+                    <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
+                    <span>Quantity: @item.Quantity</span>
+                </div>
+                <div class="product-price">$@item.TotalPrice</div>
+            </div>
+        }
+        <div class="product-price">
+            Total: $@order.TotalPrice
+        </div>
+    </div>
+}
+@code {
+    [Parameter] 
+    public int OrderId { get; set; }
+
+    Diploma.DTO.OrderDetails order = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = await _orderService.GetOrderDetails(OrderId);
+    }
+}

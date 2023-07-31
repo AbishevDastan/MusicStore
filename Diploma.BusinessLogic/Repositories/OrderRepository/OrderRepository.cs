@@ -20,6 +20,31 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             _userContext = userContext;
         }
 
+        public async Task<OrderDetails> GetOrderDetails(int orderId)
+        {
+            var order = await _dataContext.Orders
+                .Include(o => o.OrderItems)
+                .ThenInclude(oi => oi.Item)
+                .OrderByDescending(o => o.OrderDate)
+                .FirstOrDefaultAsync(o => o.UserId == _userContext.GetUserId() && o.Id == orderId);
+
+            var orderDetails = new OrderDetails
+            {
+                OrderDate = order.OrderDate,
+                TotalPrice = order.TotalPrice,
+                Items = order.OrderItems.Select(item => new ItemDetailsInOrder
+                {
+                    ItemId = item.Item.Id,
+                    ImageUrl = item.Item.ImageUrl,
+                    Quantity = item.Quantity,
+                    Name = item.Item.Name,
+                    TotalPrice = item.TotalPrice
+                }).ToList()
+            };
+
+            return orderDetails;
+        }
+
         public async Task<List<OrderOverview>> GetOrdersForUser()
         {
             var orders = await _dataContext.Orders
@@ -110,6 +135,20 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             }
 
             return orderOverviewList;
+        }
+
+        public async Task<bool> ApproveOrder(int orderId)
+        {
+            var order = await _dataContext.Orders.FindAsync(orderId);
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.Status = OrderStatus.Approved;
+            await _dataContext.SaveChangesAsync();
+
+            return true;
         }
     }
 }

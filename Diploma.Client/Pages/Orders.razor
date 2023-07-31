@@ -1,8 +1,7 @@
-﻿@page "/orders/admin"
-@attribute [Authorize(Roles = "Admin")]
+﻿@page "/orders"
 @inject IOrderService _orderService
 
-<h3>All Orders</h3>
+<h3>My Orders</h3>
 <table>
     <thead>
         <tr>
@@ -25,11 +24,14 @@
                     <td>@order.TotalPrice</td>
                     <td>@order.Item</td>
                     <td>@order.Status</td>
+                    @*                    <td>
+            @if (order.Status == OrderStatus.Pending)
+            {
+            <button @onclick="() => ApproveOrder(order.Id)">Approve</button>
+            }
+            </td>*@
                     <td>
-                        @if (order.Status == OrderStatus.Pending)
-                        {
-                            <button @onclick="() => ApproveOrder(order.Id)">Approve</button>
-                        }
+                        <a href="order/@order.Id">Details</a>
                     </td>
                 </tr>
             }

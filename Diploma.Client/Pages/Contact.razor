@@ -1,3 +1,47 @@
 ﻿@page "/contact"
 
-<h3>Contact</h3>
+@using MudBlazor
+
+<MudContainer>
+    <MudText Typo="Typo.h3" Class="mb-3">Contact Us</MudText>
+
+    <!-- Contact Information -->
+    <MudPaper Class="p-3 mb-3">
+        <MudText Typo="Typo.h5" Class="mb-2">Contact Information</MudText>
+        <div>
+            <MudIcon Icon="@Icons.Filled.Phone" Class="mr-2" />
+            <span>Phone: +0 123 456-7890</span>
+        </div>
+        <div>
+            <MudIcon Icon="@Icons.Filled.Email" Class="mr-2" />
+            <span>Email: abishev@example.com</span>
+        </div>
+        <!-- Add more contact information as needed -->
+    </MudPaper>
+
+    <!-- Address -->
+    <MudPaper Class="p-3 mb-3">
+        <MudText Typo="Typo.h5" Class="mb-2">Address</MudText>
+        <div>
+            <MudIcon Icon="@Icons.Filled.LocationOn" Class="mr-2" />
+            <span>Mauris augue massa, 123</span>
+        </div>
+        <div>
+            <MudIcon Icon="@Icons.Material.Filled.LocationCity" Class="mr-2" />
+            <span>City, State ZIP</span>
+        </div>
+        <!-- Add more address information as needed -->
+    </MudPaper>
+
+    <!-- Social Media Links -->
+    <MudPaper Class="p-3">
+        <MudText Typo="Typo.h5" Class="mb-2">Social Networks</MudText>
+        <div class="d-flex">
+            <a href="https://www.facebook.com/" target="_blank" class="mr-3">
+                <MudIcon Icon="@Icons.Custom.Brands.LinkedIn" Class="mr-2" />
+                <span>Linkedin</span>
+            </a>
+        </div>
+        <!-- Add more social media links as needed -->
+    </MudPaper>
+</MudContainer>
