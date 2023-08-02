@@ -76,21 +76,26 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         public async Task<bool> PlaceOrder()
         {
             decimal total = 0;
-            var items = await _cartRepository.GetCartItemsFromDatabase();
-            foreach (var item in items)
-            {
-                total += item.Price * item.Quantity;
-            }
-
             var orderItems = new List<OrderItem>();
-            foreach (var item in items)
+
+            var cartItems = await _cartRepository.GetCartItemsFromDatabase();
+            foreach (var cartItem in cartItems)
             {
+                var item = await _dataContext.Items.FindAsync(cartItem.ItemId);
+                if (item == null || item.QuantityInStock < cartItem.Quantity)
+                {
+                    return false;
+                }
+                total += cartItem.Price * cartItem.Quantity;
+
                 orderItems.Add(new OrderItem
                 {
-                    ItemId = item.ItemId,
-                    Quantity = item.Quantity,
-                    TotalPrice = item.Price * item.Quantity
+                    ItemId = cartItem.ItemId,
+                    Quantity = cartItem.Quantity,
+                    TotalPrice = cartItem.Price * cartItem.Quantity
                 });
+                item.QuantityInStock -= cartItem.Quantity;
+                await _cartRepository.RemoveCartItemsFromDatabase(cartItem.ItemId);
             }
 
             var order = new Order
@@ -106,6 +111,19 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             await _dataContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<bool> CancelOrder(int orderId)
+        {
+            var order = await _dataContext.Orders.FindAsync(orderId);
+            if (order.Status == OrderStatus.Pending)
+            {
+                _dataContext.Orders.Remove(order);
+                await _dataContext.SaveChangesAsync();
+
+                return true;
+            }
+            return false;
         }
 
         //Admin Panel
@@ -143,6 +161,10 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             if (order == null)
             {
                 return false;
+            }
+            if (order.Status == OrderStatus.Approved)
+            {
+                return false; // Already approved
             }
 
             order.Status = OrderStatus.Approved;

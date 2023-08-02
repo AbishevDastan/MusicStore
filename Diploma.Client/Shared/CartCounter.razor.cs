@@ -4,7 +4,7 @@
     {
         public int? BadgeContent { get; set; }
 
-        private int GetCartItemsCount()
+        public int GetCartItemsCount()
         {
             var cartItemsCount = SyncLocalStorageService.GetItem<int>("cartItemsCount");
             BadgeContent = cartItemsCount;

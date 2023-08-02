@@ -20,6 +20,10 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<ItemDto>> GetItems()
         {
             var items = await _dataContext.Items.ToListAsync();
+            foreach (var item in items)
+            {
+                item.StockStatus = GetStockStatus(item.QuantityInStock);
+            }
             var itemsDto = _mapper.Map<List<ItemDto>>(items);
 
             return itemsDto;
@@ -28,6 +32,8 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<ItemDto?> GetItem(int itemId)
         {
             var item = await _dataContext.Items.FindAsync(itemId);
+            item.StockStatus = GetStockStatus(item.QuantityInStock);
+
             var itemDto = _mapper.Map<ItemDto>(item);
 
             return itemDto;
@@ -67,6 +73,21 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 }
             }
             return new List<string>(result);
+        }
+        public static ItemStockStatus GetStockStatus(int quantityInStock)
+        {
+            if (quantityInStock <= 5 && quantityInStock >= 1)
+            {
+                return ItemStockStatus.LowStock;
+            }
+            else if (quantityInStock > 0)
+            {
+                return ItemStockStatus.InStock;
+            }
+            else
+            {
+                return ItemStockStatus.OutOfStock;
+            }
         }
 
         //Admin Panel
@@ -122,6 +143,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 item.ImageUrl = itemDto.ImageUrl;
                 item.Price = itemDto.Price;
                 item.CategoryId = itemDto.CategoryId;
+                item.QuantityInStock = itemDto.QuantityInStock;
 
                 await _dataContext.SaveChangesAsync();
             }

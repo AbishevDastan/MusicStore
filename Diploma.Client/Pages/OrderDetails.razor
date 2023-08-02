@@ -1,11 +1,12 @@
 ﻿@page "/order/{orderId:int}"
 @inject IOrderService _orderService
+@inject NavigationManager _navigationManager
 
 <MudText Variant="TypoVariant.H4">Order Details</MudText>
 
 @if (order == null)
 {
-    <Loading/>
+    <Loading />
 }
 else
 {
@@ -23,15 +24,17 @@ else
                     <span>Quantity: @item.Quantity</span>
                 </div>
                 <div class="product-price">$@item.TotalPrice</div>
+                <MudButton OnClick="CancelOrder" Color="Color.Error">Cancel an Order</MudButton>
             </div>
         }
         <div class="product-price">
+            5
             Total: $@order.TotalPrice
         </div>
     </div>
 }
 @code {
-    [Parameter] 
+    [Parameter]
     public int OrderId { get; set; }
 
     Diploma.DTO.OrderDetails order = null;
@@ -39,5 +42,11 @@ else
     protected override async Task OnInitializedAsync()
     {
         order = await _orderService.GetOrderDetails(OrderId);
+    }
+
+    public async Task CancelOrder()
+    {
+        await _orderService.CancelOrder(OrderId);
+        _navigationManager.NavigateTo("/orders");
     }
 }

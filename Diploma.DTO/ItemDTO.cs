@@ -10,5 +10,7 @@
         //public string CategoryUrl { get; set; } = string.Empty;
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
+        public int QuantityInStock { get; set; }
+        public ItemStockStatus StockStatus { get; set; }
     }
 }

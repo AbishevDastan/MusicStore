@@ -24,6 +24,9 @@ else
             </MudTextField>
 
             <MudNumericField Label="Price" @bind-Value="itemDto.Price" For="@(() => itemDto.Price)">
+            </MudNumericField> 
+            
+            <MudNumericField Label="QuantityInStock" @bind-Value="itemDto.QuantityInStock" For="@(() => itemDto.QuantityInStock)">
             </MudNumericField>
 
             <MudTextField Label="Image URL" @bind-Value="itemDto.ImageUrl" For="@(() => itemDto.ImageUrl)">

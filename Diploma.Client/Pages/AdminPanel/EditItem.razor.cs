@@ -7,6 +7,7 @@ namespace Diploma.Client.Pages.AdminPanel
     {
         [Parameter]
         public int? Id { get; set; }
+        private int newQuantity;
 
         string btnText = string.Empty;
 
@@ -16,6 +17,7 @@ namespace Diploma.Client.Pages.AdminPanel
         {
             await CategoryService.GetAdminCategories();
             btnText = Id == null ? "Save" : "Update Product";
+            newQuantity = itemDto.QuantityInStock;
         }
 
         protected override async Task OnParametersSetAsync()

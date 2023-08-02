@@ -25,6 +25,19 @@ else
                                 <MudText Typo="Typo.h4">@itemDto.Name</MudText>
                             </a>
                             <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                            <MudText Typo="Typo.h5">Quantity available: @itemDto.QuantityInStock</MudText>
+                            @if (itemDto.StockStatus == ItemStockStatus.InStock)
+                            {
+                                <MudText Typo="Typo.h6" Color="Color.Success">In Stock</MudText>
+                            }
+                            else if (itemDto.StockStatus == ItemStockStatus.LowStock)
+                            {
+                                <MudText Typo="Typo.h6" Color="Color.Warning">Low in Stock</MudText>
+                            }
+                            else
+                            {
+                                <MudText Typo="Typo.h6" Color="Color.Error">Out of Stock</MudText>
+                            }
                         </MudItem>
                     </MudCardContent>
                 </MudCard>

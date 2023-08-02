@@ -22,7 +22,7 @@ namespace Diploma.Api.Controllers
         {
             var orderDetails = await _orderRepository.GetOrderDetails(orderId);
 
-            if(orderDetails == null)
+            if (orderDetails == null)
             {
                 return NotFound();
             }
@@ -34,6 +34,13 @@ namespace Diploma.Api.Controllers
         public async Task<bool> PlaceOrder()
         {
             return await _orderRepository.PlaceOrder();
+        }
+
+        [HttpDelete]
+        [Route("{orderId}")]
+        public async Task<bool> CancelOrder(int orderId)
+        {
+            return await _orderRepository.CancelOrder(orderId);
         }
 
         [HttpGet]

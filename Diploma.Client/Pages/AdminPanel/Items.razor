@@ -17,6 +17,7 @@
         <MudTh>Price</MudTh>
         <MudTh>Image URL</MudTh>
         <MudTh>Category</MudTh>
+        <MudTh>Quantity in stock</MudTh>
         <MudTh></MudTh>
     </HeaderContent>
     <RowTemplate>
@@ -25,6 +26,7 @@
         <MudTd DataLabel="Price">@context.Price</MudTd>
         <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
         <MudTd DataLabel="Category">@context.CategoryId</MudTd>
+        <MudTd DataLabel="QuantityInStock">@context.QuantityInStock</MudTd>
         <MudTd>
             <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowItem(context.Id))">
             </MudIconButton>

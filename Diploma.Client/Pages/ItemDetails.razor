@@ -23,7 +23,33 @@ else
                 <MudText Typo="Typo.body1">@itemDto.Description</MudText>
                 &nbsp;&nbsp;&nbsp;
                 <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
-                <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">Add to Shopping Cart</MudButton>
+                <MudText Typo="Typo.h6">Quantity available: @itemDto.QuantityInStock</MudText>
+
+                @if (itemDto.StockStatus == ItemStockStatus.InStock)
+                {
+                    <MudText Typo="Typo.h6" Color="Color.Success">In Stock</MudText>
+                }
+                else if (itemDto.StockStatus == ItemStockStatus.LowStock)
+                {
+                    <MudText Typo="Typo.h6" Color="Color.Warning">Low in Stock</MudText>
+                }
+                else
+                {
+                    <MudText Typo="Typo.h6" Color="Color.Error">Out of Stock</MudText>
+                }
+
+                @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
+                {
+                    <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
+                        Add to Shopping Cart
+                    </MudButton>
+                }
+                else
+                {
+                    <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
+                        Add to Shopping Cart
+                    </MudButton>
+                }
             </MudPaper>
         </MudItem>
     </MudGrid>
