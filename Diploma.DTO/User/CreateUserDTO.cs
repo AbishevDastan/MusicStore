@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Diploma.DTO
+namespace Diploma.DTO.User
 {
     public class CreateUserDto
     {

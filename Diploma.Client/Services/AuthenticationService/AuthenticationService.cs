@@ -1,5 +1,5 @@
 ﻿using Diploma.Domain;
-using Diploma.DTO;
+using Diploma.DTO.User;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.AuthenticationService

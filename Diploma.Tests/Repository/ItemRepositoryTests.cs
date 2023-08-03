@@ -2,7 +2,7 @@
 using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Item;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;

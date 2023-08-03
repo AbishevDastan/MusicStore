@@ -1,5 +1,5 @@
 ﻿using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Category;
 
 namespace Diploma.BusinessLogic.Repositories.CategoryRepository
 {

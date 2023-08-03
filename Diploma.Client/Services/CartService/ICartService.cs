@@ -1,5 +1,5 @@
 ﻿using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Cart;
 
 namespace Diploma.Client.Services.CartService
 {

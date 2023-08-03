@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diploma.DTO
+namespace Diploma.DTO.User
 {
     public class ChangePasswordDto
     {

@@ -1,6 +1,6 @@
 ﻿using Azure;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Category;
 using Microsoft.AspNetCore.Components;
 using System.Net;
 using System.Net.Http.Json;

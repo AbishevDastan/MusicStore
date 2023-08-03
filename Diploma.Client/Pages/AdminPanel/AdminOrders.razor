@@ -1,4 +1,5 @@
 ﻿@page "/orders/admin"
+@using Diploma.DTO.Order;
 @attribute [Authorize(Roles = "Admin")]
 @inject IOrderService _orderService
 
@@ -25,6 +26,9 @@
                     <td>@order.TotalPrice</td>
                     <td>@order.Item</td>
                     <td>@order.Status</td>
+                    <td>
+                        <a href="order/admin/@order.Id">Details</a>
+                    </td>
                     <td>
                         @if (order.Status == OrderStatus.Pending)
                         {

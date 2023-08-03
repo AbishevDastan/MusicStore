@@ -1,7 +1,7 @@
 ﻿using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Item;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 using System;
 using System.Collections.Generic;

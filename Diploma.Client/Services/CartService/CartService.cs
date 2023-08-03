@@ -2,7 +2,7 @@
 using Diploma.Client.Services.AuthenticationService;
 using Diploma.Client.Services.UserService;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Cart;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.CartService

@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Order;
 
 namespace Diploma.Client.Pages
 {

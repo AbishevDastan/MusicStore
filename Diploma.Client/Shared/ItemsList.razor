@@ -1,4 +1,5 @@
-﻿@inject IItemService ItemService
+﻿@using Diploma.DTO.Item;
+@inject IItemService ItemService
 @implements IDisposable
 
 @if (ItemService.Items == null || ItemService.Items.Count == null)

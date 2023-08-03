@@ -1,6 +1,6 @@
 ﻿using Diploma.Domain;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Item;
 using System;
 using System.Collections.Generic;
 using System.Linq;

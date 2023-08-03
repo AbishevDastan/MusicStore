@@ -1,7 +1,7 @@
 ﻿using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.User;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http.Json;
 

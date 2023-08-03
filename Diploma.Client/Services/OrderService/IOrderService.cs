@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Order;
 
 namespace Diploma.Client.Services.OrderService
 {
@@ -13,6 +13,7 @@ namespace Diploma.Client.Services.OrderService
 
         //Admin Panel
         Task<List<OrderOverview>> GetOrdersForAdmin();
+        Task<OrderDetails> GetOrderDetailsForAdmin(int orderId);
         Task ApproveOrder(int orderId);
 
     }

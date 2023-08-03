@@ -1,5 +1,5 @@
 ﻿using Diploma.BusinessLogic.Repositories.OrderRepository;
-using Diploma.DTO;
+using Diploma.DTO.Order;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -59,6 +59,19 @@ namespace Diploma.Api.Controllers
         {
             var orders = await _orderRepository.GetAllOrders();
             return Ok(orders);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("admin/{orderId}")]
+        public async Task<ActionResult<OrderDetails>> GetOrderDetailsForAdmin(int orderId)
+        {
+            var orderDetails = await _orderRepository.GetOrderDetailsForAdmin(orderId);
+            if (orderDetails == null)
+            {
+                return NotFound();
+            }
+            return Ok(orderDetails);
         }
 
         [HttpPost]

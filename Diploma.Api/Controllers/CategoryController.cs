@@ -1,5 +1,5 @@
 ﻿using Diploma.BusinessLogic.Repositories.CategoryRepository;
-using Diploma.DTO;
+using Diploma.DTO.Category;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

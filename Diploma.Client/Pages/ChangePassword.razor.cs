@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.User;
 
 namespace Diploma.Client.Pages
 {

@@ -2,7 +2,7 @@
 using Diploma.BusinessLogic.Repositories.UserRepository;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

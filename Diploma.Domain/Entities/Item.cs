@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Item;
 
 namespace Diploma.Domain.Entities
 {

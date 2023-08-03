@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
-using Diploma.DTO;
+using Diploma.DTO.Item;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

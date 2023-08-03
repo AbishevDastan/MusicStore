@@ -1,7 +1,7 @@
 ﻿using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Cart;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.CartRepository

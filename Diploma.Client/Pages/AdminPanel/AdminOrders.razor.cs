@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Order;
 using System.Net.Http;
 using System.Net.Http.Json;
 

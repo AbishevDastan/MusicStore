@@ -1,6 +1,6 @@
 ﻿using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Cart;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Diploma.Api.Controllers

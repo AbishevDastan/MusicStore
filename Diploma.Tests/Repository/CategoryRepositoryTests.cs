@@ -3,7 +3,7 @@ using Bogus;
 using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Category;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;

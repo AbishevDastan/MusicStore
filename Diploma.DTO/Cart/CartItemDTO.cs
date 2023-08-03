@@ -1,4 +1,4 @@
-﻿namespace Diploma.DTO
+﻿namespace Diploma.DTO.Cart
 {
     public class CartItemDto
     {

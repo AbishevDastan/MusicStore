@@ -2,12 +2,11 @@
 {
     public class OrderItem
     {
-        public Item Item { get; set; }
+        public Item Item { get; set; } = new Item();
         public int ItemId { get; set; }
-        public Order Order { get; set; }
+        public Order Order { get; set; } = new Order();
         public int OrderId { get; set; }
         public decimal TotalPrice { get; set; }
         public int Quantity { get; set; }
-        //public bool IsApproved { get; set; }
     }
 }

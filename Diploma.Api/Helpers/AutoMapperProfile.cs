@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Cart;
+using Diploma.DTO.Category;
+using Diploma.DTO.Item;
+using Diploma.DTO.User;
 
 namespace Diploma.Api.Helpers
 {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Category;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.CategoryRepository

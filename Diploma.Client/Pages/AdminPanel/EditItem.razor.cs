@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Item;
 using Microsoft.AspNetCore.Components;
 
 namespace Diploma.Client.Pages.AdminPanel

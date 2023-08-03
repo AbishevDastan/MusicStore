@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Category;
 
 namespace Diploma.Client.Services.CategoryService
 {

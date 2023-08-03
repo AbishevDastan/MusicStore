@@ -3,7 +3,7 @@ using Diploma.Client.Services.CartService;
 using Diploma.Client.Services.UserService;
 using Diploma.Client.Shared;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
+using Diploma.DTO.Order;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http;
@@ -46,6 +46,11 @@ namespace Diploma.Client.Services.OrderService
         public async Task<List<OrderOverview>> GetOrdersForAdmin()
         {
             return await _httpClient.GetFromJsonAsync<List<OrderOverview>>("api/order/admin");
+        }
+
+        public async Task<OrderDetails> GetOrderDetailsForAdmin(int orderId)
+        {
+            return await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/admin/{orderId}");
         }
 
         public async Task ApproveOrder(int orderId)

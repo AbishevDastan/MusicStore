@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.User;
 using Microsoft.AspNetCore.WebUtilities;
 
 namespace Diploma.Client.Pages

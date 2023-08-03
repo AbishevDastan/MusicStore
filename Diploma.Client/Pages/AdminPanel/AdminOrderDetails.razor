@@ -1,4 +1,5 @@
-﻿@page "/order/{orderId:int}"
+﻿@page "/order/admin/{orderId:int}"
+@page "/order/admin"
 @inject IOrderService _orderService
 @inject NavigationManager _navigationManager
 
@@ -24,29 +25,12 @@ else
                     <span>Quantity: @item.Quantity</span>
                 </div>
                 <div class="product-price">$@item.TotalPrice</div>
-                <MudButton OnClick="CancelOrder" Color="Color.Error">Cancel an Order</MudButton>
-            </div>
+@*                <MudButton OnClick="CancelOrder" Color="Color.Error">Cancel an Order</MudButton>
+*@            </div>
         }
         <div class="product-price">
             5
             Total: $@order.TotalPrice
         </div>
     </div>
-}
-@code {
-    [Parameter]
-    public int OrderId { get; set; }
-
-    DTO.Order.OrderDetails order = null;
-
-    protected override async Task OnInitializedAsync()
-    {
-        order = await _orderService.GetOrderDetails(OrderId);
-    }
-
-    public async Task CancelOrder()
-    {
-        await _orderService.CancelOrder(OrderId);
-        _navigationManager.NavigateTo("/orders");
-    }
 }

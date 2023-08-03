@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Order;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
 {
@@ -11,6 +11,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
 
         //Admin Panel
         Task<List<OrderOverview>> GetAllOrders();
+        Task<OrderDetails> GetOrderDetailsForAdmin(int orderId);
         Task<bool> ApproveOrder(int orderId);
 
     }

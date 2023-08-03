@@ -1,11 +1,11 @@
-﻿namespace Diploma.DTO
+﻿namespace Diploma.DTO.Cart
 {
-    public class ItemDetailsInOrder
+    public class AddItemToCartDto
     {
         public int ItemId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string ImageUrl { get; set; } = string.Empty;
-        public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
+        public decimal Price { get; set; }
+        public int Quantity { get; set; } = 1;
     }
 }

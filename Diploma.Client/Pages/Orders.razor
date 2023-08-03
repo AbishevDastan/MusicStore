@@ -24,12 +24,6 @@
                     <td>@order.TotalPrice</td>
                     <td>@order.Item</td>
                     <td>@order.Status</td>
-                    @*                    <td>
-            @if (order.Status == OrderStatus.Pending)
-            {
-            <button @onclick="() => ApproveOrder(order.Id)">Approve</button>
-            }
-            </td>*@
                     <td>
                         <a href="order/@order.Id">Details</a>
                     </td>

@@ -1,4 +1,4 @@
-﻿using Diploma.DTO;
+﻿using Diploma.DTO.Item;
 using Microsoft.AspNetCore.Components;
 using System.Net;
 using System.Net.Http.Json;
