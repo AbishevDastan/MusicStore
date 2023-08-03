@@ -13,6 +13,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         Task<List<OrderOverview>> GetAllOrders();
         Task<OrderDetails> GetOrderDetailsForAdmin(int orderId);
         Task<bool> ApproveOrder(int orderId);
-
+        Task<int> GetOrdersCount();
     }
 }

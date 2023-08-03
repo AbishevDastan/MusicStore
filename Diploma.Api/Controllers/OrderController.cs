@@ -86,5 +86,13 @@ namespace Diploma.Api.Controllers
             }
             return NotFound();
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("admin/count")]
+        public async Task<ActionResult<int>> GetOrdersCount()
+        {
+            return Ok(await _orderRepository.GetOrdersCount());
+        }
     }
 }

@@ -3,7 +3,7 @@
 @attribute [Authorize(Roles = "Admin")]
 @inject IOrderService _orderService
 
-<h3>All Orders</h3>
+<h3>All Orders (@orderCount)</h3>
 <table>
     <thead>
         <tr>

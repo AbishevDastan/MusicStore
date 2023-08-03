@@ -6,11 +6,13 @@ namespace Diploma.Client.Pages.AdminPanel
 {
     public partial class AdminOrders
     {
+        private int orderCount;
         private List<OrderOverview> orders;
 
         protected override async Task OnInitializedAsync()
         {
             orders = await _orderService.GetOrdersForAdmin();
+            orderCount = await _orderService.GetOrdersCount();
         }
 
         public async Task ApproveOrder(int orderId)

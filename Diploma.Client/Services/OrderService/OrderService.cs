@@ -16,19 +16,14 @@ namespace Diploma.Client.Services.OrderService
     {
         private readonly HttpClient _httpClient;
         private readonly NavigationManager _navigationManager;
-        private readonly IUserService _userService;
-        private readonly AuthenticationStateProvider _authenticationStateProvider;
-        private readonly IAuthenticationService _authenticationService;
-        private readonly ICartService _cartService;
 
-        public OrderService(HttpClient httpClient, NavigationManager navigationManager, IUserService userService, AuthenticationStateProvider authenticationStateProvider, IAuthenticationService authenticationService, ICartService cartService)
+        private readonly IAuthenticationService _authenticationService;
+
+        public OrderService(HttpClient httpClient, NavigationManager navigationManager, IAuthenticationService authenticationService)
         {
             _httpClient = httpClient;
             _navigationManager = navigationManager;
-            _userService = userService;
-            _authenticationStateProvider = authenticationStateProvider;
             _authenticationService = authenticationService;
-            _cartService = cartService;
         }
 
         public List<OrderOverview> Orders { get; set; }
@@ -70,6 +65,11 @@ namespace Diploma.Client.Services.OrderService
                 // Display error message to the user
             }
         }
+        public async Task<int> GetOrdersCount()
+        {
+            return await _httpClient.GetFromJsonAsync<int>("api/order/admin/count");
+        }
+
         public async Task PlaceOrder()
         {
             if (await _authenticationService.IsAuthenticated())

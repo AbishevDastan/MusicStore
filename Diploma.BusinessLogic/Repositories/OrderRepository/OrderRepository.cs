@@ -164,7 +164,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 .OrderByDescending(o => o.OrderDate)
                 .FirstOrDefaultAsync(o => o.Id == orderId);
 
-            if(order  == null)
+            if (order == null)
             {
                 return null;
             }
@@ -202,6 +202,11 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             await _dataContext.SaveChangesAsync();
 
             return true;
+        }
+
+        public async Task<int> GetOrdersCount()
+        {
+            return await _dataContext.Orders.CountAsync();
         }
     }
 }
