@@ -4,6 +4,7 @@ using Diploma.DataAccess;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
 using Diploma.DTO.Order;
+using Diploma.DTO.Orders;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
@@ -33,13 +34,15 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             {
                 OrderDate = order.OrderDate,
                 TotalPrice = order.TotalPrice,
+                Status = order.Status,
                 Items = order.OrderItems.Select(item => new ItemDetailsInOrder
                 {
                     ItemId = item.Item.Id,
                     ImageUrl = item.Item.ImageUrl,
                     Quantity = item.Quantity,
                     Name = item.Item.Name,
-                    TotalPrice = item.TotalPrice
+                    TotalPrice = item.TotalPrice, 
+                    
                 }).ToList()
             };
 
@@ -119,15 +122,34 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         public async Task<bool> CancelOrder(int orderId)
         {
             var order = await _dataContext.Orders.FindAsync(orderId);
+            if(order.Status == OrderStatus.Canceled && order.Status == OrderStatus.Approved)
+            {
+                return false;
+            }
+
             if (order.Status == OrderStatus.Pending)
             {
-                _dataContext.Orders.Remove(order);
+                order.Status = OrderStatus.Canceled;
+                _dataContext.Orders.Update(order);
                 await _dataContext.SaveChangesAsync();
 
                 return true;
             }
             return false;
         }
+
+        //public async Task<bool> DeleteOrder(int orderId)
+        //{
+        //    var order = await _dataContext.Orders.FindAsync(orderId);
+        //    if (order.Status == OrderStatus.Pending)
+        //    {
+        //        _dataContext.Orders.Remove(order);
+        //        await _dataContext.SaveChangesAsync();
+
+        //        return true;
+        //    }
+        //    return false;
+        //}
 
         //Admin Panel
         public async Task<List<OrderOverview>> GetAllOrders()

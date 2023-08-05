@@ -1,11 +1,10 @@
-﻿namespace Diploma.DTO.Order
+﻿namespace Diploma.DTO.Orders
 {
-    public class OrderOverview
+    public class OrderDetails
     {
-        public int Id { get; set; }
         public DateTime OrderDate { get; set; }
         public decimal TotalPrice { get; set; }
-        public string Item { get; set; }
+        public List<ItemDetailsInOrder> Items { get; set; }
         public OrderStatus Status { get; set; }
     }
 }

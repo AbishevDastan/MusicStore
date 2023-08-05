@@ -1,4 +1,5 @@
 ﻿using Diploma.DTO.Order;
+using Diploma.DTO.Orders;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
 {

@@ -7,7 +7,7 @@ namespace Diploma.Client.Pages.AdminPanel
         [Parameter]
         public int OrderId { get; set; }
 
-        DTO.Order.OrderDetails order = null;
+        DTO.Orders.OrderDetails order = null;
 
         protected override async Task OnInitializedAsync()
         {

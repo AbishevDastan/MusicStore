@@ -1,4 +1,4 @@
-﻿namespace Diploma.DTO.Order
+﻿namespace Diploma.DTO.Orders
 {
     public class ItemDetailsInOrder
     {

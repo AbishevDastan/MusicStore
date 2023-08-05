@@ -4,6 +4,7 @@ using Diploma.Client.Services.UserService;
 using Diploma.Client.Shared;
 using Diploma.Domain.Entities;
 using Diploma.DTO.Order;
+using Diploma.DTO.Orders;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using System.Net.Http;
@@ -86,7 +87,7 @@ namespace Diploma.Client.Services.OrderService
         {
             if (await _authenticationService.IsAuthenticated())
             {
-                await _httpClient.DeleteAsync($"api/order/{orderId}");
+                await _httpClient.PutAsync($"api/order/{orderId}", null);
             }
             else
             {

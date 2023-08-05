@@ -1,7 +1,41 @@
 ﻿@page "/orders"
 @inject IOrderService _orderService
 
-<h3>My Orders</h3>
+@if (orders != null)
+{
+    @foreach (var order in orders)
+    {
+        <a href="order/@order.Id">
+            <div class="order-item">
+                <div class="left-side">
+                    <p>Order ID: @order.Id</p>
+                    <p>Price: @order.TotalPrice</p>
+                    @*<p>Number of Items: @order.</p>*@
+                </div>
+                <div class="right-side">
+                    <p>Status: @order.Status</p>
+                    <p>Date: @order.OrderDate</p>
+                </div>
+            </div>
+        </a>
+    }
+}
+
+<style>
+    .order-item {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+
+    .left-side, .right-side {
+        width: 48%; /* Adjust the width as needed */
+    }
+</style>
+
+@*<h3>My Orders</h3>
 <table>
     <thead>
         <tr>
@@ -10,7 +44,7 @@
             <th>Total Price</th>
             <th>Items</th>
             <th>Status</th>
-            <th>Actions</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -31,4 +65,4 @@
             }
         }
     </tbody>
-</table>
+</table>*@

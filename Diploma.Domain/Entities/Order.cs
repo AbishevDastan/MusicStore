@@ -1,4 +1,4 @@
-﻿using Diploma.DTO.Order;
+﻿using Diploma.DTO.Orders;
 
 namespace Diploma.Domain.Entities
 {
