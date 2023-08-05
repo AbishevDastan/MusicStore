@@ -22,6 +22,7 @@ namespace Diploma.Client.Services.ItemService
         Task<List<string>> GetItemSearchSuggestions(string searchText);
 
         Task GetAdminItems();
+        Task<List<ItemDetailsForStatistics>> GetStatistics();
         Task CreateItem(ItemDto itemDto);
         Task UpdateItem(int id, ItemDto itemDto);
         Task DeleteItem(int id);

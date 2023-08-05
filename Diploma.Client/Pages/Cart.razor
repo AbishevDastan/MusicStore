@@ -3,32 +3,122 @@
 @inject ICartService _cartService
 @inject NavigationManager _navigationManager
 
-<PageTitle>Cart</PageTitle>
+<div style="margin-top: 30px; margin-left: 20px;">
+    <MudText Typo="Typo.h4">SHOPPING CART</MudText>
+</div>
 
-@if (addedCartItems == null || addedCartItems.Count == 0)
-{
-    <span>@message</span>//Loading???
-}
-else
-{
+<div style="margin-top: 30px;">
+    @if (addedCartItems == null || addedCartItems.Count == 0)
+    {
+        <span>@message</span>
+    }
+    else
+    {
+        <MudTable Items="@addedCartItems">
+            <HeaderContent>
+                <MudTh>CART ITEMS</MudTh>
+                <MudTh>PRICE</MudTh>
+                <MudTh>QUANTITY</MudTh>
+                <MudTh>SUBTOTAL</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <div class="item-box">
+                        <img src="@context.ImageUrl" class="item-image" />
+                        <div class="item-name">
+                            <MudText Typo="Typo.h5">
+                                <a href="/item/@context.ItemId">@context.Name</a>
+                            </MudText>
+                        </div>
+                    </div>
+                </MudTd>
+                <MudTd>$@context.Price</MudTd>
+                <MudTd>
+                    <div>
+                        @*<MudNumericField @bind-Value="context.Quantity" Style="width: 100px;" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, context))" />*@
+                        <input type="number" value="@context.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, context))" class="form-control input-quantity" min="1" />
+                    </div>
+                </MudTd>
+                <MudTd>$@(context.Price * context.Quantity)</MudTd>
+                    <MudTd>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(context.ItemId))"></MudIconButton>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+
+        <div class="fixed-bottom-right" style="position: fixed; bottom: 40px; right: 50px;">
+            <div class="total-price">
+                <MudText Typo="Typo.h5">
+                    TOTAL: $@addedCartItems.Sum(item => item.Price * item.Quantity)
+                </MudText>
+            </div>
+
+            <div class="place-order-button">
+                <MudButton Variant="Variant.Outlined" OnClick=" PlaceOrder">Place an Order</MudButton>
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    .item-box {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .item-image {
+        max-width: 100px;
+        max-height: 100px;
+        margin-right: 10px;
+    }
+
+    .item-name {
+        flex: 1;
+    }
+
+    .total-price {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: right;
+        font-size: 18px;
+        margin-right: 40px;
+    }
+
+    .place-order-button {
+        margin-bottom: 10px;
+        text-align: right;
+        margin-top: 15px;
+        margin-right: 40px;
+    }
+</style>
+
+
+@*@if (addedCartItems == null || addedCartItems.Count == 0)
+    {
+    <span>@message</span>
+    }
+    else
+    {
     <div>
-        @foreach (var item in addedCartItems)
-        {
-            <div class="container">
-                <div class="image-wrapper">
-                <img src="@item.ImageUrl" class="image"/>
-            </div>
-            <div class="name">
-                <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
-                <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
-                <button class="btn-delete" @onclick="@(() => DeleteItemFromCart(item.ItemId))">Remove product</button>
-                </div>
-                <div class="cart-item-price">$@(item.Price * item.Quantity)</div>
-                </div>
-        }
-            <div class="cart-item-price">
-                Total (@addedCartItems.Count): $@addedCartItems.Sum(item => item.Price * item.Quantity);
-            </div>
+    @foreach (var item in addedCartItems)
+    {
+    <div class="container">
+    <div class="image-wrapper">
+    <img src="@item.ImageUrl" class="image" />
+    </div>
+    <div class="name">
+    <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
+    <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
+    <MudButton Variant="Variant.Filled" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(item.ItemId))">Remove product</MudButton>
+    </div>
+    <div class="cart-item-price">$@(item.Price * item.Quantity)</div>
+    </div>
+    }
+    <div class="cart-item-price">
+    Total (@addedCartItems.Count): $@addedCartItems.Sum(item => item.Price * item.Quantity);
+    </div>
     </div>
     <MudButton OnClick="PlaceOrder">Place an order</MudButton>
-}
+    }*@

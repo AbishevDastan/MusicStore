@@ -1,0 +1,33 @@
+﻿@inject NavigationManager _navigationManager
+@inject ICategoryService _categoryService
+
+<MudContainer>
+    <MudGrid Class="custom-grid">
+        <MudItem xs="12" md="6">
+            <!-- Left side: Slogan, description, and button -->
+            <div class="left-side-content" style="margin-top: 200px; margin-left: 100px; ">
+                <h1>YOUR MELODY, OUR INSTRUMENTS</h1>
+                <MudButton Variant="Variant.Outlined" Color="Color.Dark" @onclick="GoToCategories">Go to Categories</MudButton>
+            </div>
+        </MudItem>
+        <MudItem xs="12" md="6">
+            <div class="image-container">
+                <img src="/images/guitar_for_main_page.jpg" alt="Guitar image" />
+            </div>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await _categoryService.GetCategories();
+    }
+
+    private void GoToCategories()
+    {
+        _navigationManager.NavigateTo("#categories");
+    }
+}
+
+

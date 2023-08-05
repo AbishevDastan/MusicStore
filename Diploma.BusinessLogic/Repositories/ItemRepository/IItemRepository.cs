@@ -21,6 +21,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
 
         //Admin Panel
         Task<List<ItemDto>> GetAdminItems();
+        Task<List<ItemDetailsForStatistics>> GetStatistics();
         Task<ItemDto> CreateItem(ItemDto itemDto);
         Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto);
         Task<bool> DeleteItem(int itemId);

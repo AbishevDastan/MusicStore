@@ -1,9 +1,12 @@
 ﻿@inject AuthenticationStateProvider AuthenticationStateProvider
 @using System.Security.Claims
 
-@if(authorized)
+@if (authorized)
 {
-    <a class="dropdown-item" href="orders/admin">Orders</a>
-    <a class="dropdown-item" href="categories/admin">Categories</a>
-    <a class="dropdown-item" href="items/admin">Products</a>
+    <MudMenu Icon="@Icons.Material.Filled.AdminPanelSettings">
+        <MudMenuItem Href="item/admin/statistics">Items Statistics</MudMenuItem>
+        <MudMenuItem Href="orders/admin">Manage Orders</MudMenuItem>
+        <MudMenuItem Href="categories/admin">Manage Categories</MudMenuItem>
+        <MudMenuItem Href="items/admin">Manage Items</MudMenuItem>
+    </MudMenu>
 }

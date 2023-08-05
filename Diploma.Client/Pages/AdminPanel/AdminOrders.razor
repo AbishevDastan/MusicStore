@@ -1,9 +1,11 @@
 ﻿@page "/orders/admin"
 @using Diploma.DTO.Order;
+@using MudBlazor
 @attribute [Authorize(Roles = "Admin")]
 @inject IOrderService _orderService
 
 <h3>All Orders (@orderCount)</h3>
+
 <table>
     <thead>
         <tr>
@@ -16,8 +18,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (orders != null)
-        {
+        @if (orders != null)        {
             @foreach (var order in orders)
             {
                 <tr>

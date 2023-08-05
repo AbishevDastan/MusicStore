@@ -1,6 +1,7 @@
 ﻿using Diploma.DTO.Item;
 using Microsoft.AspNetCore.Components;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.ItemService
@@ -69,6 +70,7 @@ namespace Diploma.Client.Services.ItemService
             return result;
         }
 
+        //Admin Panel
         public async Task GetAdminItems()
         {
             var result = await _httpClient.GetFromJsonAsync<List<ItemDto>>("api/item/admin");
@@ -77,6 +79,11 @@ namespace Diploma.Client.Services.ItemService
             {
                 Message = "No products found.";
             }
+        }
+
+        public async Task<List<ItemDetailsForStatistics>> GetStatistics()
+        {
+            return await _httpClient.GetFromJsonAsync<List<ItemDetailsForStatistics>>("api/item/admin/statistics");
         }
 
         public async Task CreateItem(ItemDto itemDto)

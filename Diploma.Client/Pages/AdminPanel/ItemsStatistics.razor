@@ -1,0 +1,22 @@
+﻿@page "/item/admin/statistics"
+@attribute [Authorize(Roles = "Admin")]
+@inject IItemService _itemService
+
+<h3>Product statistics</h3>
+
+<MudTable Items="@items" Sortable="true">
+    <HeaderContent>
+        <MudTh SortLabel="Name">Product Name</MudTh>
+        <MudTh SortLabel="Price">Price</MudTh>
+        <MudTh SortLabel="QuantityInStock">Quantity in Stock</MudTh>
+        <MudTh SortLabel="SoldQuantity">Sold Quantity</MudTh>
+        <!-- Add other columns as needed -->
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@context.Name</MudTd>
+        <MudTd>@context.Price</MudTd>
+        <MudTd>@context.QuantityInStock</MudTd>
+        <MudTd>@context.SoldQuantity</MudTd>
+        <!-- Add other columns as needed -->
+    </RowTemplate>
+</MudTable>

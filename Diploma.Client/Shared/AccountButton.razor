@@ -6,10 +6,9 @@
 <MudMenu Icon="@Icons.Material.Filled.Person">
     <AuthorizeView>
         <Authorized>
-            <MudMenuItem Href="orders">Orders</MudMenuItem>
+            <MudMenuItem Href="orders">My Orders</MudMenuItem>
             <MudMenuItem Href="change-password">Change Password</MudMenuItem>
             <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
-            <AdminMenu/>
         </Authorized>
         <NotAuthorized>
             <MudMenuItem Href="register">Create Account</MudMenuItem>

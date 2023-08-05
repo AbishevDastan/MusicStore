@@ -1,22 +1,33 @@
 ﻿@inherits LayoutComponentBase
-@inject MudThemeProvider _mudThemeProvider
+@inject NavigationManager _navigationManager
+@inject AuthenticationStateProvider _authStateProvider
 
 <MudThemeProvider />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Style="background-color: #FAFAFA; height: 4rem;">
-        <MudContainer Class="d-flex justify-end align-center flex-grow-1 gap-4 ms-auto">
-            <div class="align-start" style="flex: 1;">
+    <MudAppBar Class="app-bar">
+        <MudContainer Class="d-flex justify-between align-center app-bar-content">
+            <div class="logo-container">
                 <Logo />
             </div>
-            <HomeButton />
-            <MudButton Size="Size.Small" OnClick="@(() => DrawerToggle(Anchor.Start))">Categories</MudButton>
-            <ContactButton />
-            <Search/>
-            <CartCounter />
-            <AccountButton />
+            <div class="flex-grow-1 d-flex justify-center align-center">
+                <Search />
+            </div>
+            <div class="d-flex align-center gap-2">
+                <MudButton Style="width: 100px" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => DrawerToggle(Anchor.Start))">
+                    Categories
+                </MudButton>
+                <ContactButton />
+                <CartCounter />
+                <AccountButton />
+                <AuthorizeView>
+                    <Authorized>
+                        <AdminMenu />
+                    </Authorized>
+                </AuthorizeView>
+            </div>
         </MudContainer>
     </MudAppBar>
 
@@ -35,7 +46,23 @@
     </MudMainContent>
 </MudLayout>
 
+<style>
+    .app-bar {
+        background-color: #FAFAFA;
+        height: 4rem;
+    }
+
+    .app-bar-content {
+        gap: 1rem;
+    }
+
+    .logo-container {
+        flex: 1;
+    }
+</style>
+
 @code {
+    //Drawer
     bool _drawerOpen = false;
     Anchor anchor;
 
@@ -44,22 +71,5 @@
         _drawerOpen = !_drawerOpen;
         this.anchor = anchor;
     }
-
-    private readonly MudTheme _currentTheme = new()
-        {
-            Palette = new PaletteLight
-            {
-                Primary = "#0A7BCF",
-                Secondary = "#4CAF50",
-                Info = "#64a7e2",
-                Success = "#2ECC40",
-                Warning = "#FFC107",
-                Error = "#FF0000",
-                AppbarBackground = "#FAFAFA",
-                TextPrimary = "#0A7BCF",
-                TextSecondary = "#4CAF50",
-                // more color properties
-            }
-        };
 }
 

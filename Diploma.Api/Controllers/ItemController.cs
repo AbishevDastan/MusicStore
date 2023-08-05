@@ -66,6 +66,14 @@ namespace Diploma.Api.Controllers
             return await _itemRepository.GetAdminItems();
         }
 
+        [HttpGet]
+        [Route("admin/statistics")]
+        [Authorize(Roles = "Admin")]
+        public async Task<List<ItemDetailsForStatistics>> GetStatistics()
+        {
+            return await _itemRepository.GetStatistics();
+        }
+
         [HttpPost]
         [Route("admin")]
         [Authorize(Roles = "Admin")]

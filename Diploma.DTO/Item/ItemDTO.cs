@@ -11,6 +11,7 @@
         public int CategoryId { get; set; }
         public decimal Price { get; set; }
         public int QuantityInStock { get; set; }
+        public int SoldQuantity { get; set; }
         public ItemStockStatus StockStatus { get; set; }
     }
 }

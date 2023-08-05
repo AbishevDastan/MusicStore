@@ -1,20 +1,16 @@
 ﻿@page "/"
 @page "/search/{searchText}"
-@page "/{categoryUrl}"
 @inject IItemService ItemService
 
 <PageTitle>Music Store</PageTitle>
 
-@*@if (SearchText == null && CategoryUrl == null)
+@if (SearchText == null)
 {
-    <Carousel/>
-    <Categories />
-    <ItemsList />
+    <HomeMainSection />
 }
 else
 {
     <ItemsList />
 }
-*@
 
-<ItemsList/>
+

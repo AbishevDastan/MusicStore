@@ -1,26 +1,28 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using MudBlazor;
 
 namespace Diploma.Client.Shared
 {
     public partial class Search
     {
-        //public async void SearchItems(ChangeEventArgs args)
-        //{
-        //    var searchItem = (string)args.Value;
-
-        //}
+        //private bool isSearchBarVisible = false;
         private string searchText = string.Empty;
         private List<string> suggestions = new List<string>();
-        protected ElementReference searchInput;
+        protected ElementReference _searchInput;
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
         {
-            if (firstRender)
+            if (firstRender && _searchInput.Id != null)
             {
-                await searchInput.FocusAsync();
+                await _searchInput.FocusAsync();
             }
         }
+
+        //private void ToggleSearchBar()
+        //{
+        //    isSearchBarVisible = !isSearchBarVisible;
+        //}
 
         public void SearchItems()
         {

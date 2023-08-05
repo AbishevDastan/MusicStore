@@ -2,6 +2,7 @@
 @using Diploma.DTO.Item;
 @inject ICartService CartService
 @inject IItemService ItemService
+@inject ISnackbar _snackBar
 
 @if (itemDto == null)
 {
@@ -11,47 +12,100 @@
 }
 else
 {
+    <div class="container-0">
     <MudGrid>
-        <MudItem lg="2" md="6" sm="12">
-            <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name" Width="250" Height="240" />
+        <MudItem lg="3" md="6" sm="12">
+            <div class="flex-container">
+                <div class="centered-content">
+                    <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name" Height="300" Width="300" />
+                </div>
+            </div>
         </MudItem>
         <MudItem lg="6" md="6" sm="12">
             <MudPaper Class="pa-4">
                 <MudItem md="12" sm="12">
-                    <MudText Typo="Typo.h4">@itemDto.Name</MudText>
+                    <div class="container-1">
+                        <div class="left">
+                            <MudText Typo="Typo.h3">@itemDto.Name</MudText>
+                        </div>
+                        <div class="right">
+                            <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                        </div>
+                    </div>
                 </MudItem>
-                &nbsp;
+                <MudDivider />
                 <MudText Typo="Typo.body1">@itemDto.Description</MudText>
-                &nbsp;&nbsp;&nbsp;
-                <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
-                <MudText Typo="Typo.h6">Quantity available: @itemDto.QuantityInStock</MudText>
-
-                @if (itemDto.StockStatus == ItemStockStatus.InStock)
-                {
-                    <MudText Typo="Typo.h6" Color="Color.Success">In Stock</MudText>
-                }
-                else if (itemDto.StockStatus == ItemStockStatus.LowStock)
-                {
-                    <MudText Typo="Typo.h6" Color="Color.Warning">Low in Stock</MudText>
-                }
-                else
-                {
-                    <MudText Typo="Typo.h6" Color="Color.Error">Out of Stock</MudText>
-                }
-
-                @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
-                {
-                    <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
-                        Add to Shopping Cart
-                    </MudButton>
-                }
-                else
-                {
-                    <MudButton OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
-                        Add to Shopping Cart
-                    </MudButton>
-                }
+                <div class="container-2">
+                    <div class="left">
+                        @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
+                        {
+                            <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
+                                Add to Shopping Cart
+                            </MudButton>
+                        }
+                        else
+                        {
+                            <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
+                                Add to Shopping Cart
+                            </MudButton>
+                        }
+                    </div>
+                    <div class="right">
+                        @if (itemDto.StockStatus == ItemStockStatus.InStock)
+                        {
+                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">In stock (@itemDto.QuantityInStock left)</MudText>
+                        }
+                        else if (itemDto.StockStatus == ItemStockStatus.LowStock)
+                        {
+                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Low in stock (@itemDto.QuantityInStock left)</MudText>
+                        }
+                        else
+                        {
+                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Out of stock (@itemDto.QuantityInStock left)</MudText>
+                        }
+                    </div>
+                </div>
             </MudPaper>
         </MudItem>
     </MudGrid>
+    </div>
 }
+
+
+<style>
+    .flex-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+
+    .centered-content {
+        text-align: center;
+    }
+
+    .container-0 {
+        margin-top: 20px;
+    }
+
+    .container-1 {
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .container-2 {
+        margin-top: 40px;
+        display: flex;
+        align-items: center;
+    }
+
+    .left {
+        display: flex;
+        margin-right: 10px;
+    }
+
+    .right {
+        margin-left: auto;
+    }
+</style>

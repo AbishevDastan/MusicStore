@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Diploma.DataAccess.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230802045007_4")]
-    partial class _4
+    [Migration("20230803162436_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,6 +99,9 @@ namespace Diploma.DataAccess.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantityInStock")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SoldQuantity")
                         .HasColumnType("int");
 
                     b.Property<int>("StockStatus")

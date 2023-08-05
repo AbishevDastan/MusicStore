@@ -1,15 +1,24 @@
-﻿namespace Diploma.Client.Shared
+﻿using Microsoft.AspNetCore.Components;
+
+namespace Diploma.Client.Shared
 {
     public partial class ItemsList
     {
+        [Parameter]
+        public string? CategoryUrl { get; set; } = null;
+        protected override async Task OnParametersSetAsync()
+        {
+            await _itemService.GetItems(CategoryUrl);
+        }
         protected override void OnInitialized()
         {
-            ItemService.ItemsChanged += StateHasChanged;
+            _itemService.ItemsChanged += StateHasChanged;
+            _categoryService.GetCategories();
         }
 
         public void Dispose()
         {
-            ItemService.ItemsChanged -= StateHasChanged;
+            _itemService.ItemsChanged -= StateHasChanged;
         }
     }
 }

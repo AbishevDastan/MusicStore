@@ -99,6 +99,21 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             return itemsDto;
         }
 
+        public async Task<List<ItemDetailsForStatistics>> GetStatistics()
+        {
+            var items = await GetAdminItems();
+            var itemsDetails = items.Select(i => new ItemDetailsForStatistics
+            {
+                Id = i.Id,
+                Name = i.Name,
+                Price = i.Price,
+                QuantityInStock = i.QuantityInStock,
+                SoldQuantity = i.SoldQuantity,
+            }).ToList();
+
+            return itemsDetails;
+        }
+
         public async Task<ItemDto> CreateItem(ItemDto itemDto)
         {
             var item = new Item
@@ -108,50 +123,51 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 Description = itemDto.Description,
                 ImageUrl = itemDto.ImageUrl,
                 Price = itemDto.Price,
-                CategoryId = itemDto.CategoryId
-            };
+                CategoryId = itemDto.CategoryId,
+                QuantityInStock = itemDto.QuantityInStock
+        };
 
-            _dataContext.Items.Add(item);
+        _dataContext.Items.Add(item);
             await _dataContext.SaveChangesAsync();
 
-            itemDto = _mapper.Map<ItemDto>(item);
+        itemDto = _mapper.Map<ItemDto>(item);
 
             return itemDto;
         }
 
-        public async Task<bool> DeleteItem(int itemId)
+    public async Task<bool> DeleteItem(int itemId)
+    {
+        var item = await _dataContext.Items.FindAsync(itemId);
+        if (item == null)
         {
-            var item = await _dataContext.Items.FindAsync(itemId);
-            if (item == null)
-            {
-                return false;
-            }
-            _dataContext.Items.Remove(item);
-            await _dataContext.SaveChangesAsync();
-
-            return true;
+            return false;
         }
+        _dataContext.Items.Remove(item);
+        await _dataContext.SaveChangesAsync();
 
-        public async Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto)
-        {
-            var item = await _dataContext.Items.FindAsync(itemId);
-
-            if (item != null)
-            {
-                item.Name = itemDto.Name;
-                item.Description = itemDto.Description;
-                item.ImageUrl = itemDto.ImageUrl;
-                item.Price = itemDto.Price;
-                item.CategoryId = itemDto.CategoryId;
-                item.QuantityInStock = itemDto.QuantityInStock;
-
-                await _dataContext.SaveChangesAsync();
-            }
-            itemDto = _mapper.Map<ItemDto>(item);
-
-            return itemDto;
-        }
+        return true;
     }
+
+    public async Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto)
+    {
+        var item = await _dataContext.Items.FindAsync(itemId);
+
+        if (item != null)
+        {
+            item.Name = itemDto.Name;
+            item.Description = itemDto.Description;
+            item.ImageUrl = itemDto.ImageUrl;
+            item.Price = itemDto.Price;
+            item.CategoryId = itemDto.CategoryId;
+            item.QuantityInStock = itemDto.QuantityInStock;
+
+            await _dataContext.SaveChangesAsync();
+        }
+        itemDto = _mapper.Map<ItemDto>(item);
+
+        return itemDto;
+    }
+}
 }
 
 

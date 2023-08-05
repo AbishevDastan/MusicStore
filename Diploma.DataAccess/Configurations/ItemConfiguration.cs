@@ -14,10 +14,15 @@ namespace Diploma.DataAccess.Configurations
             builder.Property(x => x.Name);
             builder.Property(x => x.Description);
             builder.Property(x => x.ImageUrl);
-            builder.Property(x => x.ImageUrl);
+            builder.Property(x => x.QuantityInStock);
+            builder.Property(x => x.SoldQuantity);
+            builder.Property(x => x.StockStatus);
             builder.Property(i => i.Price)
                 .HasColumnType("decimal(18,2)");
-            builder.Property(x => x.CategoryId);
+
+            builder.HasOne(x => x.Category)
+                .WithMany()
+                .HasForeignKey(x => x.CategoryId);
 
             builder.ToTable("Items");
         }

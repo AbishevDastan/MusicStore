@@ -1,5 +1,6 @@
 ﻿@page "/order/admin/{orderId:int}"
 @page "/order/admin"
+@attribute [Authorize(Roles = "Admin")]
 @inject IOrderService _orderService
 @inject NavigationManager _navigationManager
 

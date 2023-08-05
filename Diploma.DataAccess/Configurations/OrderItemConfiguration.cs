@@ -9,8 +9,10 @@ namespace Diploma.DataAccess.Configurations
         public void Configure(EntityTypeBuilder<OrderItem> builder)
         {
 
-            builder.HasKey(o => new { o.OrderId, o.ItemId });
-            builder.Property(o => o.TotalPrice).HasColumnType("decimal(18,2)");
+            builder.HasKey(o => new { o.OrderId, o.ItemId }
+            );
+            builder.Property(o => o.TotalPrice)
+                .HasColumnType("decimal(18,2)");
             builder.Property(o => o.Quantity);
 
             builder.HasOne(x => x.Order)

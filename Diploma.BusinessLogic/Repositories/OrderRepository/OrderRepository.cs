@@ -88,6 +88,8 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                     return false;
                 }
                 total += cartItem.Price * cartItem.Quantity;
+                //item.SoldQuantity += cartItem.Quantity;
+                //_dataContext.Items.Update(item);
 
                 orderItems.Add(new OrderItem
                 {

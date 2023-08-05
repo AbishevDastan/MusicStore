@@ -1,4 +1,3 @@
-using Blazored.LocalStorage;
 using Diploma.BusinessLogic;
 using Diploma.Client;
 using Diploma.Client.Services.AuthenticationService;
@@ -33,7 +32,18 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<AuthenticationStateProvider, AuthStateProvider>();
 
 //MudBlazor
-builder.Services.AddMudServices();
 builder.Services.AddScoped<MudThemeProvider>();
+builder.Services.AddMudServices(config =>
+{
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomLeft;
+
+    config.SnackbarConfiguration.PreventDuplicates = false;
+    config.SnackbarConfiguration.NewestOnTop = false;
+    config.SnackbarConfiguration.ShowCloseIcon = true;
+    config.SnackbarConfiguration.VisibleStateDuration = 3000;
+    config.SnackbarConfiguration.HideTransitionDuration = 200;
+    config.SnackbarConfiguration.ShowTransitionDuration = 200;
+    config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+});
 
 await builder.Build().RunAsync();

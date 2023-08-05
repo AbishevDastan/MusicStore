@@ -98,6 +98,9 @@ namespace Diploma.DataAccess.Migrations
                     b.Property<int>("QuantityInStock")
                         .HasColumnType("int");
 
+                    b.Property<int>("SoldQuantity")
+                        .HasColumnType("int");
+
                     b.Property<int>("StockStatus")
                         .HasColumnType("int");
 
