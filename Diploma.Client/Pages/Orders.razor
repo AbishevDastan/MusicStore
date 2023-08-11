@@ -1,68 +1,57 @@
 ﻿@page "/orders"
 @inject IOrderService _orderService
 
-@if (orders != null)
-{
-    @foreach (var order in orders)
+<div style="margin-top: 30px; margin-left: 20px;">
+    <MudText Typo="Typo.h4">MY ORDERS</MudText>
+</div>
+
+<div class="container">
+    @if (orders != null)
     {
-        <a href="order/@order.Id">
-            <div class="order-item">
-                <div class="left-side">
-                    <p>Order ID: @order.Id</p>
-                    <p>Price: @order.TotalPrice</p>
-                    @*<p>Number of Items: @order.</p>*@
+        @foreach (var order in orders)
+        {
+            <a href="order/@order.Id">
+                <div class="order-item">
+                    <div class="left-side">
+                        <p>Order ID: @order.Id</p>
+                        <p>Price: $@order.TotalPrice</p>
+                    </div>
+                    <div class="right-side">
+                        @if (order.Status == DTO.Orders.OrderStatus.Canceled)
+                        {
+                            <p style="color: red">@order.Status</p>
+                        }
+                        @if (order.Status == DTO.Orders.OrderStatus.Approved)
+                        {
+                            <p style="color: limegreen">@order.Status</p>
+                        }
+                        @if (order.Status == DTO.Orders.OrderStatus.Pending)
+                        {
+                            <p>@order.Status</p>
+                        }
+                        <p>@order.OrderDate</p>
+                    </div>
                 </div>
-                <div class="right-side">
-                    <p>Status: @order.Status</p>
-                    <p>Date: @order.OrderDate</p>
-                </div>
-            </div>
-        </a>
+            </a>
+        }
     }
-}
+</div>
 
 <style>
+    .container {
+        margin-top: 30px;
+    }
     .order-item {
         display: flex;
         justify-content: space-between;
         border: 1px solid #ccc;
-        padding: 10px;
+        border-right:none;
+        border-bottom: none;
+        padding: 7px;
         margin-bottom: 10px;
     }
 
     .left-side, .right-side {
-        width: 48%; /* Adjust the width as needed */
+        width: 48%;
     }
 </style>
-
-@*<h3>My Orders</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>Total Price</th>
-            <th>Items</th>
-            <th>Status</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (orders != null)
-        {
-            @foreach (var order in orders)
-            {
-                <tr>
-                    <td>@order.Id</td>
-                    <td>@order.OrderDate</td>
-                    <td>@order.TotalPrice</td>
-                    <td>@order.Item</td>
-                    <td>@order.Status</td>
-                    <td>
-                        <a href="order/@order.Id">Details</a>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>*@

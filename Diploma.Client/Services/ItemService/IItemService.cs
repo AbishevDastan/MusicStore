@@ -17,9 +17,11 @@ namespace Diploma.Client.Services.ItemService
         event Action ItemsChanged;
 
         Task GetItems(string? categoryUrl);
+        Task<List<ItemDto>> GetAllItems();
         Task<ItemDto> GetItem(int itemId);
         Task SearchItem(string searchText);
         Task<List<string>> GetItemSearchSuggestions(string searchText);
+        Task AddSale(int itemId, int quantity);
 
         Task GetAdminItems();
         Task<List<ItemDetailsForStatistics>> GetStatistics();

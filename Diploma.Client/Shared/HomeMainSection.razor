@@ -1,33 +1,57 @@
-﻿@inject NavigationManager _navigationManager
+﻿@using Diploma.DTO.Item;
+@inject NavigationManager _navigationManager
 @inject ICategoryService _categoryService
+@inject IItemService _itemService
 
-<MudContainer>
-    <MudGrid Class="custom-grid">
-        <MudItem xs="12" md="6">
-            <!-- Left side: Slogan, description, and button -->
-            <div class="left-side-content" style="margin-top: 200px; margin-left: 100px; ">
+<div style="width: 100vw;">
+    <MudGrid>
+        <MudItem xs="12" md="4">
+            <div style="margin-top: 100px; margin-bottom: 100px; margin-left: 100px;">
                 <h1>YOUR MELODY, OUR INSTRUMENTS</h1>
-                <MudButton Variant="Variant.Outlined" Color="Color.Dark" @onclick="GoToCategories">Go to Categories</MudButton>
-            </div>
+@*                 <MudButton Variant="Variant.Outlined" Color="Color.Dark" @onclick="GoToCategories">Go to Categories</MudButton>
+ *@            </div>
         </MudItem>
-        <MudItem xs="12" md="6">
-            <div class="image-container">
-                <img src="/images/guitar_for_main_page.jpg" alt="Guitar image" />
-            </div>
+        <MudItem xs="12" md="8">
+            <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows=" true" AutoCycle="true" TData="string">
+                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                    <a href="/crypto">
+                        <img src="/images/random.jpg" alt="Italian Trulli">
+                    </a>
+                </MudCarouselItem>
+                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                    <a href="/crypto">
+                        <img src="/images/random.jpg" alt="Italian Trulli">
+                    </a>
+                </MudCarouselItem>
+                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                    <a href="/crypto">
+                        <img src="/images/random.jpg" alt="Italian Trulli">
+                    </a>
+                </MudCarouselItem>
+            </MudCarousel>
         </MudItem>
     </MudGrid>
-</MudContainer>
-
-@code {
-    protected override async Task OnInitializedAsync()
-    {
-        await _categoryService.GetCategories();
-    }
-
-    private void GoToCategories()
-    {
-        _navigationManager.NavigateTo("#categories");
-    }
-}
+</div>
 
 
+<div class="categories-container">
+@*     <div style="padding-right: 100px; margin-bottom: 30px; padding-top: 30px;">
+        <h1 style="color: black;">CATEGORIES</h1>
+    </div> *@
+    <MudGrid>
+        @foreach (var category in _categoryService.Categories)
+        {
+            <MudItem xs="12" sm="6" md="4" lg="3" xl="2">
+                <div class="category-container">
+                    <a href="@category.Url">
+                        <img src="@category.ImageUrl" alt="@category.Name" class="category-image" />
+                        <div class="category-overlay">
+                            <p class="category-name">@category.Name</p>
+                            <p class="view-all">View all</p>
+                        </div>
+                    </a>
+                </div>
+            </MudItem>
+        }
+    </MudGrid>
+</div>

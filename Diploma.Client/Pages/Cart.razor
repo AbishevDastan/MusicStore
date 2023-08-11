@@ -36,7 +36,6 @@
                 <MudTd>$@context.Price</MudTd>
                 <MudTd>
                     <div>
-                        @*<MudNumericField @bind-Value="context.Quantity" Style="width: 100px;" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, context))" />*@
                         <input type="number" value="@context.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, context))" class="form-control input-quantity" min="1" />
                     </div>
                 </MudTd>
@@ -55,7 +54,7 @@
             </div>
 
             <div class="place-order-button">
-                <MudButton Variant="Variant.Outlined" OnClick=" PlaceOrder">Place an Order</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick=" PlaceOrder">Place an Order</MudButton>
             </div>
         </div>
     }
@@ -93,32 +92,3 @@
         margin-right: 40px;
     }
 </style>
-
-
-@*@if (addedCartItems == null || addedCartItems.Count == 0)
-    {
-    <span>@message</span>
-    }
-    else
-    {
-    <div>
-    @foreach (var item in addedCartItems)
-    {
-    <div class="container">
-    <div class="image-wrapper">
-    <img src="@item.ImageUrl" class="image" />
-    </div>
-    <div class="name">
-    <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
-    <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
-    <MudButton Variant="Variant.Filled" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(item.ItemId))">Remove product</MudButton>
-    </div>
-    <div class="cart-item-price">$@(item.Price * item.Quantity)</div>
-    </div>
-    }
-    <div class="cart-item-price">
-    Total (@addedCartItems.Count): $@addedCartItems.Sum(item => item.Price * item.Quantity);
-    </div>
-    </div>
-    <MudButton OnClick="PlaceOrder">Place an order</MudButton>
-    }*@

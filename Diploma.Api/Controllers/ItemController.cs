@@ -57,6 +57,14 @@ namespace Diploma.Api.Controllers
             return Ok(search);
         }
 
+        [HttpPost]
+        [Route("sale/{productId}/{quantity}")]
+        public async Task<ActionResult> AddSale(int itemId, int quantity)
+        {
+            await _itemRepository.AddSale(itemId, quantity);
+            return Ok();
+        }
+
         //Admin Panel
         [HttpGet]
         [Route("admin")]

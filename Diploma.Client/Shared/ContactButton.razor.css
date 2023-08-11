@@ -1,0 +1,7 @@
+﻿.contact-link {
+    color: black;
+    opacity: 0.8;
+}
+.contact-link:hover {
+    opacity: 1;
+}

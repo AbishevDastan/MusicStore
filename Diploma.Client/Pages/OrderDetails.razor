@@ -26,12 +26,12 @@ else
                 <div class="product-price">$@item.TotalPrice</div>
             </div>
         }
-        <div class="product-price">5
+        <div class="product-price">
             Total: $@order.TotalPrice
         </div>
         @if (order.Status == DTO.Orders.OrderStatus.Pending)
         {
-            <MudButton OnClick="CancelOrder" Color="Color.Error">Cancel an Order</MudButton>
+            <MudButton OnClick="CancelOrder" Variant="Variant.Outlined" Color="Color.Error">Cancel an Order</MudButton>
         }
     </div>
 }

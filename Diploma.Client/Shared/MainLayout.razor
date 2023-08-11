@@ -2,33 +2,30 @@
 @inject NavigationManager _navigationManager
 @inject AuthenticationStateProvider _authStateProvider
 
-<MudThemeProvider />
+<MudThemeProvider Theme="_currentTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Class="app-bar">
-        <MudContainer Class="d-flex justify-between align-center app-bar-content">
-            <div class="logo-container">
-                <Logo />
+    <MudAppBar Elevation="0" Class="app-bar">
+        <MudButton Size="Size.Large" OnClick="NavigateToHomePage">D&D Music</MudButton>
+        <MudSpacer />
+        <div class="d-flex align-center gap-3">
+            <Search />
+            <div>
+            <MudButton Class="categories-button" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => DrawerToggle(Anchor.Start))">
+                Categories
+            </MudButton>
             </div>
-            <div class="flex-grow-1 d-flex justify-center align-center">
-                <Search />
-            </div>
-            <div class="d-flex align-center gap-2">
-                <MudButton Style="width: 100px" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => DrawerToggle(Anchor.Start))">
-                    Categories
-                </MudButton>
-                <ContactButton />
-                <CartCounter />
-                <AccountButton />
-                <AuthorizeView>
-                    <Authorized>
-                        <AdminMenu />
-                    </Authorized>
-                </AuthorizeView>
-            </div>
-        </MudContainer>
+            <ContactButton />
+            <CartCounter />
+            <AccountButton />
+            <AuthorizeView>
+                <Authorized>
+                    <AdminMenu />
+                </Authorized>
+            </AuthorizeView>
+        </div>
     </MudAppBar>
 
     <MudDrawer @bind-Open="@_drawerOpen"
@@ -41,25 +38,10 @@
         <CategoriesNavMenu />
     </MudDrawer>
 
-    <MudMainContent>
+    <MudMainContent Class="body">
         @Body
     </MudMainContent>
 </MudLayout>
-
-<style>
-    .app-bar {
-        background-color: #FAFAFA;
-        height: 4rem;
-    }
-
-    .app-bar-content {
-        gap: 1rem;
-    }
-
-    .logo-container {
-        flex: 1;
-    }
-</style>
 
 @code {
     //Drawer
@@ -71,5 +53,18 @@
         _drawerOpen = !_drawerOpen;
         this.anchor = anchor;
     }
+
+    private void NavigateToHomePage()
+    {
+        _navigationManager.NavigateTo("");
+    }
+
+    private MudTheme _currentTheme = new MudTheme()
+        {
+            Palette = new PaletteLight
+            {
+                AppbarBackground = "#FAFAFA",
+            },
+        };
 }
 

@@ -3,41 +3,38 @@
 @using MudBlazor
 @attribute [Authorize(Roles = "Admin")]
 @inject IOrderService _orderService
+@inject IItemService _itemService
 
-<h3>All Orders (@orderCount)</h3>
+<div style="margin-top: 30px; margin-left: 20px;">
+    <MudText Typo="Typo.h4">ALL ORDERS (@orderCount)</MudText>
+</div>
 
-<table>
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>Total Price</th>
-            <th>Items</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (orders != null)        {
-            @foreach (var order in orders)
-            {
-                <tr>
-                    <td>@order.Id</td>
-                    <td>@order.OrderDate</td>
-                    <td>@order.TotalPrice</td>
-                    <td>@order.Item</td>
-                    <td>@order.Status</td>
-                    <td>
-                        <a href="order/admin/@order.Id">Details</a>
-                    </td>
-                    <td>
-                        @if (order.Status == OrderStatus.Pending)
-                        {
-                            <button @onclick="() => ApproveOrder(order.Id)">Approve</button>
-                        }
-                    </td>
-                </tr>
-            }
+<MudTable Items="@orders">
+    <HeaderContent>
+        <MudTh>Order ID</MudTh>
+        <MudTh>Order Date</MudTh>
+        <MudTh>Total Price</MudTh>
+        <MudTh>Items</MudTh>
+        <MudTh>Status</MudTh>
+        <MudTh>Actions</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        @if (orders != null)
+        {
+            <MudTd>@context.Id</MudTd>
+            <MudTd>@context.OrderDate</MudTd>
+            <MudTd>@context.TotalPrice</MudTd>
+            <MudTd>@context.Item</MudTd>
+            <MudTd>@context.Status</MudTd>
+            <MudTd>
+                <a href="order/admin/@context.Id">Details</a>
+            </MudTd>
+            <MudTd>
+                @if (context.Status == OrderStatus.Pending)
+                {
+                    <button @onclick="() => ApproveOrder(context.Id)">Approve</button>
+                }
+            </MudTd>
         }
-    </tbody>
-</table>
+    </RowTemplate>
+</MudTable>

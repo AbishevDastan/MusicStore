@@ -37,6 +37,21 @@ namespace Diploma.Client.Services.ItemService
             ItemsChanged?.Invoke();
         }
 
+        public async Task<List<ItemDto>> GetAllItems()
+        {
+            var items = await _httpClient.GetFromJsonAsync<List<ItemDto>>("api/item");
+            if (items == null)
+            {
+                Items = items;
+                return Items;
+            }
+            else
+            {
+                return null;
+            }
+            ItemsChanged?.Invoke();
+        }
+
         public async Task<ItemDto?> GetItem(int itemId)
         {
             var result = await _httpClient.GetAsync($"api/Item/{itemId}");
@@ -68,6 +83,11 @@ namespace Diploma.Client.Services.ItemService
         {
             var result = await _httpClient.GetFromJsonAsync<List<string>>($"api/item/searchsuggestions/{searchText}");
             return result;
+        }
+
+        public async Task AddSale(int itemId, int quantity)
+        {
+            await _httpClient.PostAsync($"api/item/sale/{itemId}/{quantity}", null);
         }
 
         //Admin Panel

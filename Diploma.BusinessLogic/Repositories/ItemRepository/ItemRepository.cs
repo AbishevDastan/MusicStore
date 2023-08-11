@@ -90,6 +90,16 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             }
         }
 
+        public async Task AddSale(int itemId, int quantity)
+        {
+            var item = await _dataContext.Items.FirstOrDefaultAsync(x => x.Id == itemId);
+            if (item != null)
+            {
+                item.SoldQuantity += quantity;
+                await _dataContext.SaveChangesAsync();
+            }
+        }
+
         //Admin Panel
         public async Task<List<ItemDto>> GetAdminItems()
         {
@@ -125,49 +135,49 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 Price = itemDto.Price,
                 CategoryId = itemDto.CategoryId,
                 QuantityInStock = itemDto.QuantityInStock
-        };
+            };
 
-        _dataContext.Items.Add(item);
+            _dataContext.Items.Add(item);
             await _dataContext.SaveChangesAsync();
 
-        itemDto = _mapper.Map<ItemDto>(item);
+            itemDto = _mapper.Map<ItemDto>(item);
 
             return itemDto;
         }
 
-    public async Task<bool> DeleteItem(int itemId)
-    {
-        var item = await _dataContext.Items.FindAsync(itemId);
-        if (item == null)
+        public async Task<bool> DeleteItem(int itemId)
         {
-            return false;
-        }
-        _dataContext.Items.Remove(item);
-        await _dataContext.SaveChangesAsync();
-
-        return true;
-    }
-
-    public async Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto)
-    {
-        var item = await _dataContext.Items.FindAsync(itemId);
-
-        if (item != null)
-        {
-            item.Name = itemDto.Name;
-            item.Description = itemDto.Description;
-            item.ImageUrl = itemDto.ImageUrl;
-            item.Price = itemDto.Price;
-            item.CategoryId = itemDto.CategoryId;
-            item.QuantityInStock = itemDto.QuantityInStock;
-
+            var item = await _dataContext.Items.FindAsync(itemId);
+            if (item == null)
+            {
+                return false;
+            }
+            _dataContext.Items.Remove(item);
             await _dataContext.SaveChangesAsync();
-        }
-        itemDto = _mapper.Map<ItemDto>(item);
 
-        return itemDto;
+            return true;
+        }
+
+        public async Task<ItemDto?> UpdateItem(int itemId, ItemDto itemDto)
+        {
+            var item = await _dataContext.Items.FindAsync(itemId);
+
+            if (item != null)
+            {
+                item.Name = itemDto.Name;
+                item.Description = itemDto.Description;
+                item.ImageUrl = itemDto.ImageUrl;
+                item.Price = itemDto.Price;
+                item.CategoryId = itemDto.CategoryId;
+                item.QuantityInStock = itemDto.QuantityInStock;
+
+                await _dataContext.SaveChangesAsync();
+            }
+            itemDto = _mapper.Map<ItemDto>(item);
+
+            return itemDto;
+        }
     }
-}
 }
 
 

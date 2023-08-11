@@ -1,15 +1,11 @@
-﻿using Diploma.Client.Services.OrderService;
-using Diploma.DTO.Order;
-using MudBlazor;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using Diploma.DTO.Order;
 
 namespace Diploma.Client.Pages.AdminPanel
 {
     public partial class AdminOrders
     {
         private int orderCount;
-        private List<OrderOverview> orders;
+        private List<OrderOverview> orders = new List<OrderOverview>();
 
         protected override async Task OnInitializedAsync()
         {

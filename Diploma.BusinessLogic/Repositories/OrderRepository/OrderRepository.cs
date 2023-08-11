@@ -1,5 +1,7 @@
-﻿using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
+﻿using AutoMapper;
+using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.BusinessLogic.Repositories.CartRepository;
+using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
 using Diploma.DTO;
@@ -14,12 +16,16 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         private readonly DataContext _dataContext;
         private readonly ICartRepository _cartRepository;
         private readonly IUserContext _userContext;
+        private readonly IItemRepository _itemRepository;
+        private readonly IMapper _mapper;
 
-        public OrderRepository(DataContext dataContext, ICartRepository cartRepository, IUserContext userContext)
+        public OrderRepository(DataContext dataContext, ICartRepository cartRepository, IUserContext userContext, IItemRepository itemRepository, IMapper mapper)
         {
             _dataContext = dataContext;
             _cartRepository = cartRepository;
             _userContext = userContext;
+            _itemRepository = itemRepository;
+            _mapper = mapper;
         }
 
         public async Task<OrderDetails> GetOrderDetails(int orderId)
@@ -30,7 +36,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 .OrderByDescending(o => o.OrderDate)
                 .FirstOrDefaultAsync(o => o.UserId == _userContext.GetUserId() && o.Id == orderId);
 
-            var orderDetails = new OrderDetails
+            return new OrderDetails
             {
                 OrderDate = order.OrderDate,
                 TotalPrice = order.TotalPrice,
@@ -41,12 +47,9 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                     ImageUrl = item.Item.ImageUrl,
                     Quantity = item.Quantity,
                     Name = item.Item.Name,
-                    TotalPrice = item.TotalPrice, 
-                    
+                    TotalPrice = item.TotalPrice
                 }).ToList()
             };
-
-            return orderDetails;
         }
 
         public async Task<List<OrderOverview>> GetOrdersForUser()
@@ -122,7 +125,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         public async Task<bool> CancelOrder(int orderId)
         {
             var order = await _dataContext.Orders.FindAsync(orderId);
-            if(order.Status == OrderStatus.Canceled && order.Status == OrderStatus.Approved)
+            if (order.Status == OrderStatus.Canceled && order.Status == OrderStatus.Approved)
             {
                 return false;
             }
@@ -212,19 +215,28 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
 
         public async Task<bool> ApproveOrder(int orderId)
         {
-            var order = await _dataContext.Orders.FindAsync(orderId);
+            var order = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
             if (order == null)
+            {
+                throw new NullReferenceException("The order is not found");
+            }
+
+            if (order.Status == OrderStatus.Approved)
             {
                 return false;
             }
-            if (order.Status == OrderStatus.Approved)
+
+            if (order != null && order.OrderItems != null)
             {
-                return false; // Already approved
+                foreach (var orderItem in order.OrderItems)
+                {
+                    await _itemRepository.AddSale(orderItem.ItemId, orderItem.Quantity);
+                }
+                order.Status = OrderStatus.Approved;
+
+                 //_mapper.Map<OrderOverview>(order);
+                await _dataContext.SaveChangesAsync();
             }
-
-            order.Status = OrderStatus.Approved;
-            await _dataContext.SaveChangesAsync();
-
             return true;
         }
 

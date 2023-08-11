@@ -19,8 +19,7 @@ namespace Diploma.BusinessLogic.AuthenticationHandlers.JwtManager
         {
             List<Claim> claims = new List<Claim>
             {
-               new Claim(ClaimTypes.Name/*Identifier*/, user.Id.ToString()),
-                //new Claim(ClaimTypes.Name, user.Email),
+               new Claim(ClaimTypes.Name, user.Id.ToString()),
                new Claim(ClaimTypes.Role, user.Role)
             };
 
@@ -34,8 +33,7 @@ namespace Diploma.BusinessLogic.AuthenticationHandlers.JwtManager
                     signingCredentials: credentials
                 );
 
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
-            return jwt;
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
     }
 }
