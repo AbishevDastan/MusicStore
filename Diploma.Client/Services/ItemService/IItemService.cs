@@ -21,7 +21,7 @@ namespace Diploma.Client.Services.ItemService
         Task<ItemDto> GetItem(int itemId);
         Task SearchItem(string searchText);
         Task<List<string>> GetItemSearchSuggestions(string searchText);
-        Task AddSale(int itemId, int quantity);
+        Task<List<ItemDto>> GetBestSellingItems();
 
         Task GetAdminItems();
         Task<List<ItemDetailsForStatistics>> GetStatistics();

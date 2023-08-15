@@ -7,6 +7,7 @@ namespace Diploma.Client.Shared
 {
     public partial class HomeMainSection
     {
+        private List<ItemDto> featuredItems = new List<ItemDto>();
         //[Parameter]
         //public int Id { get; set; }
         //private ItemDto? itemDto { get; set; } = new ItemDto();
@@ -15,7 +16,7 @@ namespace Diploma.Client.Shared
         protected override async Task OnInitializedAsync()
         {
             await _categoryService.GetCategories();
-            await _itemService.GetItems(null);
+           featuredItems =  await _itemService.GetBestSellingItems();
         }
 
         //private async Task AddItemToWishlist()

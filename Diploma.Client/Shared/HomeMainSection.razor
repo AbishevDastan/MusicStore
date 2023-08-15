@@ -54,7 +54,7 @@
         <h1>Featured products</h1>
     </div>
     <MudGrid>
-        @foreach (var item in _itemService.Items)
+        @foreach (var item in featuredItems)
         {
             <MudItem xs="12" sm="6" md="4">
                 <div class="featured-item-container">
@@ -66,8 +66,7 @@
                         </div>
                         <MudIconButton Class="add-to-cart-button" Icon="@Icons.Material.Filled.AddShoppingCart"></MudIconButton>
                     </a>
-@*                     <MudIconButton Class="add-to-cart-button" OnClick="AddItemToWishlist" Icon="@Icons.Material.Filled.Coffee"></MudIconButton>
- *@                </div>
+                </div>
             </MudItem>
         }
     </MudGrid>

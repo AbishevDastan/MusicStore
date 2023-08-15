@@ -91,20 +91,21 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             }
         }
 
-        public async Task AddSale(int itemId, int quantity)
-        {
-            var item = await _dataContext.Items.FirstOrDefaultAsync(x => x.Id == itemId);
-            if (item != null)
-            {
-                item.SoldQuantity += quantity;
-                await _dataContext.SaveChangesAsync();
-            }
-        }
-
         public async Task UpdateItemForOrder(Item item)
         {
             _dataContext.Items.Update(item);
             await _dataContext.SaveChangesAsync();
+        }
+
+        public async Task<List<ItemDto>> GetBestSellingItems(int count)
+        {
+            var items = await _dataContext.Items
+                .OrderByDescending(p => p.SoldQuantity)
+                .Take(count)
+                .ToListAsync();
+            var itemsDto = _mapper.Map<List<ItemDto>>(items);
+
+            return itemsDto;
         }
 
         //Admin Panel

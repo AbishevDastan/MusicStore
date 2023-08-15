@@ -85,9 +85,9 @@ namespace Diploma.Client.Services.ItemService
             return result;
         }
 
-        public async Task AddSale(int itemId, int quantity)
+        public async Task<List<ItemDto>> GetBestSellingItems()
         {
-            await _httpClient.PostAsync($"api/item/sale/{itemId}/{quantity}", null);
+            return await _httpClient.GetFromJsonAsync<List<ItemDto>>($"api/item/featured");
         }
 
         //Admin Panel

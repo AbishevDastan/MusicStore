@@ -21,7 +21,7 @@ namespace Diploma.Api.Controllers
         public async Task<ActionResult<List<ItemDto>>> GetItems()
         {
             var items = await _itemRepository.GetItems();
-            if(items == null)
+            if (items == null)
             {
                 return NotFound();
             }
@@ -62,12 +62,11 @@ namespace Diploma.Api.Controllers
             return Ok(search);
         }
 
-        [HttpPost]
-        [Route("sale/{productId}/{quantity}")]
-        public async Task<ActionResult> AddSale(int itemId, int quantity)
+        [HttpGet]
+        [Route("featured")]
+        public async Task<ActionResult> GetBestSellingItems()
         {
-            await _itemRepository.AddSale(itemId, quantity);
-            return Ok();
+            return Ok(await _itemRepository.GetBestSellingItems(3));
         }
 
         //Admin Panel
