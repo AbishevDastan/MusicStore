@@ -41,19 +41,7 @@ namespace Diploma.Client.Services.OrderService
 
         public async Task ApproveOrder(int orderId)
         {
-            var response = await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
-            if (response.IsSuccessStatusCode)
-            {
-                var orderOverview = Orders.FirstOrDefault(o => o.Id == orderId);
-                if (orderOverview != null)
-                {
-                    orderOverview.Status = OrderStatus.Approved;
-                }
-            }
-            else
-            {
-                await Console.Out.WriteLineAsync("Something went wrong.");
-            }
+            await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
         }
         public async Task<int> GetOrdersCount()
         {

@@ -13,6 +13,7 @@ namespace Diploma.Api.Helpers
         {
             CreateMap<Item, ItemDto>();
             CreateMap<Item, ItemDto>().ReverseMap();
+            CreateMap<Item, AddItemToCartDto>();
             CreateMap<Category, CategoryDto>();
             CreateMap<Category, CategoryDto>().ReverseMap();
             CreateMap<ItemDto, SearchItemDto>();

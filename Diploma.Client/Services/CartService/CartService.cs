@@ -1,6 +1,5 @@
 ﻿using Blazored.LocalStorage;
 using Diploma.Client.Services.AuthenticationService;
-using Diploma.Client.Services.UserService;
 using Diploma.Domain.Entities;
 using Diploma.DTO.Cart;
 using System.Net.Http.Json;
@@ -35,15 +34,15 @@ namespace Diploma.Client.Services.CartService
                     cart = new List<CartItem>();
                 }
 
-                var theSameItem = cart.Find(i => i.ItemId == cartItem.ItemId);
+                var existingItem = cart.Find(i => i.ItemId == cartItem.ItemId);
 
-                if (theSameItem == null)
+                if (existingItem == null)
                 {
                     cart.Add(cartItem);
                 }
                 else
                 {
-                    theSameItem.Quantity += cartItem.Quantity;
+                    existingItem.Quantity += cartItem.Quantity;
                 }
 
                 await _storage.SetItemAsync("cart", cart);
@@ -101,7 +100,7 @@ namespace Diploma.Client.Services.CartService
             else
             {
                 var cart = await _storage.GetItemAsync<List<CartItem>>("cart");
-                await _storage.SetItemAsync<int>("cartItemsCount", cart == null ? 0 : cart.Count);
+                await _storage.SetItemAsync<int>("cartItemsCount", cart != null ? cart.Count : 0);
             }
             OnChange.Invoke();
         }
@@ -113,28 +112,25 @@ namespace Diploma.Client.Services.CartService
             {
                 return;
             }
-            else
-            {
-                await _httpClient.PostAsJsonAsync("api/cart", cart);
-            }
+
+            await _httpClient.PostAsJsonAsync("api/cart", cart);
 
             if (clearCartLocally)
             {
                 await _storage.RemoveItemAsync("cart");
             }
-
         }
 
-        public async Task UpdateItemsQuantity(AddItemToCartDto item)
+        public async Task UpdateItemsQuantity(AddItemToCartDto addcartItemDto)
         {
             if (await _authenticationService.IsAuthenticated())
             {
-                var request = new CartItem
+                var cartItem = new CartItem
                 {
-                    ItemId = item.ItemId,
-                    Quantity = item.Quantity
+                    ItemId = addcartItemDto.ItemId,
+                    Quantity = addcartItemDto.Quantity
                 };
-                await _httpClient.PutAsJsonAsync("api/cart/update", request);
+                await _httpClient.PutAsJsonAsync("api/cart/update", cartItem);
             }
             else
             {
@@ -143,10 +139,10 @@ namespace Diploma.Client.Services.CartService
                 {
                     return;
                 }
-                var cartItem = cart.Find(i => i.ItemId == item.ItemId);
+                var cartItem = cart.Find(i => i.ItemId == addcartItemDto.ItemId);
                 if (cartItem != null)
                 {
-                    cartItem.Quantity = item.Quantity;
+                    cartItem.Quantity = addcartItemDto.Quantity;
                     await _storage.SetItemAsync("cart", cart);
                 }
             }

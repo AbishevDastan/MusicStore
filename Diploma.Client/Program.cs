@@ -6,6 +6,7 @@ using Diploma.Client.Services.CategoryService;
 using Diploma.Client.Services.ItemService;
 using Diploma.Client.Services.OrderService;
 using Diploma.Client.Services.UserService;
+using Diploma.Client.Services.WishlistService;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -25,6 +26,7 @@ builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IWishlistService, WishlistService>();
 
 //Authentication state provider
 builder.Services.AddOptions();

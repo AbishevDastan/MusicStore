@@ -7,17 +7,18 @@
 <MudSnackbarProvider />
 
 <MudLayout>
-    <MudAppBar Elevation="0" Class="app-bar">
+    <MudAppBar Elevation="0" Style="padding-left: 2.8%; padding-right: 2.8%;" Class="app-bar">
         <MudButton Size="Size.Large" OnClick="NavigateToHomePage">D&D Music</MudButton>
         <MudSpacer />
         <div class="d-flex align-center gap-3">
-            <Search />
             <div>
-            <MudButton Class="categories-button" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => DrawerToggle(Anchor.Start))">
-                Categories
-            </MudButton>
+                <MudButton Class="categories-button" Variant="Variant.Text" Size="Size.Medium" OnClick="@(() => DrawerToggle(Anchor.Start))">
+                    Categories
+                </MudButton>
             </div>
             <ContactButton />
+            <Search />
+            <WishlistCounter />
             <CartCounter />
             <AccountButton />
             <AuthorizeView>

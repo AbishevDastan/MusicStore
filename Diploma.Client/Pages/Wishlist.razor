@@ -1,0 +1,75 @@
+﻿@page "/wishlist"
+@inject IOrderService _orderService
+@inject IWishlistService _wishlistService
+@inject NavigationManager _navigationManager
+
+<div style="margin-top: 30px; margin-left: 20px;">
+    <MudText Typo="Typo.h4">Wishlist</MudText>
+</div>
+
+<div style="margin-top: 30px;">
+    @if (addedWishlistItems == null || addedWishlistItems.Count == 0)
+    {
+        <span>@message</span>
+    }
+    else
+    {
+        <MudTable Items="@addedWishlistItems">
+            <HeaderContent>
+                <MudTh>WISHLIST ITEMS</MudTh>
+                <MudTh>PRICE</MudTh>
+                <MudTh>SUBTOTAL</MudTh>
+                <MudTh></MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    <div class="item-box">
+                        <img src="@context.ImageUrl" class="item-image" />
+                        <div class="item-name">
+                            <MudText Typo="Typo.h5">
+                                <a href="/item/@context.ItemId">@context.Name</a>
+                            </MudText>
+                        </div>
+                    </div>
+                </MudTd>
+                <MudTd>$@context.Price</MudTd>
+                    <MudTd>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromWishlist(context.ItemId))"></MudIconButton>
+                    </MudTd>
+                </RowTemplate>
+            </MudTable>
+    }
+</div>
+
+<style>
+    .item-box {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    .item-image {
+        max-width: 100px;
+        max-height: 100px;
+        margin-right: 10px;
+    }
+
+    .item-name {
+        flex: 1;
+    }
+
+    .total-price {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: right;
+        font-size: 18px;
+        margin-right: 40px;
+    }
+
+    .place-order-button {
+        margin-bottom: 10px;
+        text-align: right;
+        margin-top: 15px;
+        margin-right: 40px;
+    }
+</style>

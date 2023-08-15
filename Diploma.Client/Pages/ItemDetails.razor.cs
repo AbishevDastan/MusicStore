@@ -11,11 +11,11 @@ namespace Diploma.Client.Pages
         public int Id { get; set; }
         private ItemDto? itemDto { get; set; } = new ItemDto();
         private bool showSnackbar;
-
+        private bool isInWishlist = false;
 
         protected override async Task OnParametersSetAsync()
         {
-            itemDto = await ItemService.GetItem(Id);
+            itemDto = await _itemService.GetItem(Id);
         }
 
         private async Task AddItemToCart()
@@ -25,7 +25,7 @@ namespace Diploma.Client.Pages
                 ItemId = itemDto.Id,
             };
 
-            await CartService.AddItemToCart(cartItem);
+            await _cartService.AddItemToCart(cartItem);
             showSnackbar = true;
         }
 

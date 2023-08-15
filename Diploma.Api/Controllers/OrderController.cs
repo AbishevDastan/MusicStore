@@ -85,14 +85,9 @@ namespace Diploma.Api.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [Route("admin/{orderId}/approve")]
-        public async Task<ActionResult> ApproveOrder(int orderId)
+        public async Task ApproveOrder(int orderId)
         {
-            var result = await _orderRepository.ApproveOrder(orderId);
-            if (result)
-            {
-                return Ok();
-            }
-            return NotFound();
+            await _orderRepository.ApproveOrder(orderId);
         }
 
         [HttpGet]

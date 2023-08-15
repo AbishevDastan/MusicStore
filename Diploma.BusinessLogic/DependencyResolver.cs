@@ -7,6 +7,7 @@ using Diploma.BusinessLogic.Repositories.CategoryRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.BusinessLogic.Repositories.OrderRepository;
 using Diploma.BusinessLogic.Repositories.UserRepository;
+using Diploma.BusinessLogic.Repositories.WishlistRepository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Diploma.BusinessLogic
@@ -22,6 +23,7 @@ namespace Diploma.BusinessLogic
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<IJwtManager, JwtManager>();
             services.AddScoped<IHashManager, HashManager>();
 

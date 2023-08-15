@@ -1,22 +1,56 @@
-﻿.categories-container {
-/*    background-color: grey;
-*/    padding-right: 7%;
-    padding-left: 7%;
+﻿.carousel {
+    padding-top: 2%;
+    padding-right: 5%;
+    padding-left: 5%;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-image-overlay {
+    position: absolute;
+    top: 20%;
+    bottom: 45%;
+    left: 10%;
+    right: 10%;
+    background-color: transparent;
+    color: #fff;
+}
+
+.message {
+    font-size: 90px;
+}
+
+.categories-container {
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top: 5%;
+}
+
+.featured-items-container {
+    padding-bottom: 10%;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-top: 5%;
+}
+
+.header {
+    padding-bottom: 1%;
 }
 
 .category-container {
     transition: transform 0.2s ease-in-out;
     position: relative;
     overflow: hidden;
-    width: 300px; 
+    width: 300px;
     height: 200px;
-    margin-bottom: 100px;
-    margin: 7px;
     border-radius: 7px;
 }
-
     .category-container:hover {
-        transform: translateY(-5px); 
+        transform: translateY(-5px);
     }
 
 .category-image {
@@ -24,7 +58,7 @@
     height: 100%;
     object-fit: cover;
     border-radius: 7px;
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .category-overlay {
@@ -32,18 +66,52 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: transparent; 
+    background-color: transparent;
     color: #fff;
     padding: 8px;
     opacity: 1;
 }
 
-.category-name {
-    margin: 0;
+.featured-item-container {
+    transition: transform 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    width: 440px;
+    height: 600px;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+    .featured-item-container:hover {
+        transform: translateY(-5px);
+    }
+
+.featured-item-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 7px;
+    opacity: 0.9;
+}
+
+
+.featured-item-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.item-name {
     font-weight: bold;
 }
 
-.view-all {
-    color: darkgrey;
-    text-decoration: none;
+.item-price {
+    color: #888;
+}
+
+.add-to-cart-button {
+    margin-left: auto;
 }

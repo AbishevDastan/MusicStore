@@ -4,7 +4,6 @@ using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO;
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 using Microsoft.EntityFrameworkCore;
@@ -213,9 +212,12 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             return orderDetails;
         }
 
-        public async Task<bool> ApproveOrder(int orderId)
+        public async Task ApproveOrder(int orderId)
         {
-            var order = await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+            var order = await _dataContext.Orders
+                .Include(x => x.OrderItems)
+                .FirstOrDefaultAsync(x => x.Id == orderId);
+
             if (order == null)
             {
                 throw new NullReferenceException("The order is not found");
@@ -223,21 +225,18 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
 
             if (order.Status == OrderStatus.Approved)
             {
-                return false;
+                return;
             }
 
-            if (order != null && order.OrderItems != null)
+            order.Status = OrderStatus.Approved;
+
+            foreach (var orderItem in order.OrderItems)
             {
-                foreach (var orderItem in order.OrderItems)
-                {
-                    await _itemRepository.AddSale(orderItem.ItemId, orderItem.Quantity);
-                }
-                order.Status = OrderStatus.Approved;
-
-                 //_mapper.Map<OrderOverview>(order);
-                await _dataContext.SaveChangesAsync();
+                var item = await _dataContext.Items.FindAsync(orderItem.ItemId);
+                item.SoldQuantity += orderItem.Quantity;
+                await _itemRepository.UpdateItemForOrder(item);
             }
-            return true;
+            await _dataContext.SaveChangesAsync();
         }
 
         public async Task<int> GetOrdersCount()

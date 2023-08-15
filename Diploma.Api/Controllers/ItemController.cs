@@ -18,9 +18,14 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<ItemDto>> GetItems()
+        public async Task<ActionResult<List<ItemDto>>> GetItems()
         {
-            return await _itemRepository.GetItems();
+            var items = await _itemRepository.GetItems();
+            if(items == null)
+            {
+                return NotFound();
+            }
+            return Ok(items);
         }
 
         [HttpGet]

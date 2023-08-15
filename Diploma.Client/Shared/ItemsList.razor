@@ -4,85 +4,31 @@
 @inject ICategoryService _categoryService
 @implements IDisposable
 
-<div style="margin-top: 30px; margin-left: 20px;">
-    <MudText Typo="Typo.h4">PRODUCTS</MudText>
-</div>
-
 @if (_itemService.Items == null || _itemService.Items.Count == null)
 {
     <Loading />
 }
+
 else
 {
-
-    <div class="container">
-        <div class="categories-list">
-            <MudList>
-                @foreach (var category in _categoryService.Categories)
-                {
-                    <MudListItem>
-                        <MudButton Href="@category.Url">@category.Name</MudButton>
-                    </MudListItem>
-                }
-            </MudList>
+    <div class="items-container">
+        <div class="categories">
+            <h3>Categories</h3>
+            <ul>
+                <CategoriesNavMenu />
+            </ul>
         </div>
-        <div class="product-list">
+        <div class="items-list">
             @foreach (var item in _itemService.Items)
             {
-                <div class="product-item">
-                    <div class="product-image">
-                        <a href="/item/@item.Id">
-                            <img src="@item.ImageUrl" alt="@item.Name" />
-                        </a>
-                    </div>
+                <div class="item-card">
                     <a href="/item/@item.Id">
-                        <div class="product-name">@item.Name</div>
+                        <img src="@item.ImageUrl" alt="Item Image" class="item-image" />
+                        <h3>@item.Name</h3>
+                        <p>$@item.Price</p>
                     </a>
-                    <div class="product-price">@item.Price</div>
                 </div>
             }
         </div>
     </div>
 }
-
-<style>
-    .container {
-        display: flex;
-        height: 100vh;
-        justify-content: flex-start;
-    }
-
-    .product-list {
-        margin-top: 30px;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content:flex-start;
-    }
-
-    .categories-list {
-        width: 50px;
-        flex: 1;
-        margin-left: 0px;
-    }
-
-    .product-item {
-        width: 19%; 
-        padding: 10px;
-        box-sizing: border-box;
-        text-align: center;
-    }
-
-    .product-image img {
-        width: 200px;
-        height: 200px;
-    }
-
-    .product-name {
-        font-weight: bold;
-        margin-top: 5px;
-    }
-
-    .product-price {
-        color: #888;
-    }
-</style>

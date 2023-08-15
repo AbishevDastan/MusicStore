@@ -74,6 +74,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
             }
             return new List<string>(result);
         }
+
         public static ItemStockStatus GetStockStatus(int quantityInStock)
         {
             if (quantityInStock <= 5 && quantityInStock >= 1)
@@ -98,6 +99,12 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
                 item.SoldQuantity += quantity;
                 await _dataContext.SaveChangesAsync();
             }
+        }
+
+        public async Task UpdateItemForOrder(Item item)
+        {
+            _dataContext.Items.Update(item);
+            await _dataContext.SaveChangesAsync();
         }
 
         //Admin Panel

@@ -1,0 +1,10 @@
+﻿@inject IWishlistService _wishlistService
+@inject ISyncLocalStorageService SyncLocalStorageService
+@implements IDisposable
+
+<MudTooltip Text="My Wishlist">
+    <MudBadge Overlap="true" Content="GetWishlistItemsCount()">
+        <MudIconButton Href="wishlist" Icon="@Icons.Material.Filled.PlaylistAdd">
+        </MudIconButton>
+    </MudBadge>
+</MudTooltip>

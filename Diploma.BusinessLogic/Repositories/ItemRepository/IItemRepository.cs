@@ -19,6 +19,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         Task<List<ItemDto>> SearchItem(string searchText);
         Task<List<string>> GetItemSearchSuggestions(string searchText);
         Task AddSale(int itemId, int quantity);
+        Task UpdateItemForOrder(Item item);
 
         //Admin Panel
         Task<List<ItemDto>> GetAdminItems();

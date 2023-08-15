@@ -2,42 +2,37 @@
 @inject NavigationManager _navigationManager
 @inject ICategoryService _categoryService
 @inject IItemService _itemService
+@inject IWishlistService _wishlistService
+@inject ISnackbar _snackBar
 
 <div style="width: 100vw;">
-    <MudGrid>
-        <MudItem xs="12" md="4">
-            <div style="margin-top: 100px; margin-bottom: 100px; margin-left: 100px;">
-                <h1>YOUR MELODY, OUR INSTRUMENTS</h1>
-@*                 <MudButton Variant="Variant.Outlined" Color="Color.Dark" @onclick="GoToCategories">Go to Categories</MudButton>
- *@            </div>
-        </MudItem>
-        <MudItem xs="12" md="8">
-            <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows=" true" AutoCycle="true" TData="string">
-                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                    <a href="/crypto">
-                        <img src="/images/random.jpg" alt="Italian Trulli">
-                    </a>
-                </MudCarouselItem>
-                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                    <a href="/crypto">
-                        <img src="/images/random.jpg" alt="Italian Trulli">
-                    </a>
-                </MudCarouselItem>
-                <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                    <a href="/crypto">
-                        <img src="/images/random.jpg" alt="Italian Trulli">
-                    </a>
-                </MudCarouselItem>
-            </MudCarousel>
-        </MudItem>
-    </MudGrid>
+    <div class="carousel">
+        <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="false" ShowBullets="false" AutoCycle="true" TData="string">
+            <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                <a href="/crypto">
+                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
+                    <div class="carousel-image-overlay">
+                        <h1 class="message">Level up your style with our summer collections</h1>
+                    </div>
+                </a>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                <a href="/crypto">
+                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
+                </a>
+            </MudCarouselItem>
+            <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+                <a href="/crypto">
+                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
+                </a>
+            </MudCarouselItem>
+        </MudCarousel>
+    </div>
 </div>
-
-
 <div class="categories-container">
-@*     <div style="padding-right: 100px; margin-bottom: 30px; padding-top: 30px;">
-        <h1 style="color: black;">CATEGORIES</h1>
-    </div> *@
+    <div class="header">
+        <h1>Categories</h1>
+    </div>
     <MudGrid>
         @foreach (var category in _categoryService.Categories)
         {
@@ -46,11 +41,33 @@
                     <a href="@category.Url">
                         <img src="@category.ImageUrl" alt="@category.Name" class="category-image" />
                         <div class="category-overlay">
-                            <p class="category-name">@category.Name</p>
-                            <p class="view-all">View all</p>
+                            <MudButton Class="category-name">Shop @category.Name</MudButton>
                         </div>
                     </a>
                 </div>
+            </MudItem>
+        }
+    </MudGrid>
+</div>
+<div class="featured-items-container">
+    <div class="header">
+        <h1>Featured products</h1>
+    </div>
+    <MudGrid>
+        @foreach (var item in _itemService.Items)
+        {
+            <MudItem xs="12" sm="6" md="4">
+                <div class="featured-item-container">
+                    <a href="item/@item.Id">
+                        <img src="@item.ImageUrl" alt="@item.Name" class="featured-item-image" />
+                        <div class="product-details">
+                            <div class="item-name">@item.Name</div>
+                            <div class="item-price">$@item.Price</div>
+                        </div>
+                        <MudIconButton Class="add-to-cart-button" Icon="@Icons.Material.Filled.AddShoppingCart"></MudIconButton>
+                    </a>
+@*                     <MudIconButton Class="add-to-cart-button" OnClick="AddItemToWishlist" Icon="@Icons.Material.Filled.Coffee"></MudIconButton>
+ *@                </div>
             </MudItem>
         }
     </MudGrid>

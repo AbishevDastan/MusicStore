@@ -1,4 +1,5 @@
-﻿using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
+﻿using AutoMapper;
+using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
 using Diploma.DTO.Cart;
@@ -9,28 +10,29 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
     public class CartRepository : ICartRepository
     {
         private readonly DataContext _dataContext;
+        private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
-        //private readonly IUserRepository _userRepository;
 
-        public CartRepository(DataContext dataContext, IUserContext userContext)
+        public CartRepository(DataContext dataContext, IMapper mapper, IUserContext userContext)
         {
             _dataContext = dataContext;
+            _mapper = mapper;
             _userContext = userContext;
-            //_userRepository = userRepository;
         }
 
         public async Task<bool> AddCartItemsToDatabase(CartItem cartItem)
         {
             cartItem.UserId = _userContext.GetUserId();
-            var theSameItem = await _dataContext.CartItems
+            var existingItem = await _dataContext.CartItems
                 .FirstOrDefaultAsync(ci => ci.ItemId == cartItem.ItemId && ci.UserId == cartItem.UserId);
-            if (theSameItem == null)
+
+            if (existingItem == null)
             {
                 _dataContext.CartItems.Add(cartItem);
             }
             else
             {
-                theSameItem.Quantity += cartItem.Quantity;
+                existingItem.Quantity += cartItem.Quantity;
             }
 
             await _dataContext.SaveChangesAsync();
@@ -50,7 +52,7 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 
         public async Task<List<AddItemToCartDto>> GetCartItemsLocally(List<CartItem> cartItems)
         {
-            var result = new List<AddItemToCartDto>();
+            var addedCartItems = new List<AddItemToCartDto>();
 
             foreach (var cartItem in cartItems)
             {
@@ -69,9 +71,9 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
                     Price = item.Price,
                 };
 
-                result.Add(addedCartItem);
+                addedCartItems.Add(addedCartItem);
             }
-            return result;
+            return addedCartItems;
         }
 
         public async Task<int> GetNumberOfCartItems()
@@ -83,7 +85,10 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
 
         public async Task<List<AddItemToCartDto>> PostCartItemsToDatabase(List<CartItem> cartItems)
         {
-            cartItems.ForEach(ci => ci.UserId = _userContext.GetUserId());
+            foreach (var cartItem in cartItems)
+            {
+                cartItem.UserId = _userContext.GetUserId();
+            }
 
             _dataContext.CartItems.AddRange(cartItems);
             await _dataContext.SaveChangesAsync();

@@ -1,7 +1,8 @@
 ﻿@page "/item/{id:int}"
 @using Diploma.DTO.Item;
-@inject ICartService CartService
-@inject IItemService ItemService
+@inject ICartService _cartService
+@inject IItemService _itemService
+@inject IWishlistService _wishlistService
 @inject ISnackbar _snackBar
 
 @if (itemDto == null)
@@ -13,61 +14,75 @@
 else
 {
     <div class="container-0">
-    <MudGrid>
-        <MudItem lg="3" md="6" sm="12">
-            <div class="flex-container">
-                <div class="centered-content">
-                    <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name" Height="300" Width="300" />
+        <MudGrid>
+            <MudItem lg="3" md="6" sm="12">
+                <div class="flex-container">
+                    <div class="centered-content">
+                        <MudImage Src="@itemDto.ImageUrl" Alt="@itemDto.Name" Height="300" Width="300" />
+                    </div>
                 </div>
-            </div>
-        </MudItem>
-        <MudItem lg="6" md="6" sm="12">
-            <MudPaper Class="pa-4">
-                <MudItem md="12" sm="12">
-                    <div class="container-1">
+            </MudItem>
+            <MudItem lg="6" md="6" sm="12">
+                <MudPaper Class="pa-4">
+                    <MudItem md="12" sm="12">
+                        <div class="container-1">
+                            <div class="left">
+                                <MudText Typo="Typo.h3">@itemDto.Name</MudText>
+                                @*                                 <MudToggleIconButton @bind-Toggled="@isInWishlist"
+                            Icon="@Icons.Material.Filled.FavoriteBorder" Color="@Color.Dark" Title="Off" @onclick="ToggleWishlist"
+                            ToggledIcon="@Icons.Material.Filled.Favorite" ToggledColor="@Color.Error" ToggledTitle="On" /> *@
+
+@*                                 @if (isInWishlist)
+                                {
+                                    <MudIconButton OnClick="() => DeleteFromWishlist(itemDto.Id)" Color="Color.Error" Icon="@Icons.Material.Filled.Favorite"></MudIconButton>
+                                }
+                                else
+                                {
+                                    <MudIconButton OnClick="() => AddToWishlist()" Color="Color.Default" Icon="@Icons.Material.Filled.FavoriteBorder"></MudIconButton>
+                                } *@
+
+                            </div>
+                            <div class="right">
+                                <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                            </div>
+                        </div>
+                    </MudItem>
+                    <MudDivider />
+                    <MudText Typo="Typo.body1">@itemDto.Description</MudText>
+                    <div class="container-2">
                         <div class="left">
-                            <MudText Typo="Typo.h3">@itemDto.Name</MudText>
+                            @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
+                            {
+                                <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
+                                    Add to Shopping Cart
+                                </MudButton>
+                            }
+                            else
+                            {
+                                <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
+                                    Add to Shopping Cart
+                                </MudButton>
+                            }
+
                         </div>
                         <div class="right">
-                            <MudText Typo="Typo.h5">$@itemDto.Price</MudText>
+                            @if (itemDto.StockStatus == ItemStockStatus.InStock)
+                            {
+                                <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">In stock (@itemDto.QuantityInStock left)</MudText>
+                            }
+                            else if (itemDto.StockStatus == ItemStockStatus.LowStock)
+                            {
+                                <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Low in stock (@itemDto.QuantityInStock left)</MudText>
+                            }
+                            else
+                            {
+                                <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Out of stock (@itemDto.QuantityInStock left)</MudText>
+                            }
                         </div>
                     </div>
-                </MudItem>
-                <MudDivider />
-                <MudText Typo="Typo.body1">@itemDto.Description</MudText>
-                <div class="container-2">
-                    <div class="left">
-                        @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
-                        {
-                            <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
-                                Add to Shopping Cart
-                            </MudButton>
-                        }
-                        else
-                        {
-                            <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
-                                Add to Shopping Cart
-                            </MudButton>
-                        }
-                    </div>
-                    <div class="right">
-                        @if (itemDto.StockStatus == ItemStockStatus.InStock)
-                        {
-                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">In stock (@itemDto.QuantityInStock left)</MudText>
-                        }
-                        else if (itemDto.StockStatus == ItemStockStatus.LowStock)
-                        {
-                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Low in stock (@itemDto.QuantityInStock left)</MudText>
-                        }
-                        else
-                        {
-                            <MudText Style="margin-left: 10px;" Typo="Typo.body1" Color="Color.Dark">Out of stock (@itemDto.QuantityInStock left)</MudText>
-                        }
-                    </div>
-                </div>
-            </MudPaper>
-        </MudItem>
-    </MudGrid>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
     </div>
 }
 

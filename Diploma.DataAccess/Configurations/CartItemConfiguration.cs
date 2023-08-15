@@ -8,12 +8,11 @@ namespace Diploma.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<CartItem> builder)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
+            builder.HasKey(o => new { o.UserId, o.ItemId });
 
-            builder.Property(x => x.ItemId);
-            builder.Property(x => x.UserId);
             builder.Property(x => x.Quantity);
+            builder.Property(x => x.UserId);
+            builder.Property(x => x.ItemId);
 
             builder.ToTable("CartItems");
         }

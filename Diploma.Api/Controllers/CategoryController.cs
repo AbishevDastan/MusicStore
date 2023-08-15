@@ -17,25 +17,40 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<CategoryDto>> GetCategories()
+        public async Task<ActionResult<List<CategoryDto>>> GetCategories()
         {
-            return await _categoryRepository.GetCategories();
+            var categories = await _categoryRepository.GetCategories();
+            if(categories == null)
+            {
+                return NotFound();
+            }
+            return Ok(categories);
         }
 
         [HttpGet]
         [Route("{id}")]
-        public async Task<CategoryDto?> GetCategory(int id)
+        public async Task<ActionResult<CategoryDto?>> GetCategory(int id)
         {
-            return await _categoryRepository.GetCategory(id);
+            var category = await _categoryRepository.GetCategory(id);
+            if(category == null)
+            {
+                return NotFound();
+            }
+            return Ok(category);
         }
 
         //Admin Panel
         [HttpGet]
         [Route("admin")]
         [Authorize(Roles = "Admin")]
-        public async Task<List<CategoryDto>> GetAdminCategories()
+        public async Task<ActionResult<List<CategoryDto>>> GetAdminCategories()
         {
-            return await _categoryRepository.GetAdminCategories();
+            var adminCategory = await _categoryRepository.GetAdminCategories();
+            if(adminCategory == null)
+            {
+                return NotFound();
+            }
+            return Ok(adminCategory);
         }
 
         [HttpPost]
