@@ -16,44 +16,44 @@ namespace Diploma.Api.Controllers
             _wishListRepository = wishListRepository;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<List<AddItemToWishlistDto>>> GetWishlistItemsFromDatabase()
-        //{
-        //    return Ok(await _wishListRepository.GetWishlistItemsFromDatabase());
-        //}
+        [HttpGet]
+        public async Task<ActionResult<List<AddItemToWishlistDto>>> GetWishlistItemsFromDatabase()
+        {
+            return Ok(await _wishListRepository.GetWishlistItemsFromDatabase());
+        }
 
-        //[HttpPost]
-        //public async Task<ActionResult<List<AddItemToWishlistDto>>> PostCartItemsToDatabase(List<WishlistItem> wishlistItems)
-        //{
-        //    return Ok(await _wishListRepository.PostWishlistItemsToDatabase(wishlistItems));
-        //}
+        [HttpPost]
+        public async Task<ActionResult<List<AddItemToWishlistDto>>> PostWishlistItemsToDatabase(List<WishlistItem> wishlistItems)
+        {
+            return Ok(await _wishListRepository.PostWishlistItemsToDatabase(wishlistItems));
+        }
 
-        //[HttpPost]
-        //[Route("add")]
-        //public async Task<ActionResult<List<bool>>> AddWishlistItemToDatabase(WishlistItem wishlistItem)
-        //{
-        //    return Ok(await _wishListRepository.AddWishlistItemsToDatabase(wishlistItem));
-        //}
+        [HttpPost]
+        [Route("add")]
+        public async Task<ActionResult<List<bool>>> AddWishlistItemToDatabase(WishlistItem wishlistItem)
+        {
+            return Ok(await _wishListRepository.AddWishlistItemsToDatabase(wishlistItem));
+        }
 
-        //[HttpDelete]
-        //[Route("{itemId}")]
-        //public async Task<ActionResult<List<AddItemToWishlistDto>>> RemoveWishlistItemFromDatabase(int itemId)
-        //{
-        //    return Ok(await _wishListRepository.RemoveWishlistItemsFromDatabase(itemId));
-        //}
+        [HttpDelete]
+        [Route("{itemId}")]
+        public async Task<ActionResult<List<AddItemToWishlistDto>>> RemoveWishlistItemFromDatabase(int itemId)
+        {
+            return Ok(await _wishListRepository.RemoveWishlistItemsFromDatabase(itemId));
+        }
 
-        //[HttpPost]
-        //[Route("items")]
-        //public async Task<ActionResult<List<AddItemToWishlistDto>>> GetWishlistItemsLocally([FromBody] List<WishlistItem> wishlistItems)
-        //{
-        //    return Ok(await _wishListRepository.GetWishlistItemsLocally(wishlistItems));
-        //}
+        [HttpPost]
+        [Route("items")]
+        public async Task<ActionResult<List<AddItemToWishlistDto>>> GetWishlistItemsLocally([FromBody] List<WishlistItem> wishlistItems)
+        {
+            return Ok(await _wishListRepository.GetWishlistItemsLocally(wishlistItems));
+        }
 
-        //[HttpGet]
-        //[Route("wishlist-items-count")]
-        //public async Task<int> GetNumberOfCartItems()
-        //{
-        //    return await _wishListRepository.GetNumberOfWishlistItems();
-        //}
+        [HttpGet]
+        [Route("wishlist-items-count")]
+        public async Task<int> GetNumberOfCartItems()
+        {
+            return await _wishListRepository.GetNumberOfWishlistItems();
+        }
     }
 }

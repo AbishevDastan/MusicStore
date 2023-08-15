@@ -2,6 +2,7 @@
 using Diploma.Client.Pages;
 using Diploma.Client.Services.AuthenticationService;
 using Diploma.Domain.Entities;
+using Diploma.DTO.Cart;
 using Diploma.DTO.Wishlist;
 using System.Net.Http.Json;
 
@@ -25,12 +26,7 @@ namespace Diploma.Client.Services.WishlistService
         public async Task<bool> IsInWishlist(int itemId)
         {
             var wishlist = await _storage.GetItemAsync<List<WishlistItem>>("wishlist");
-            //if (wishlist == null)
-            //{
-            //    return false;
-            //}
-            //else
-            //{
+
                 var wishlistItem = wishlist.Find(i => i.ItemId == itemId);
                 if (wishlistItem == null)
                 {
@@ -40,10 +36,9 @@ namespace Diploma.Client.Services.WishlistService
                 {
                     return true;
                 }
-            //}
         }
 
-        public async Task AddItemToWishlist(WishlistItem wishlistItem)
+         public async Task AddItemToWishlist(WishlistItem wishlistItem)
         {
             if (await _authenticationService.IsAuthenticated())
             {
@@ -57,11 +52,15 @@ namespace Diploma.Client.Services.WishlistService
                     wishlist = new List<WishlistItem>();
                 }
 
-                var theSameItem = wishlist.Find(i => i.ItemId == wishlistItem.ItemId);
+                var existingItem = wishlist.Find(i => i.ItemId == wishlistItem.ItemId);
 
-                if (theSameItem == null)
+                if (existingItem == null)
                 {
                     wishlist.Add(wishlistItem);
+                }
+                else
+                {
+                    return;
                 }
 
                 await _storage.SetItemAsync("wishlist", wishlist);
@@ -89,7 +88,6 @@ namespace Diploma.Client.Services.WishlistService
                     await _storage.SetItemAsync("wishlist", wishlist);
                 }
             }
-            await GetNumberOfWishlistItems();
         }
 
         public async Task<List<AddItemToWishlistDto>> GetWishlistItemsLocally()
@@ -120,7 +118,7 @@ namespace Diploma.Client.Services.WishlistService
             else
             {
                 var wishlist = await _storage.GetItemAsync<List<WishlistItem>>("wishlist");
-                await _storage.SetItemAsync<int>("wishlistItemsCount", wishlist == null ? 0 : wishlist.Count);
+                await _storage.SetItemAsync<int>("wishlistItemsCount", wishlist != null ? wishlist.Count : 0);
             }
             OnChange.Invoke();
         }
@@ -132,10 +130,8 @@ namespace Diploma.Client.Services.WishlistService
             {
                 return;
             }
-            else
-            {
-                await _httpClient.PostAsJsonAsync("api/wishlist", wishlist);
-            }
+
+            await _httpClient.PostAsJsonAsync("api/wishlist", wishlist);
 
             if (clearWishlistLocally)
             {
