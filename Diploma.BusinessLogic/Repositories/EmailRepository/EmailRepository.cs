@@ -19,7 +19,7 @@ namespace Diploma.BusinessLogic.Repositories.EmailRepository
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
-            email.To.Add(MailboxAddress.Parse(request.To));
+            email.To.Add(new MailboxAddress("", request.To));
             email.Subject = request.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = request.Body };
 

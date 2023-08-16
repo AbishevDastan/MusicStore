@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
 using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.BusinessLogic.Repositories.CartRepository;
+using Diploma.BusinessLogic.Repositories.EmailRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
+using Diploma.BusinessLogic.Repositories.UserRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
+using Diploma.DTO.Email;
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
@@ -17,14 +21,25 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         private readonly IUserContext _userContext;
         private readonly IItemRepository _itemRepository;
         private readonly IMapper _mapper;
+        private readonly IUserRepository _userRepository;
+        private readonly IEmailRepository _emailRepository;
 
-        public OrderRepository(DataContext dataContext, ICartRepository cartRepository, IUserContext userContext, IItemRepository itemRepository, IMapper mapper)
+        public OrderRepository(
+            DataContext dataContext,
+            ICartRepository cartRepository,
+            IUserContext userContext,
+            IItemRepository itemRepository,
+            IMapper mapper,
+            IUserRepository userRepository,
+            IEmailRepository emailRepository)
         {
             _dataContext = dataContext;
             _cartRepository = cartRepository;
             _userContext = userContext;
             _itemRepository = itemRepository;
             _mapper = mapper;
+            _userRepository = userRepository;
+            _emailRepository = emailRepository;
         }
 
         public async Task<OrderDetails> GetOrderDetails(int orderId)
@@ -237,6 +252,22 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 await _itemRepository.UpdateItemForOrder(item);
             }
             await _dataContext.SaveChangesAsync();
+
+            var user = await _userRepository.GetUser(order.UserId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            else
+            {
+                var email = new EmailDto()
+                {
+                    To = user.Email,
+                    Subject = "Order Approved",
+                    Body = $"Your order with ID {order.Id} has been approved. Thank you for shopping with us!"
+                };
+                _emailRepository.SendEmail(email);
+            }
         }
 
         public async Task<int> GetOrdersCount()
