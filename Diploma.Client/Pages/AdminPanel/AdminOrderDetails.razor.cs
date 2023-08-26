@@ -11,7 +11,7 @@ namespace Diploma.Client.Pages.AdminPanel
 
         protected override async Task OnInitializedAsync()
         {
-            order = await _orderService.GetOrderDetailsForAdmin(OrderId);
+            order = await OrderService.GetOrderDetailsForAdmin(OrderId);
         }
     }
 }

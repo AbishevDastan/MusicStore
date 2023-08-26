@@ -2,19 +2,21 @@
 @attribute [Authorize(Roles = "Admin")]
 @inject IItemService _itemService
 
-<h3>Product statistics</h3>
+<h3 style="padding-top: 3%; padding-left: 3%;">Product statistics</h3>
 
-<MudTable Items="@items" Sortable="true">
-    <HeaderContent>
-        <MudTh SortLabel="Name">Product Name</MudTh>
-        <MudTh SortLabel="Price">Price</MudTh>
-        <MudTh SortLabel="QuantityInStock">Quantity in Stock</MudTh>
-        <MudTh SortLabel="SoldQuantity">Sold Quantity</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd>@context.Name</MudTd>
-        <MudTd>@context.Price</MudTd>
-        <MudTd>@context.QuantityInStock</MudTd>
-        <MudTd>@context.SoldQuantity</MudTd>
-    </RowTemplate>
-</MudTable>
+<MudContainer Class="page-container" Style="padding-top: 3%;">
+    <MudTable Items="@items" Sortable="true">
+        <HeaderContent>
+            <MudTh SortLabel="Name">Product Name</MudTh>
+            <MudTh SortLabel="Price">Price</MudTh>
+            <MudTh SortLabel="QuantityInStock">Quantity in Stock</MudTh>
+            <MudTh SortLabel="SoldQuantity">Sold Quantity</MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd>@context.Name</MudTd>
+            <MudTd>@context.Price</MudTd>
+            <MudTd>@context.QuantityInStock</MudTd>
+            <MudTd>@context.SoldQuantity</MudTd>
+        </RowTemplate>
+    </MudTable>
+</MudContainer>

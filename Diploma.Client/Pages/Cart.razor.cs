@@ -11,6 +11,9 @@ namespace Diploma.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await LoadCart();
+            _breadcrumbService.ClearBreadcrumbs();
+            _breadcrumbService.AddBreadcrumb("Home", "/");
+            _breadcrumbService.AddBreadcrumb("Cart", "/cart");
         }
 
         private async Task DeleteItemFromCart(int itemId)
@@ -39,10 +42,9 @@ namespace Diploma.Client.Pages
 
         }
 
-        private async Task PlaceOrder()
+        public void ProceedToCheckout()
         {
-            await _orderService.PlaceOrder();
-            _navigationManager.NavigateTo("/orders");
+            _navigationManager.NavigateTo("/checkout");
         }
     }
 }

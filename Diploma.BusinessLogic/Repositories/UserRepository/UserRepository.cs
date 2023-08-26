@@ -1,4 +1,5 @@
 ﻿using Diploma.BusinessLogic.AuthenticationHandlers.HashManager;
+using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
 using Diploma.DataAccess;
 using Diploma.Domain;
 using Diploma.Domain.Entities;
@@ -13,12 +14,14 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
         private readonly DataContext _dataContext;
         private readonly IHashManager _hashManager;
         private readonly IHttpContextAccessor _accessor;
+        private readonly IUserContext _userContext;
 
-        public UserRepository(DataContext dataContext, IHashManager hashManager, IHttpContextAccessor accessor)
+        public UserRepository(DataContext dataContext, IHashManager hashManager, IHttpContextAccessor accessor, IUserContext userContext)
         {
             _dataContext = dataContext;
             _hashManager = hashManager;
             _accessor = accessor;
+            _userContext = userContext;
         }
         public async Task<ResponseFromServer<bool>> ChangePassword(int userId, string newPassword)
         {
@@ -80,6 +83,12 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
         public async Task<User> GetUser(int userId)
         {
              return await _dataContext.Users.FindAsync(userId);
+        }
+
+        public async Task<User> GetCurrentUser(int userId)
+        {
+            userId = _userContext.GetUserId();
+            return await _dataContext.Users.FindAsync(userId);
         }
     }
 }

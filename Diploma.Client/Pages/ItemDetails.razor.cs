@@ -1,5 +1,7 @@
 ﻿using Diploma.Domain.Entities;
+using Diploma.DTO.Cart;
 using Diploma.DTO.Item;
+using Diploma.DTO.Wishlist;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
@@ -11,11 +13,18 @@ namespace Diploma.Client.Pages
         public int Id { get; set; }
         private ItemDto? itemDto { get; set; } = new ItemDto();
         private bool showSnackbar;
-        private bool isInWishlist = false;
+        bool isInWishlist;
 
+        protected override async Task OnInitializedAsync()
+        {
+            isInWishlist = await WishlistService.IsInWishlist(itemDto.Id);
+            BreadcrumbService.ClearBreadcrumbs();
+            BreadcrumbService.AddBreadcrumb("Home", "/");
+            BreadcrumbService.AddBreadcrumb("Product Details", "#");
+        }
         protected override async Task OnParametersSetAsync()
         {
-            itemDto = await _itemService.GetItem(Id);
+            itemDto = await ItemService.GetItem(Id);
         }
 
         private async Task AddItemToCart()
@@ -25,8 +34,26 @@ namespace Diploma.Client.Pages
                 ItemId = itemDto.Id,
             };
 
-            await _cartService.AddItemToCart(cartItem);
+            await CartService.AddItemToCart(cartItem);
             showSnackbar = true;
+        }
+
+        private async Task ToggleWishlist()
+        {
+            if (isInWishlist)
+            {
+                await WishlistService.DeleteItemFromWishlist(itemDto.Id);
+            }
+            else
+            {
+                var wishlistItem = new WishlistItem
+                {
+                    ItemId = itemDto.Id,
+                };
+
+                await WishlistService.AddItemToWishlist(wishlistItem);
+            }
+            isInWishlist = !isInWishlist;
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -35,7 +62,7 @@ namespace Diploma.Client.Pages
 
             if (showSnackbar)
             {
-                _snackBar.Add("The item was successfully added to the Shopping Cart!", Severity.Success);
+                SnackBar.Add("The item was successfully added to the Shopping Cart!", Severity.Success);
                 showSnackbar = false;
             }
         }

@@ -1,8 +1,15 @@
 ﻿@page "/contact"
+@inject IBreadcrumbService _breadcrumbService
 
-@using MudBlazor
-
-<MudContainer>
+<div class="breadcrumbs-container">
+    <ul class="breadcrumbs">
+        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        {
+            <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
+        }
+    </ul>
+</div>
+<MudContainer Class="page-container">
     <MudText Typo="Typo.h3" Class="mb-3">Contact Us</MudText>
 
     <!-- Contact Information -->

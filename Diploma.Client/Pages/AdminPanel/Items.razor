@@ -3,36 +3,37 @@
 @inject IItemService ItemService
 @inject NavigationManager NavigationManager
 
+<MudContainer Class="page-container" Style="padding-top: 3%;">
+    <MudTable Items="ItemService.AdminItems" Hover="true" Bordered="true">
+        <ToolBarContent>
+            <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="CreateNewItem">
+                Create New Item
+            </MudButton>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>Description</MudTh>
+            <MudTh>Price</MudTh>
+            <MudTh>Image URL</MudTh>
+            <MudTh>Category</MudTh>
+            <MudTh>Quantity in stock</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Description">@context.Description</MudTd>
+            <MudTd DataLabel="Price">@context.Price</MudTd>
+            <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
+            <MudTd DataLabel="Category">@context.CategoryId</MudTd>
+            <MudTd DataLabel="QuantityInStock">@context.QuantityInStock</MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowItem(context.Id))">
+                </MudIconButton>
+            </MudTd>
+        </RowTemplate>
 
-<MudTable Items="ItemService.AdminItems" Hover="true" Bordered="true">
-    <ToolBarContent>
-        <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="CreateNewItem">
-            Create New Item
-        </MudButton>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Name</MudTh>
-        <MudTh>Description</MudTh>
-        <MudTh>Price</MudTh>
-        <MudTh>Image URL</MudTh>
-        <MudTh>Category</MudTh>
-        <MudTh>Quantity in stock</MudTh>
-        <MudTh></MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Description">@context.Description</MudTd>
-        <MudTd DataLabel="Price">@context.Price</MudTd>
-        <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
-        <MudTd DataLabel="Category">@context.CategoryId</MudTd>
-        <MudTd DataLabel="QuantityInStock">@context.QuantityInStock</MudTd>
-        <MudTd>
-            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowItem(context.Id))">
-            </MudIconButton>
-        </MudTd>
-    </RowTemplate>
-
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</MudContainer>

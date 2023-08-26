@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Diploma.DTO.User
 {
@@ -11,7 +6,7 @@ namespace Diploma.DTO.User
     {
         [Required]
         public string Email { get; set; } = string.Empty;
-        [Required]
+        [Required(ErrorMessage = "The password is required!")]
         public string Password { get; set; } = string.Empty;
     }
 }

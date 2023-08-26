@@ -1,13 +1,22 @@
 ﻿@page "/cart"
 @inject IOrderService _orderService
 @inject ICartService _cartService
+@inject IBreadcrumbService _breadcrumbService
 @inject NavigationManager _navigationManager
 
+<div class="breadcrumbs-container">
+    <ul class="breadcrumbs">
+        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        {
+            <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
+        }
+    </ul>
+</div>
 <div style="margin-top: 30px; margin-left: 20px;">
     <MudText Typo="Typo.h4">SHOPPING CART</MudText>
 </div>
 
-<div style="margin-top: 30px;">
+<div class="page-container">
     @if (addedCartItems == null || addedCartItems.Count == 0)
     {
         <span>@message</span>
@@ -54,41 +63,8 @@
             </div>
 
             <div class="place-order-button">
-                <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick=" PlaceOrder">Place an Order</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout">Go to Checkout</MudButton>
             </div>
         </div>
     }
 </div>
-
-<style>
-    .item-box {
-        padding: 5px;
-        display: flex;
-        align-items: center;
-    }
-
-    .item-image {
-        max-width: 100px;
-        max-height: 100px;
-        margin-right: 10px;
-    }
-
-    .item-name {
-        flex: 1;
-    }
-
-    .total-price {
-        margin-top: 30px;
-        margin-bottom: 20px;
-        text-align: right;
-        font-size: 18px;
-        margin-right: 40px;
-    }
-
-    .place-order-button {
-        margin-bottom: 10px;
-        text-align: right;
-        margin-top: 15px;
-        margin-right: 40px;
-    }
-</style>

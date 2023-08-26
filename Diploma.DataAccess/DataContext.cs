@@ -19,6 +19,7 @@ namespace Diploma.DataAccess
             new OrderItemConfiguration().Configure(modelBuilder.Entity<OrderItem>());
             new CartItemConfiguration().Configure(modelBuilder.Entity<CartItem>());
             new WishlistItemConfiguration().Configure(modelBuilder.Entity<WishlistItem>());
+            new DeliveryInformationConfiguration().Configure(modelBuilder.Entity<DeliveryInformation>());
         }
 
         public DbSet<User> Users { get; set; }
@@ -28,5 +29,6 @@ namespace Diploma.DataAccess
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<DeliveryInformation> DeliveryInformations { get; set; }
     }
 }

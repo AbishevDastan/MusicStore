@@ -1,11 +1,13 @@
 ﻿@inject ILocalStorageService LocalStorageService
 @inject ICartService CartService
+@inject IWishlistService WishlistService
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
 <MudMenu IconColor="Color.Dark" Icon="@Icons.Material.Filled.Person">
     <AuthorizeView>
         <Authorized>
+            <MudMenuItem Href="profile">My Profile</MudMenuItem>
             <MudMenuItem Href="orders">My Orders</MudMenuItem>
             <MudMenuItem Href="change-password">Change Password</MudMenuItem>
             <MudMenuItem OnClick="Logout">Logout</MudMenuItem>

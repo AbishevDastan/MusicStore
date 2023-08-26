@@ -2,6 +2,7 @@
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Http;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.OrderService
@@ -20,6 +21,7 @@ namespace Diploma.Client.Services.OrderService
             _authenticationService = authenticationService;
         }
 
+        public event Action OrdersChanged;
         public List<OrderOverview> Orders { get; set; }
 
         public async Task<OrderDetails> GetOrderDetails(int orderId)
@@ -42,6 +44,7 @@ namespace Diploma.Client.Services.OrderService
         public async Task ApproveOrder(int orderId)
         {
             await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
+            //_navigationManager.NavigateTo("/orders/admin");
         }
         public async Task<int> GetOrdersCount()
         {

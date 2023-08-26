@@ -7,7 +7,7 @@ namespace Diploma.Client.Pages
     {
         [Parameter]
         public int OrderId { get; set; }
-        DTO.Orders.OrderDetails order = null;
+        DTO.Orders.OrderDetails order = new DTO.Orders.OrderDetails();
 
         protected override async Task OnInitializedAsync()
         {

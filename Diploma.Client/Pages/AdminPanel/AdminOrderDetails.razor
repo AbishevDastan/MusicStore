@@ -1,10 +1,8 @@
 ﻿@page "/order/admin/{orderId:int}"
 @page "/order/admin"
 @attribute [Authorize(Roles = "Admin")]
-@inject IOrderService _orderService
-@inject NavigationManager _navigationManager
-
-<MudText Variant="TypoVariant.H4">Order Details</MudText>
+@inject IOrderService OrderService
+@inject NavigationManager NavigationManager
 
 @if (order == null)
 {
@@ -12,26 +10,43 @@
 }
 else
 {
-    <h3>Order from @order.OrderDate</h3>
 
-    <div>
-        @foreach (var item in order.Items)
-        {
-            <div class="container">
-                <div class="image-wrapper">
-                    <img src="@item.ImageUrl" class="image" />
-                </div>
-                <div class="name">
-                    <h5><a href="/item/@item.ItemId">@item.Name</a></h5>
-                    <span>Quantity: @item.Quantity</span>
-                </div>
-                <div class="product-price">$@item.TotalPrice</div>
-@*                <MudButton OnClick="CancelOrder" Color="Color.Error">Cancel an Order</MudButton>
-*@            </div>
-        }
-        <div class="product-price">
-            5
-            Total: $@order.TotalPrice
-        </div>
-    </div>
+    <h3 style="padding-top: 3%; padding-left: 2%;">Order from @order.OrderDate</h3>
+
+    <MudContainer Class="page-container" Style="margin-left: 0;">
+        <MudGrid>
+            <MudItem xs="12" md="6">
+                <MudTable Items="@order.Items">
+                    <HeaderContent>
+                        <MudTh>ORDER ITEMS</MudTh>
+                        <MudTh>QUANTITY</MudTh>
+                        <MudTh></MudTh>
+                    </HeaderContent>
+                    <RowTemplate>
+                        <MudTd>
+                            <div class="item-box">
+                                <img src="@context.ImageUrl" class="item-image" />
+                                <div class="item-name">
+                                    <MudText Typo="Typo.h5">
+                                        <a href="/item/@context.ItemId">@context.Name</a>
+                                    </MudText>
+                                </div>
+                            </div>
+                        </MudTd>
+                        <MudTd>@context.Quantity</MudTd>
+                    </RowTemplate>
+                </MudTable>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudPaper Class="mud-p-2">
+                    <div class="order-info">
+                        <h2 style="padding-top: 1%; padding-bottom: 1%;">Order Summary</h2>
+                        <MudText Typo="Typo.body1">Order ID: @OrderId</MudText>
+                        <MudText Typo="Typo.body1">Date: @order.OrderDate</MudText>
+                        <MudText Typo="Typo.body1">Total Price: $@order.TotalPrice</MudText>
+                    </div>
+                </MudPaper>
+            </MudItem>
+        </MudGrid>
+    </MudContainer>
 }

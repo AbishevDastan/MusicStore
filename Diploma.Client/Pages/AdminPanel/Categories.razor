@@ -3,31 +3,32 @@
 @inject ICategoryService CategoryService
 @inject NavigationManager NavigationManager
 
+<MudContainer Class="page-container" Style="padding-top: 3%;">
+    <MudTable Items="CategoryService.AdminCategories" Hover="true" Bordered="true">
+        <ToolBarContent>
+            @*<MudText Typo="Typo.h6">Categories</MudText>*@
+            <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="CreateNewCategory">
+                Create New Category
+            </MudButton>
+        </ToolBarContent>
+        <HeaderContent>
+            <MudTh>Name</MudTh>
+            <MudTh>URL</MudTh>
+            <MudTh>Image URL</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            <MudTd DataLabel="Name">@context.Name</MudTd>
+            <MudTd DataLabel="Url">@context.Url</MudTd>
+            <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
+            <MudTd>
+                <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowCategory(context.Id))">
+                </MudIconButton>
+            </MudTd>
+        </RowTemplate>
 
-<MudTable Items="CategoryService.AdminCategories" Hover="true" Bordered="true">
-    <ToolBarContent>
-        @*<MudText Typo="Typo.h6">Categories</MudText>*@
-        <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="CreateNewCategory">
-            Create New Category
-        </MudButton>
-    </ToolBarContent>
-    <HeaderContent>
-        <MudTh>Name</MudTh>
-        <MudTh>URL</MudTh>
-        <MudTh>Image URL</MudTh>
-        <MudTh></MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        <MudTd DataLabel="Name">@context.Name</MudTd>
-        <MudTd DataLabel="Url">@context.Url</MudTd>
-        <MudTd DataLabel="ImageUrl">@context.ImageUrl</MudTd>
-        <MudTd>
-            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => ShowCategory(context.Id))">
-            </MudIconButton>
-        </MudTd>
-    </RowTemplate>
-
-    <PagerContent>
-        <MudTablePager />
-    </PagerContent>
-</MudTable>
+        <PagerContent>
+            <MudTablePager />
+        </PagerContent>
+    </MudTable>
+</MudContainer>

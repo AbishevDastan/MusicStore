@@ -37,13 +37,6 @@ namespace Diploma.Api.Controllers
             return await _orderRepository.PlaceOrder();
         }
 
-        //[HttpDelete]
-        //[Route("{orderId}")]
-        //public async Task<bool> CancelOrder(int orderId)
-        //{
-        //    return await _orderRepository.CancelOrder(orderId);
-        //}
-
         [HttpPut]
         [Route("{orderId}")]
         public async Task<bool> CancelOrder(int orderId)

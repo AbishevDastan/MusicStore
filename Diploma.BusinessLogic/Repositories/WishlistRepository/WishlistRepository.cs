@@ -28,7 +28,7 @@ namespace Diploma.BusinessLogic.Repositories.WishlistRepository
             }
             else
             {
-                return false; //Item is already in wishlist
+                throw new ApplicationException("This item is already in wishlist.");
             }
 
             await _dataContext.SaveChangesAsync();
@@ -80,8 +80,10 @@ namespace Diploma.BusinessLogic.Repositories.WishlistRepository
 
         public async Task<List<AddItemToWishlistDto>> PostWishlistItemsToDatabase(List<WishlistItem> wishlistItems)
         {
-            wishlistItems.ForEach(x => x.UserId = _userContext.GetUserId());
-
+            foreach (var wishlistItem in wishlistItems)
+            {
+                wishlistItem.UserId = _userContext.GetUserId();
+            }
             _dataContext.WishlistItems.AddRange(wishlistItems);
             await _dataContext.SaveChangesAsync();
 

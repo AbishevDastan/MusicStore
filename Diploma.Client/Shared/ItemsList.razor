@@ -1,34 +1,41 @@
 ﻿@page "/{categoryUrl}"
 @using Diploma.DTO.Item;
-@inject IItemService _itemService
-@inject ICategoryService _categoryService
+@inject IItemService ItemService
+@inject ICategoryService CategoryService
 @implements IDisposable
 
-@if (_itemService.Items == null || _itemService.Items.Count == null)
+@if (isLoading)
 {
-    <Loading />
+    <div class="loading-container">
+        <Loading />
+    </div>
 }
-
-else
+else if (ItemService.Items != null && ItemService.Items.Count != 0)
 {
-    <div class="items-container">
-        <div class="categories">
-            <h3>Categories</h3>
-            <ul>
-                <CategoriesNavMenu />
-            </ul>
-        </div>
-        <div class="items-list">
-            @foreach (var item in _itemService.Items)
-            {
-                <div class="item-card">
-                    <a href="/item/@item.Id">
-                        <img src="@item.ImageUrl" alt="Item Image" class="item-image" />
-                        <h3>@item.Name</h3>
-                        <p>$@item.Price</p>
-                    </a>
-                </div>
-            }
+    <div class="page-container">
+        <div class="items-container">
+            <div class="categories">
+                <h3>Categories</h3>
+                <ul>
+                    <CategoriesNavMenu />
+                </ul>
+            </div>
+            <div class="items-list">
+                @foreach (var item in ItemService.Items)
+                {
+                    <div class="item-card">
+                        <a href="/item/@item.Id">
+                            <img src="@item.ImageUrl" alt="Item Image" class="item-image" />
+                            <h3>@item.Name</h3>
+                            <p>$@item.Price</p>
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
+}
+else
+{
+
 }

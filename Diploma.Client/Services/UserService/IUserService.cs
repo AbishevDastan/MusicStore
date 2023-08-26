@@ -1,4 +1,5 @@
 ﻿using Diploma.Domain;
+using Diploma.Domain.Entities;
 using Diploma.DTO.User;
 
 namespace Diploma.Client.Services.UserService
@@ -7,6 +8,7 @@ namespace Diploma.Client.Services.UserService
     {
         Task<ResponseFromServer<int>> Register(CreateUserDto request);
         Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDto request);
+        Task<User> GetCurrentUser(int userId);
         //Task<bool> IsAuthenticated();
     }
 }

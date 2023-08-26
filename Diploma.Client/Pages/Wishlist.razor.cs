@@ -10,6 +10,9 @@ namespace Diploma.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await LoadWishlist();
+            _breadcrumbService.ClearBreadcrumbs();
+            _breadcrumbService.AddBreadcrumb("Home", "/");
+            _breadcrumbService.AddBreadcrumb("Wishlist", "/wishlist");
         }
 
         private async Task DeleteItemFromWishlist(int itemId)

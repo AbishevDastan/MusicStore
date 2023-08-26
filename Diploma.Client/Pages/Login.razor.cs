@@ -1,4 +1,5 @@
-﻿using Diploma.DTO.User;
+﻿using Diploma.Client.Services.WishlistService;
+using Diploma.DTO.User;
 
 namespace Diploma.Client.Pages
 {
@@ -17,13 +18,16 @@ namespace Diploma.Client.Pages
                 await LocalStorageService.SetItemAsync("token", result.Data);
                 await AuthStateProvider.GetAuthenticationStateAsync();
                 await CartService.PostCartItemsToDatabase(true);
+                await WishlistService.PostWishlistItemsToDatabase(true);
                 await CartService.GetNumberOfCartItems();
+                await WishlistService.GetNumberOfWishlistItems();
                 success = true;
                 NavigationManager.NavigateTo("");
+                StateHasChanged();
             }
             else
             {
-                ErrorMessage = "Error occured. Please, try again.";
+                ErrorMessage = result.Message;
             }
         }
 

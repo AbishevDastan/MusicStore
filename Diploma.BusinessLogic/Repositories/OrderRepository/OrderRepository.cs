@@ -9,7 +9,6 @@ using Diploma.Domain.Entities;
 using Diploma.DTO.Email;
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
@@ -108,8 +107,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                     return false;
                 }
                 total += cartItem.Price * cartItem.Quantity;
-                //item.SoldQuantity += cartItem.Quantity;
-                //_dataContext.Items.Update(item);
 
                 orderItems.Add(new OrderItem
                 {
@@ -127,11 +124,27 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 OrderDate = DateTime.Now,
                 TotalPrice = total,
                 OrderItems = orderItems,
-                Status = OrderStatus.Pending
+                Status = OrderStatus.Pending,
             };
 
             _dataContext.Orders.Add(order);
             await _dataContext.SaveChangesAsync();
+
+            var user = await _userRepository.GetCurrentUser(order.UserId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            else
+            {
+                var email = new EmailDto()
+                {
+                    To = user.Email,
+                    Subject = $"Order Confirmation - Order ID: {order.Id}",
+                    Body = $"Dear customer,\n\nThank you for placing an order with the MusicStore. The order has been received and is being processed.\n\nOrder ID: {order.Id}\nOrder Date: {order.OrderDate}\nTotal Price: {order.TotalPrice}\n\nIf you have any questions or need assistance, please feel free to contact our customer support team at musicstore7510@outlook.com or +1 234 567 890.\nThank you for choosing MusicStore!\n\nBest regards,\nThe MusicStore Team"
+                };
+                _emailRepository.SendEmail(email);
+            }
 
             return true;
         }
@@ -154,19 +167,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             }
             return false;
         }
-
-        //public async Task<bool> DeleteOrder(int orderId)
-        //{
-        //    var order = await _dataContext.Orders.FindAsync(orderId);
-        //    if (order.Status == OrderStatus.Pending)
-        //    {
-        //        _dataContext.Orders.Remove(order);
-        //        await _dataContext.SaveChangesAsync();
-
-        //        return true;
-        //    }
-        //    return false;
-        //}
 
         //Admin Panel
         public async Task<List<OrderOverview>> GetAllOrders()
@@ -253,7 +253,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             }
             await _dataContext.SaveChangesAsync();
 
-            var user = await _userRepository.GetUser(order.UserId);
+            var user = await _userRepository.GetCurrentUser(order.UserId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -264,7 +264,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 {
                     To = user.Email,
                     Subject = "Order Approved",
-                    Body = $"Your order with ID {order.Id} has been approved. Thank you for shopping with us!"
+                    Body = $"Dear customer,\n\nYour order with ID {order.Id} has been approved. Thank you for shopping with us!\n\nBest regards,\nThe MusicStore Team"
                 };
                 _emailRepository.SendEmail(email);
             }

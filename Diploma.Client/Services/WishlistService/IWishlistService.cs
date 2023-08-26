@@ -6,7 +6,7 @@ namespace Diploma.Client.Services.WishlistService
     public interface IWishlistService
     {
         event Action OnChange;
-        Task<bool> IsInWishlist(int itemId);
+        Task<bool> IsInWishlist(int itemDto);
         Task AddItemToWishlist(WishlistItem wishlistItem);
         Task<List<AddItemToWishlistDto>> GetWishlistItemsLocally();
         Task DeleteItemFromWishlist(int itemId);

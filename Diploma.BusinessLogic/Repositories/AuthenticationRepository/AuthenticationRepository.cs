@@ -24,6 +24,7 @@ namespace Diploma.BusinessLogic.Repositories.AuthenticationRepository
             var response = new ResponseFromServer<string>();
             var user = await _dataContext.Users.FirstOrDefaultAsync(user => user.Email.ToLower() 
             == email.ToLower());
+
             if (user == null) 
             { 
                 response.Success = false; 

@@ -14,34 +14,36 @@ else
     <PageTitle>Edit @itemDto.Name</PageTitle>
 }
 
-<EditForm Model="itemDto" OnSubmit="HandleSubmit">
-    <MudCard>
-        <MudCardContent>
-            <MudTextField Label="Name" @bind-Value="itemDto.Name" For="@(() => itemDto.Name)">
-            </MudTextField>
+<MudContainer Class="page-container" Style="padding-top: 3%;">
+    <EditForm Model="itemDto" OnSubmit="HandleSubmit">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="Name" @bind-Value="itemDto.Name" For="@(() => itemDto.Name)">
+                </MudTextField>
 
-            <MudTextField Label="Description" @bind-Value="itemDto.Description" For="@(() => itemDto.Description)">
-            </MudTextField>
+                <MudTextField Label="Description" @bind-Value="itemDto.Description" For="@(() => itemDto.Description)">
+                </MudTextField>
 
-            <MudNumericField Label="Price" @bind-Value="itemDto.Price" For="@(() => itemDto.Price)">
-            </MudNumericField> 
-            
-            <MudNumericField Label="QuantityInStock" @bind-Value="itemDto.QuantityInStock" For="@(() => itemDto.QuantityInStock)">
-            </MudNumericField>
+                <MudNumericField Label="Price" @bind-Value="itemDto.Price" For="@(() => itemDto.Price)">
+                </MudNumericField>
 
-            <MudTextField Label="Image URL" @bind-Value="itemDto.ImageUrl" For="@(() => itemDto.ImageUrl)">
-            </MudTextField>
+                <MudNumericField Label="QuantityInStock" @bind-Value="itemDto.QuantityInStock" For="@(() => itemDto.QuantityInStock)">
+                </MudNumericField>
 
-            <MudSelect Label="Category" @bind-Value="itemDto.CategoryId">
-                @foreach (var categoryDto in CategoryService.AdminCategories)
-                {
-                    <MudSelectItem Value="@categoryDto.Id">@categoryDto.Name</MudSelectItem>
-                }
-            </MudSelect>
+                <MudTextField Label="Image URL" @bind-Value="itemDto.ImageUrl" For="@(() => itemDto.ImageUrl)">
+                </MudTextField>
 
-        </MudCardContent>
-    </MudCard>
-    <br />
-    <MudButton Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">@btnText</MudButton>
-    <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="DeleteItem">Delete Item</MudButton>
-</EditForm>
+                <MudSelect Label="Category" @bind-Value="itemDto.CategoryId">
+                    @foreach (var categoryDto in CategoryService.AdminCategories)
+                    {
+                        <MudSelectItem Value="@categoryDto.Id">@categoryDto.Name</MudSelectItem>
+                    }
+                </MudSelect>
+
+            </MudCardContent>
+        </MudCard>
+        <br />
+        <MudButton Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">@btnText</MudButton>
+        <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="DeleteItem">Delete Item</MudButton>
+    </EditForm>
+</MudContainer>

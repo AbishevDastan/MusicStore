@@ -20,6 +20,7 @@ namespace Diploma.BusinessLogic.Repositories.ItemRepository
         public async Task<List<ItemDto>> GetItems()
         {
             var items = await _dataContext.Items.ToListAsync();
+
             foreach (var item in items)
             {
                 item.StockStatus = GetStockStatus(item.QuantityInStock);

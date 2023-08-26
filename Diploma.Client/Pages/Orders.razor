@@ -1,57 +1,51 @@
 ﻿@page "/orders"
 @inject IOrderService _orderService
+@inject IBreadcrumbService _breadcrumbService
 
+<div class="breadcrumbs-container">
+    <ul class="breadcrumbs">
+        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        {
+            <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
+        }
+    </ul>
+</div>
 <div style="margin-top: 30px; margin-left: 20px;">
     <MudText Typo="Typo.h4">MY ORDERS</MudText>
 </div>
 
-<div class="container">
+<div style="margin-top: 30px; padding-left: 5%; padding-right: 5%;" class="page-container">
     @if (orders != null)
     {
         @foreach (var order in orders)
         {
-            <a href="order/@order.Id">
-                <div class="order-item">
-                    <div class="left-side">
-                        <p>Order ID: @order.Id</p>
-                        <p>Price: $@order.TotalPrice</p>
-                    </div>
-                    <div class="right-side">
-                        @if (order.Status == DTO.Orders.OrderStatus.Canceled)
-                        {
-                            <p style="color: red">@order.Status</p>
-                        }
-                        @if (order.Status == DTO.Orders.OrderStatus.Approved)
-                        {
-                            <p style="color: limegreen">@order.Status</p>
-                        }
-                        @if (order.Status == DTO.Orders.OrderStatus.Pending)
-                        {
-                            <p>@order.Status</p>
-                        }
-                        <p>@order.OrderDate</p>
-                    </div>
-                </div>
-            </a>
+            <div class="order-container">
+                <a href="order/@order.Id">
+                    <MudPaper>
+                        <div class="order-item">
+                            <div class="left-side">
+                                <MudText Typo="Typo.body1">Order ID: @order.Id</MudText>
+                                <MudText Typo="Typo.body1">Price: $@order.TotalPrice</MudText>
+                            </div>
+                            <div class="right-side">
+                                @if (order.Status == DTO.Orders.OrderStatus.Canceled)
+                                {
+                                    <MudText Typo="Typo.body1" Style="color: red">@order.Status</MudText>
+                                }
+                                @if (order.Status == DTO.Orders.OrderStatus.Approved)
+                                {
+                                    <MudText Typo="Typo.body1" Style="color: limegreen">@order.Status</MudText>
+                                }
+                                @if (order.Status == DTO.Orders.OrderStatus.Pending)
+                                {
+                                    <MudText Typo="Typo.body1">@order.Status</MudText>
+                                }
+                                <MudText Typo="Typo.body1">@order.OrderDate</MudText>
+                            </div>
+                        </div>
+                    </MudPaper>
+                </a>
+            </div>
         }
     }
 </div>
-
-<style>
-    .container {
-        margin-top: 30px;
-    }
-    .order-item {
-        display: flex;
-        justify-content: space-between;
-        border: 1px solid #ccc;
-        border-right:none;
-        border-bottom: none;
-        padding: 7px;
-        margin-bottom: 10px;
-    }
-
-    .left-side, .right-side {
-        width: 48%;
-    }
-</style>

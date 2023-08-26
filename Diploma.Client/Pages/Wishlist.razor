@@ -1,13 +1,22 @@
 ﻿@page "/wishlist"
 @inject IOrderService _orderService
 @inject IWishlistService _wishlistService
+@inject IBreadcrumbService _breadcrumbService
 @inject NavigationManager _navigationManager
 
+<div class="breadcrumbs-container">
+    <ul class="breadcrumbs">
+        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        {
+            <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
+        }
+    </ul>
+</div>
 <div style="margin-top: 30px; margin-left: 20px;">
     <MudText Typo="Typo.h4">Wishlist</MudText>
 </div>
 
-<div style="margin-top: 30px;">
+<div class="page-container" style="margin-top: 30px;">
     @if (addedWishlistItems == null || addedWishlistItems.Count == 0)
     {
         <span>@message</span>

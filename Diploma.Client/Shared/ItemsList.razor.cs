@@ -6,19 +6,29 @@ namespace Diploma.Client.Shared
     {
         [Parameter]
         public string? CategoryUrl { get; set; } = null;
+        private bool isLoading = true;
+        private string errorMessage;
         protected override async Task OnParametersSetAsync()
         {
-            await _itemService.GetItems(CategoryUrl);
+            try
+            {
+                await ItemService.GetItems(CategoryUrl);
+            }
+            catch (Exception ex)
+            {
+                errorMessage = "Sorry, an error occurred while fetching products.";
+            }
+            isLoading = false;
         }
         protected override void OnInitialized()
         {
-            _itemService.ItemsChanged += StateHasChanged;
-            _categoryService.GetCategories();
+            ItemService.ItemsChanged += StateHasChanged;
+            CategoryService.GetCategories();
         }
 
         public void Dispose()
         {
-            _itemService.ItemsChanged -= StateHasChanged;
+            ItemService.ItemsChanged -= StateHasChanged;
         }
     }
 }

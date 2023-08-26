@@ -1,11 +1,12 @@
 ﻿@page "/login"
 @inject IAuthenticationService AuthService
 @inject ICartService CartService
+@inject IWishlistService WishlistService
 @inject ILocalStorageService LocalStorageService
 @inject AuthenticationStateProvider AuthStateProvider
 @inject NavigationManager NavigationManager
 
-<div style="margin-top: 6%;">
+<div class="page-container" style="margin-top: 6%;">
     <MudContainer Class="justify-content-center">
         <EditForm Model="@user" OnValidSubmit="HandleLogin">
             <DataAnnotationsValidator />
@@ -29,6 +30,9 @@
                 <MudItem xs="6" sm="7">
                     @if (!success)
                     {
+                        <MudText Color="@Color.Error" Align="Align.Center">
+                            @ErrorMessage
+                        </MudText>
                         <MudText Color="@Color.Error" Align="Align.Center">
                             <ValidationSummary />
                         </MudText>

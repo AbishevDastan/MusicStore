@@ -1,9 +1,12 @@
 using Diploma.BusinessLogic;
 using Diploma.Client;
 using Diploma.Client.Services.AuthenticationService;
+using Diploma.Client.Services.BreadcrumbService;
 using Diploma.Client.Services.CartService;
 using Diploma.Client.Services.CategoryService;
+using Diploma.Client.Services.DeliveryService;
 using Diploma.Client.Services.ItemService;
+using Diploma.Client.Services.LocalStorageWishlistService;
 using Diploma.Client.Services.OrderService;
 using Diploma.Client.Services.UserService;
 using Diploma.Client.Services.WishlistService;
@@ -27,6 +30,9 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
+builder.Services.AddScoped<ILocalStorageWishlistService, LocalStorageWishlistService>();
+builder.Services.AddScoped<IDeliveryService, DeliveryService>();
+builder.Services.AddScoped<IBreadcrumbService, BreadcrumbService>();
 
 //Authentication state provider
 builder.Services.AddOptions();

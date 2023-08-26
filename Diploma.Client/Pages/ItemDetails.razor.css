@@ -1,0 +1,35 @@
+﻿.flex-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.centered-content {
+    text-align: center;
+}
+
+.container-0 {
+    margin-top: 20px;
+}
+
+.container-1 {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.container-2 {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.left {
+    display: flex;
+    margin-right: 10px;
+}
+
+.right {
+    margin-left: auto;
+}

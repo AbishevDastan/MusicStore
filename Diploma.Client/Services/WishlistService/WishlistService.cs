@@ -1,8 +1,6 @@
 ﻿using Blazored.LocalStorage;
-using Diploma.Client.Pages;
 using Diploma.Client.Services.AuthenticationService;
 using Diploma.Domain.Entities;
-using Diploma.DTO.Cart;
 using Diploma.DTO.Wishlist;
 using System.Net.Http.Json;
 
@@ -25,20 +23,11 @@ namespace Diploma.Client.Services.WishlistService
 
         public async Task<bool> IsInWishlist(int itemId)
         {
-            var wishlist = await _storage.GetItemAsync<List<WishlistItem>>("wishlist");
-
-                var wishlistItem = wishlist.Find(i => i.ItemId == itemId);
-                if (wishlistItem == null)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
+            List<AddItemToWishlistDto> wishlist = await GetWishlistItemsLocally(); 
+            return wishlist.Any(x => x.ItemId == itemId);
         }
 
-         public async Task AddItemToWishlist(WishlistItem wishlistItem)
+        public async Task AddItemToWishlist(WishlistItem wishlistItem)
         {
             if (await _authenticationService.IsAuthenticated())
             {
@@ -88,6 +77,7 @@ namespace Diploma.Client.Services.WishlistService
                     await _storage.SetItemAsync("wishlist", wishlist);
                 }
             }
+            await GetNumberOfWishlistItems();
         }
 
         public async Task<List<AddItemToWishlistDto>> GetWishlistItemsLocally()

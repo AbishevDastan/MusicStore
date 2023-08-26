@@ -51,7 +51,7 @@ namespace Diploma.Api.Controllers
         [Authorize]
         public async Task<ActionResult<User>> AuthenticatedUser()
         {
-            var user = await _userRepository.GetUser(_userContext.GetUserId());
+            var user = await _userRepository.GetCurrentUser(_userContext.GetUserId());
             var userDto = _mapper.Map<UserDto>(user);
             return Ok(userDto);
         }

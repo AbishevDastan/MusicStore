@@ -2,39 +2,42 @@
 @using Diploma.DTO.Orders;
 @using MudBlazor
 @attribute [Authorize(Roles = "Admin")]
-@inject IOrderService _orderService
-@inject IItemService _itemService
+@inject IOrderService OrderService
+@inject IItemService ItemService
+@inject NavigationManager NavigationManager
 
 <div style="margin-top: 30px; margin-left: 20px;">
     <MudText Typo="Typo.h4">ALL ORDERS (@orderCount)</MudText>
 </div>
 
-<MudTable Items="@orders">
-    <HeaderContent>
-        <MudTh>Order ID</MudTh>
-        <MudTh>Order Date</MudTh>
-        <MudTh>Total Price</MudTh>
-        <MudTh>Items</MudTh>
-        <MudTh>Status</MudTh>
-        <MudTh>Actions</MudTh>
-    </HeaderContent>
-    <RowTemplate>
-        @if (orders != null)
-        {
-            <MudTd>@context.Id</MudTd>
-            <MudTd>@context.OrderDate</MudTd>
-            <MudTd>@context.TotalPrice</MudTd>
-            <MudTd>@context.Item</MudTd>
-            <MudTd>@context.Status</MudTd>
-            <MudTd>
-                <a href="order/admin/@context.Id">Details</a>
-            </MudTd>
-            <MudTd>
-                @if (context.Status == OrderStatus.Pending)
-                {
-                    <button @onclick="() => ApproveOrder(context.Id)">Approve</button>
-                }
-            </MudTd>
-        }
-    </RowTemplate>
-</MudTable>
+<MudContainer Class="page-container" Style="padding-top: 3%;">
+    <MudTable Items="@orders">
+        <HeaderContent>
+            <MudTh>Order ID</MudTh>
+            <MudTh>Order Date</MudTh>
+            <MudTh>Total Price</MudTh>
+            <MudTh>Items</MudTh>
+            <MudTh>Status</MudTh>
+            <MudTh></MudTh>
+        </HeaderContent>
+        <RowTemplate>
+            @if (orders != null)
+            {
+                <MudTd>@context.Id</MudTd>
+                <MudTd>@context.OrderDate</MudTd>
+                <MudTd>@context.TotalPrice</MudTd>
+                <MudTd>@context.Item</MudTd>
+                <MudTd>@context.Status</MudTd>
+                <MudTd>
+                    <a href="order/admin/@context.Id">Details</a>
+                </MudTd>
+                <MudTd>
+                    @if (context.Status == OrderStatus.Pending)
+                    {
+                        <MudIconButton Icon="@Icons.Material.Filled.Check" @onclick="() => ApproveOrder(context.Id)" />
+                    }
+                </MudTd>
+            }
+        </RowTemplate>
+    </MudTable>
+</MudContainer>

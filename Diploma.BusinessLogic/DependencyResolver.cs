@@ -4,6 +4,7 @@ using Diploma.BusinessLogic.AuthenticationHandlers.JwtManager;
 using Diploma.BusinessLogic.Repositories.AuthenticationRepository;
 using Diploma.BusinessLogic.Repositories.CartRepository;
 using Diploma.BusinessLogic.Repositories.CategoryRepository;
+using Diploma.BusinessLogic.Repositories.DeliveryRepository;
 using Diploma.BusinessLogic.Repositories.EmailRepository;
 using Diploma.BusinessLogic.Repositories.ItemRepository;
 using Diploma.BusinessLogic.Repositories.OrderRepository;
@@ -26,6 +27,7 @@ namespace Diploma.BusinessLogic
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IWishlistRepository, WishlistRepository>();
             services.AddScoped<IEmailRepository, EmailRepository>();
+            services.AddScoped<IDeliveryRepository, DeliveryRepository>();
             services.AddScoped<IJwtManager, JwtManager>();
             services.AddScoped<IHashManager, HashManager>();
 
