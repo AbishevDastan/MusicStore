@@ -11,13 +11,12 @@ namespace Diploma.DataAccess.Configurations
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
+            builder.Property(x => x.DeliveryInformationId);
             builder.Property(o => o.TotalPrice)
                 .HasColumnType("decimal(18,2)");
             builder.Property(x => x.OrderDate);
             builder.Property(x => x.Status);
             builder.Property(x => x.UserId);
-
-            builder.HasMany(x => x.OrderItems);
 
             builder.ToTable("Orders");
         }

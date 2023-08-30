@@ -29,14 +29,9 @@ namespace Diploma.Client.Services.UserService
             return await result.Content.ReadFromJsonAsync<ResponseFromServer<bool>>();
         }
 
-        public async Task<User> GetCurrentUser(int userId)
+        public async Task<User> GetCurrentUser()
         {
-            return await _httpClient.GetFromJsonAsync<User>($"api/user/{userId}");
+            return await _httpClient.GetFromJsonAsync<User>($"api/user");
         }
-
-        //public async Task<bool> IsAuthenticated()
-        //{
-        //    return (await _authStateProvider.GetAuthenticationStateAsync()).User.Identity.IsAuthenticated;
-        //}
     }
 }

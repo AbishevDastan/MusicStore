@@ -1,8 +1,9 @@
 ﻿using Diploma.Client.Services.AuthenticationService;
+using Diploma.Domain.Entities;
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Http;
+using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.OrderService
@@ -24,38 +25,25 @@ namespace Diploma.Client.Services.OrderService
         public event Action OrdersChanged;
         public List<OrderOverview> Orders { get; set; }
 
-        public async Task<OrderDetails> GetOrderDetails(int orderId)
-        {
-            return await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/{orderId}");
-        }
+
+        public async Task<Order?> GetOrder(int? id) => await _httpClient.GetFromJsonAsync<Order>($"api/order/{id}");
+
+        public async Task<OrderDetails> GetOrderDetails(int orderId) => await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/{orderId}/details");
 
         public async Task<List<OrderOverview>> GetOrdersForUser() => await _httpClient.GetFromJsonAsync<List<OrderOverview>>("api/order");
 
-        public async Task<List<OrderOverview>> GetOrdersForAdmin()
-        {
-            return await _httpClient.GetFromJsonAsync<List<OrderOverview>>("api/order/admin");
-        }
+        public async Task<List<OrderOverview>> GetOrdersForAdmin() => await _httpClient.GetFromJsonAsync<List<OrderOverview>>("api/order/admin");
 
-        public async Task<OrderDetails> GetOrderDetailsForAdmin(int orderId)
-        {
-            return await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/admin/{orderId}");
-        }
+        public async Task<OrderDetails> GetOrderDetailsForAdmin(int orderId) => await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/admin/{orderId}/details");
 
-        public async Task ApproveOrder(int orderId)
-        {
-            await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
-            //_navigationManager.NavigateTo("/orders/admin");
-        }
-        public async Task<int> GetOrdersCount()
-        {
-            return await _httpClient.GetFromJsonAsync<int>("api/order/admin/count");
-        }
+        public async Task ApproveOrder(int orderId) => await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
+        public async Task<int> GetOrdersCount() => await _httpClient.GetFromJsonAsync<int>("api/order/admin/count");
 
-        public async Task PlaceOrder()
+        public async Task PlaceOrder(int deliveryInfoId)
         {
             if (await _authenticationService.IsAuthenticated())
             {
-                await _httpClient.PostAsync("api/order", null);
+                 await _httpClient.PostAsync($"api/order/{deliveryInfoId}", null);
             }
             else
             {

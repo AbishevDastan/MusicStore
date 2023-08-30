@@ -12,6 +12,7 @@ namespace Diploma.DataAccess.Configurations
             builder.Property(x => x.Id).IsRequired().ValueGeneratedOnAdd();
 
             builder.Property(x => x.UserId);
+            builder.Property(x => x.OrderId);
             builder.Property(x => x.FirstName);
             builder.Property(x => x.LastName);
             builder.Property(x => x.PhoneNumber);

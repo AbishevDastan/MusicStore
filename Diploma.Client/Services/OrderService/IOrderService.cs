@@ -1,4 +1,5 @@
-﻿using Diploma.DTO.Order;
+﻿using Diploma.Domain.Entities;
+using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 
 namespace Diploma.Client.Services.OrderService
@@ -7,9 +8,10 @@ namespace Diploma.Client.Services.OrderService
     {
         List<OrderOverview> Orders { get; set; }
 
+        Task<Order?> GetOrder(int? id); 
         Task<List<OrderOverview>> GetOrdersForUser();
         Task<OrderDetails> GetOrderDetails(int orderId);
-        Task PlaceOrder();
+        Task PlaceOrder(int deliveryInfoId);
         Task CancelOrder(int orderId);
 
         //Admin Panel

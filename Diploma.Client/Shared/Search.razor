@@ -1,40 +1,26 @@
 ﻿@inject IItemService ItemService
 @inject NavigationManager NavigationManager
-@*
-@if (!isSearchBarVisible)
-{
-    <MudIconButton Icon="" OnClick="ToggleSearchBar">
-        Show Search Bar
-    </MudIconButton>
-}
-*@
-@*@if (isSearchBarVisible)
-{*@
-     <div class="input-group">
-        <label for="SearchInput" class="virtually-hidden">Search</label>
-        <input id="SearchInput"
-               type="search"
-               list="items"
-               class="form-control"
-               placeholder="Search..."
-        @bind-value="searchText"
-        @bind-value:event="oninput"
-        @onkeyup="HandleSearch"
-        @ref="_searchInput" />
-        <datalist id="items">
-            @foreach (var suggestion in suggestions)
-            {
-                <option>@suggestion</option>
-            }
-        </datalist>
-        <div class="input-group-append">
-            <button class="btn btn-dark" @onclick="SearchItems">
-                <span class="oi oi-magnifying-glass"></span>
-            </button>
-        </div>
+
+<div class="input-group">
+    <label for="SearchInput" class="virtually-hidden">Search</label>
+    <input id="SearchInput"
+           type="search"
+           list="items"
+           class="form-control"
+           placeholder="Search..."
+    @bind-value="searchText"
+    @bind-value:event="oninput"
+    @onkeyup="HandleSearch"
+    @ref="_searchInput" />
+    <datalist id="items">
+        @foreach (var suggestion in suggestions)
+        {
+            <option>@suggestion</option>
+        }
+    </datalist>
+    <div class="input-group-append">
+        <button class="btn btn-dark" @onclick="SearchItems">
+            <span class="oi oi-magnifying-glass"></span>
+        </button>
     </div>
-@*}*@
-
-
-
-@*<MudTextField @bind-Value="searchText" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>*@
+</div>

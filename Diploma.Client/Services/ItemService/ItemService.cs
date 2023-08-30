@@ -1,7 +1,6 @@
 ﻿using Diploma.DTO.Item;
 using Microsoft.AspNetCore.Components;
 using System.Net;
-using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace Diploma.Client.Services.ItemService

@@ -118,6 +118,7 @@ namespace Diploma.Client.Services.CartService
             if (clearCartLocally)
             {
                 await _storage.RemoveItemAsync("cart");
+                await _storage.RemoveItemAsync("cartItemsCount");
             }
         }
 

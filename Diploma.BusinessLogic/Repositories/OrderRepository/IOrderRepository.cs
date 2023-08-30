@@ -1,13 +1,15 @@
-﻿using Diploma.DTO.Order;
+﻿using Diploma.Domain.Entities;
+using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 
 namespace Diploma.BusinessLogic.Repositories.OrderRepository
 {
     public interface IOrderRepository
     {
+        Task<Order?> GetOrder(int? orderId);
         Task<OrderDetails> GetOrderDetails(int orderId);
         Task<List<OrderOverview>> GetOrdersForUser();
-        Task<bool> PlaceOrder();
+        Task<bool> PlaceOrder(int deliveryInfoId);
         Task<bool> CancelOrder(int orderId);
 
         //Admin Panel

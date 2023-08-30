@@ -1,8 +1,17 @@
 ﻿.footer {
-    background-color: #aaa;
-    color: #fff;
+    background-color: #FAFAFA;
+    color: #747474;
     padding: 20px 0;
     text-align: center;
+}
+
+.link {
+    opacity: 0.8;
+    transition: 1s ease-in-out;
+}
+.link:hover {
+    color: black;
+    opacity: 1;
 }
 
 .footer-content {

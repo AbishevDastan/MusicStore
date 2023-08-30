@@ -8,10 +8,10 @@ namespace Diploma.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
-            orders = await _orderService.GetOrdersForUser();
-            _breadcrumbService.ClearBreadcrumbs();
-            _breadcrumbService.AddBreadcrumb("Home", "/");
-            _breadcrumbService.AddBreadcrumb("Orders", "/orders");
+            orders = await OrderService.GetOrdersForUser();
+            BreadcrumbService.ClearBreadcrumbs();
+            BreadcrumbService.AddBreadcrumb("Home", "/");
+            BreadcrumbService.AddBreadcrumb("Orders", "/orders");
         }
     }
 }

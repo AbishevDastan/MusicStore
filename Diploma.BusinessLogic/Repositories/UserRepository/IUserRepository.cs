@@ -8,6 +8,7 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
         Task<ResponseFromServer<bool>> ChangePassword(int userid, string newPassword);
         Task<ResponseFromServer<int>> Register(User user, string password);
         Task<bool> UserRegistered(string email);
-        Task<User> GetCurrentUser(int userId);
+        Task<User> GetCurrentUser();
+        Task<User> GetCurrentUserWithId(int userId);
     }
 }

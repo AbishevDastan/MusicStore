@@ -1,11 +1,13 @@
-﻿@page "/order/{orderId:int}"
-@inject IOrderService _orderService
-@inject IBreadcrumbService _breadcrumbService
-@inject NavigationManager _navigationManager
+﻿@page "/order/{orderId:int}/details"
+@attribute [Authorize]
+@inject IOrderService OrderService
+@inject IDeliveryService DeliveryService
+@inject IBreadcrumbService BreadcrumbService
+@inject NavigationManager NavigationManager
 
 <div class="breadcrumbs-container">
     <ul class="breadcrumbs">
-        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        @foreach (var breadcrumb in BreadcrumbService.Breadcrumbs)
         {
             <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
         }
@@ -15,7 +17,7 @@
     <MudText Typo="Typo.h4">Order Details</MudText>
 </div>
 
-@if (order == null)
+@if (orderDetails == null)
 {
     <Loading />
 }
@@ -24,7 +26,30 @@ else
     <MudContainer Class="page-container" Style="margin-left: 0;">
         <MudGrid>
             <MudItem xs="12" md="6">
-                <MudTable Items="@order.Items">
+                <MudPaper Class="mud-p-2">
+                    <div class="order-info">
+                        <h3 style="padding-top: 1%; padding-bottom: 1%;">Order Summary</h3>
+                        <MudText Typo="Typo.body1">Order ID: @OrderId</MudText>
+                        <MudText Typo="Typo.body1">Date: @orderDetails.OrderDate</MudText>
+                        <MudText Typo="Typo.body1">Total Price: $@orderDetails.TotalPrice</MudText>
+                        <br />
+                        <MudDivider />
+                        <h3 style="padding-top: 2%; padding-bottom: 1%;">Customer Info</h3>
+                        @if (deliveryInfo != null)
+                        {
+                            <MudText Typo="Typo.body1">Full Name: @deliveryInfo.FirstName @deliveryInfo.LastName</MudText>
+                            <MudText Typo="Typo.body1">Phone Number: @deliveryInfo.PhoneNumber</MudText>
+                            <MudText Typo="Typo.body1">Street: @deliveryInfo.Street</MudText>
+                            <MudText Typo="Typo.body1">City: @deliveryInfo.City</MudText>
+                            <MudText Typo="Typo.body1">State: @deliveryInfo.State</MudText>
+                            <MudText Typo="Typo.body1">Country: @deliveryInfo.Country</MudText>
+                            <MudText Typo="Typo.body1">Zip-code: @deliveryInfo.ZipCode</MudText>
+                        }
+                    </div>
+                </MudPaper>
+            </MudItem>
+            <MudItem xs="12" md="6">
+                <MudTable Items="@orderDetails.Items">
                     <HeaderContent>
                         <MudTh>ORDER ITEMS</MudTh>
                         <MudTh>QUANTITY</MudTh>
@@ -44,16 +69,6 @@ else
                         <MudTd>@context.Quantity</MudTd>
                     </RowTemplate>
                 </MudTable>
-            </MudItem>
-            <MudItem xs="12" md="6">
-                <MudPaper Class="mud-p-2">
-                    <div class="order-info">
-                        <h2 style="padding-top: 1%; padding-bottom: 1%;">Order Summary</h2>
-                        <MudText Typo="Typo.body1">Order ID: @OrderId</MudText>
-                        <MudText Typo="Typo.body1">Date: @order.OrderDate</MudText>
-                        <MudText Typo="Typo.body1">Total Price: $@order.TotalPrice</MudText>
-                    </div>
-                </MudPaper>
                 <div class="cancel-order-button">
                     <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="CancelOrder">Cancel Order</MudButton>
                 </div>

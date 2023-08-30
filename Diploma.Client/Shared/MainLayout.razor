@@ -1,6 +1,5 @@
 ﻿@inherits LayoutComponentBase
-@inject NavigationManager _navigationManager
-@inject AuthenticationStateProvider _authStateProvider
+@inject NavigationManager NavigationManager
 
 <MudThemeProvider Theme="_currentTheme" />
 <MudDialogProvider />
@@ -8,7 +7,7 @@
 
 <MudLayout>
     <MudAppBar Elevation="0" Style="padding-left: 2.8%; padding-right: 2.8%;" Class="app-bar">
-        <MudButton Size="Size.Large" OnClick="NavigateToHomePage">D&D Music</MudButton>
+        <MudButton Size="Size.Large" OnClick="NavigateToHomePage">Music Store</MudButton>
         <MudSpacer />
         <div class="d-flex align-center gap-3">
             <div>
@@ -47,29 +46,4 @@
         <MudFab Color="Color.Dark" Icon="@Icons.Material.Filled.ArrowCircleUp" />
     </MudScrollToTop>
 </MudLayout>
-
-@code {
-    //Drawer
-    bool _drawerOpen = false;
-    Anchor anchor;
-
-    void DrawerToggle(Anchor anchor)
-    {
-        _drawerOpen = !_drawerOpen;
-        this.anchor = anchor;
-    }
-
-    private void NavigateToHomePage()
-    {
-        _navigationManager.NavigateTo("");
-    }
-
-    private MudTheme _currentTheme = new MudTheme()
-        {
-            Palette = new PaletteLight
-            {
-                AppbarBackground = "#FAFAFA",
-            },
-        };
-}
 

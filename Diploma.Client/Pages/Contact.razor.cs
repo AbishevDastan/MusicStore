@@ -2,7 +2,7 @@
 {
     public partial class Contact
     {
-        protected override async Task OnInitializedAsync()
+        protected override void OnInitialized()
         {
             _breadcrumbService.ClearBreadcrumbs();
             _breadcrumbService.AddBreadcrumb("Home", "/");

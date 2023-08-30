@@ -1,4 +1,5 @@
 ﻿using Diploma.BusinessLogic.Repositories.OrderRepository;
+using Diploma.Domain.Entities;
 using Diploma.DTO.Order;
 using Diploma.DTO.Orders;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,19 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{orderId}")]
+        [Route("{id}")]
+        public async Task<ActionResult<Order>> GetOrder(int id)
+        {
+            var order = await _orderRepository.GetOrder(id);
+            if(order == null)
+            {
+                return NotFound();
+            }
+            return Ok(order);
+        }
+ 
+        [HttpGet]
+        [Route("{orderId}/details")]
         public async Task<ActionResult<OrderDetails>> GetOrderDetails(int orderId)
         {
             var orderDetails = await _orderRepository.GetOrderDetails(orderId);
@@ -32,9 +45,10 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> PlaceOrder()
+        [Route("{deliveryInfoId}")]
+        public async Task<bool> PlaceOrder(int deliveryInfoId)
         {
-            return await _orderRepository.PlaceOrder();
+            return await _orderRepository.PlaceOrder(deliveryInfoId);
         }
 
         [HttpPut]
@@ -64,7 +78,7 @@ namespace Diploma.Api.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        [Route("admin/{orderId}")]
+        [Route("admin/{orderId}/details")]
         public async Task<ActionResult<OrderDetails>> GetOrderDetailsForAdmin(int orderId)
         {
             var orderDetails = await _orderRepository.GetOrderDetailsForAdmin(orderId);

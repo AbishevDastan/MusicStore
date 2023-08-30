@@ -50,15 +50,13 @@ namespace Diploma.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{userId}")]
-        public async Task<ActionResult<User>> GetUser(int userId)
+        public async Task<ActionResult<User>> GetCurrentUser()
         {
-            var user = await _userRepository.GetCurrentUser(userId);
+            var user = await _userRepository.GetCurrentUser();
             if (user == null)
             {
                 return NotFound();
             }
-            //var userDto = _mapper.Map<User>(user);
             return Ok(user);
         }
     }

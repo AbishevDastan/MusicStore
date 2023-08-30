@@ -6,42 +6,48 @@
 @if (Id is null)
 {
     <PageTitle>Add Delivery Information</PageTitle>
+    <h1 style="padding-top: 2%; padding-left: 35%;">Add Delivery Information</h1>
 }
 else
 {
     <PageTitle>Update Delivery Information</PageTitle>
+    <h1 style="padding-top: 2%; padding-left: 33%;">Update Delivery Information</h1>
 }
 
-<EditForm Model="deliveryInfo" OnSubmit="HandleSubmit">
-    <MudCard>
-        <MudCardContent>
-            <MudTextField Label="First Name"
-            @bind-Value="deliveryInfo.FirstName"
-                          For="@(() => deliveryInfo.FirstName)" />
-            <MudTextField Label="Last Name"
-            @bind-Value="deliveryInfo.LastName"
-                          For="@(() => deliveryInfo.LastName)" />
-            <MudTextField Label="Phone Number"
-            @bind-Value="deliveryInfo.PhoneNumber"
-                          For="@(() => deliveryInfo.PhoneNumber)"
-                          InputType="InputType.Telephone" />
-            <MudTextField Label="Street"
-            @bind-Value="deliveryInfo.Street"
-                          For="@(() => deliveryInfo.Street)" />
-            <MudTextField Label="City"
-            @bind-Value="deliveryInfo.City"
-                          For="@(() => deliveryInfo.City)" />
-            <MudTextField Label="State"
-            @bind-Value="deliveryInfo.State"
-                          For="@(() => deliveryInfo.State)" />
-            <MudTextField Label="Country"
-            @bind-Value="deliveryInfo.Country"
-                          For="@(() => deliveryInfo.Country)" />
-            <MudTextField Label="Zip-code"
-            @bind-Value="deliveryInfo.ZipCode"
-                          For="@(() => deliveryInfo.ZipCode)" />
-        </MudCardContent>
-    </MudCard>
-    <br />
-    <MudButton Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">@btnText</MudButton>
-</EditForm>
+<MudContainer Class="page-container">
+    <EditForm class="edit-form-container" Model="deliveryInfo" OnSubmit="HandleSubmit">
+        <MudCard>
+            <MudCardContent>
+                <MudTextField Label="First Name"
+                @bind-Value="deliveryInfo.FirstName"
+                              For="@(() => deliveryInfo.FirstName)" />
+                <MudTextField Label="Last Name"
+                @bind-Value="deliveryInfo.LastName"
+                              For="@(() => deliveryInfo.LastName)" />
+                <MudTextField Label="Phone Number"
+                @bind-Value="deliveryInfo.PhoneNumber"
+                              For="@(() => deliveryInfo.PhoneNumber)"
+                              InputType="InputType.Telephone" />
+                <MudTextField Label="Street"
+                @bind-Value="deliveryInfo.Street"
+                              For="@(() => deliveryInfo.Street)" />
+                <MudTextField Label="City"
+                @bind-Value="deliveryInfo.City"
+                              For="@(() => deliveryInfo.City)" />
+                <MudTextField Label="State"
+                @bind-Value="deliveryInfo.State"
+                              For="@(() => deliveryInfo.State)" />
+                <MudTextField Label="Country"
+                @bind-Value="deliveryInfo.Country"
+                              For="@(() => deliveryInfo.Country)" />
+                <MudTextField Label="Zip-code"
+                @bind-Value="deliveryInfo.ZipCode"
+                              For="@(() => deliveryInfo.ZipCode)" />
+            </MudCardContent>
+            <br />
+            <div class="button">
+                <MudButton FullWidth="true" Variant="Variant.Outlined" Color="Color.Dark" ButtonType="ButtonType.Submit">@btnText</MudButton>
+            </div>
+        </MudCard>
+    </EditForm>
+</MudContainer>

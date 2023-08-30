@@ -11,21 +11,21 @@ namespace Diploma.Client.Pages
         protected override async Task OnInitializedAsync()
         {
             await LoadCart();
-            _breadcrumbService.ClearBreadcrumbs();
-            _breadcrumbService.AddBreadcrumb("Home", "/");
-            _breadcrumbService.AddBreadcrumb("Cart", "/cart");
+            BreadcrumbService.ClearBreadcrumbs();
+            BreadcrumbService.AddBreadcrumb("Home", "/");
+            BreadcrumbService.AddBreadcrumb("Cart", "/cart");
         }
 
         private async Task DeleteItemFromCart(int itemId)
         {
-            await _cartService.DeleteItemFromCart(itemId);
+            await CartService.DeleteItemFromCart(itemId);
             await LoadCart();
         }
 
         private async Task LoadCart()
         {
-            await _cartService.GetNumberOfCartItems();
-            addedCartItems = await _cartService.GetCartItemsLocally();
+            await CartService.GetNumberOfCartItems();
+            addedCartItems = await CartService.GetCartItemsLocally();
             if (addedCartItems == null || addedCartItems.Count == 0)
             {
                 message = "Your cart is empty.";
@@ -38,13 +38,13 @@ namespace Diploma.Client.Pages
             if (item.Quantity < 1)
                 item.Quantity = 1;
 
-            await _cartService.UpdateItemsQuantity(item);
+            await CartService.UpdateItemsQuantity(item);
 
         }
 
         public void ProceedToCheckout()
         {
-            _navigationManager.NavigateTo("/checkout");
+            NavigationManager.NavigateTo("/checkout");
         }
     }
 }

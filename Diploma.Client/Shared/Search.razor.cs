@@ -6,7 +6,6 @@ namespace Diploma.Client.Shared
 {
     public partial class Search
     {
-        //private bool isSearchBarVisible = false;
         private string searchText = string.Empty;
         private List<string> suggestions = new List<string>();
         protected ElementReference _searchInput;
@@ -18,11 +17,6 @@ namespace Diploma.Client.Shared
                 await _searchInput.FocusAsync();
             }
         }
-
-        //private void ToggleSearchBar()
-        //{
-        //    isSearchBarVisible = !isSearchBarVisible;
-        //}
 
         public void SearchItems()
         {

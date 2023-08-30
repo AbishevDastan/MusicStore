@@ -1,7 +1,7 @@
 ﻿using Diploma.BusinessLogic.AuthenticationHandlers.UserContext;
+using Diploma.BusinessLogic.Repositories.OrderRepository;
 using Diploma.DataAccess;
 using Diploma.Domain.Entities;
-using Diploma.DTO.Item;
 using Microsoft.EntityFrameworkCore;
 
 namespace Diploma.BusinessLogic.Repositories.DeliveryRepository
@@ -10,17 +10,36 @@ namespace Diploma.BusinessLogic.Repositories.DeliveryRepository
     {
         private readonly DataContext _dataContext;
         private readonly IUserContext _userContext;
+        private readonly IOrderRepository _orderRepository;
 
-        public DeliveryRepository(DataContext dataContext, IUserContext userContext)
+        public DeliveryRepository(DataContext dataContext, IUserContext userContext, IOrderRepository orderRepository)
         {
             _dataContext = dataContext;
             _userContext = userContext;
+            _orderRepository = orderRepository;
+        }
+
+        public async Task<List<DeliveryInformation>> GetDeliveryInfos()
+        {
+            var userId = _userContext.GetUserId();
+
+            return await _dataContext.DeliveryInformations
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
         }
 
         public async Task<DeliveryInformation> GetDeliveryInfo(int id)
         {
             var userId = _userContext.GetUserId();
-            return await _dataContext.DeliveryInformations.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == id);
+
+            return await _dataContext.DeliveryInformations
+                .FirstOrDefaultAsync(x => x.UserId == userId && x.Id == id);
+        }
+
+        public async Task<DeliveryInformation> GetDeliveryInfoForAdmin(int id)
+        {
+            return await _dataContext.DeliveryInformations
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<bool> AddOrUpdateDeliveryInfo(DeliveryInformation deliveryInfo)
@@ -62,6 +81,42 @@ namespace Diploma.BusinessLogic.Repositories.DeliveryRepository
 
             await _dataContext.SaveChangesAsync();
             return true;
+        }
+
+        public async Task<bool> DeleteDeliveryInfo(int deliveryInfoId)
+        {
+            var deliveryInfo = await _dataContext.DeliveryInformations.FirstOrDefaultAsync(x => x.Id == deliveryInfoId);
+
+            if (deliveryInfo != null)
+            {
+                _dataContext.DeliveryInformations.Remove(deliveryInfo);
+                _dataContext.SaveChanges();
+
+                return true;
+            }
+            else
+            {
+                throw new ApplicationException("The delivery information not found.");
+            }
+        }
+
+        public async Task LinkDeliveryInfoToOrder(int deliveryInfoId, int orderId)
+        {
+            var deliveryInfo = await _dataContext.DeliveryInformations.FirstOrDefaultAsync(x => x.Id == deliveryInfoId);
+            var order = await _orderRepository.GetOrder(orderId);
+
+            if (deliveryInfo != null && order != null)
+            {
+                deliveryInfo.OrderId = orderId;
+                await _dataContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task<int> GetDeliveryInfosCount()
+        {
+            return await _dataContext.DeliveryInformations
+                .Where(x => x.UserId == _userContext.GetUserId())
+                .CountAsync();
         }
     }
 }

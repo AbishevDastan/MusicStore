@@ -1,6 +1,4 @@
-﻿using Diploma.Client.Services.CategoryService;
-using Diploma.Domain.Entities;
-using Diploma.DTO.Category;
+﻿using Diploma.Domain.Entities;
 using Microsoft.AspNetCore.Components;
 
 namespace Diploma.Client.Pages
@@ -37,7 +35,7 @@ namespace Diploma.Client.Pages
 
         async Task HandleSubmit()
         {
-            DeliveryService.AddOrUpdateDeliveryInfo(deliveryInfo);
+            await DeliveryService.AddOrUpdateDeliveryInfo(deliveryInfo);
         }
     }
 }

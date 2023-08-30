@@ -82,10 +82,15 @@ namespace Diploma.BusinessLogic.Repositories.UserRepository
 
         public async Task<User> GetUser(int userId)
         {
-             return await _dataContext.Users.FindAsync(userId);
+            return await _dataContext.Users.FindAsync(userId);
         }
 
-        public async Task<User> GetCurrentUser(int userId)
+        public async Task<User> GetCurrentUser()
+        {
+            return await _dataContext.Users.FindAsync(_userContext.GetUserId());
+        }
+
+        public async Task<User> GetCurrentUserWithId(int userId)
         {
             userId = _userContext.GetUserId();
             return await _dataContext.Users.FindAsync(userId);

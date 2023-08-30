@@ -1,10 +1,10 @@
 ﻿@page "/orders"
-@inject IOrderService _orderService
-@inject IBreadcrumbService _breadcrumbService
+@inject IOrderService OrderService
+@inject IBreadcrumbService BreadcrumbService
 
 <div class="breadcrumbs-container">
     <ul class="breadcrumbs">
-        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        @foreach (var breadcrumb in BreadcrumbService.Breadcrumbs)
         {
             <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
         }
@@ -14,13 +14,13 @@
     <MudText Typo="Typo.h4">MY ORDERS</MudText>
 </div>
 
-<div style="margin-top: 30px; padding-left: 5%; padding-right: 5%;" class="page-container">
+<div style="margin-top: 30px; padding-left: 5%; padding-right: 5%; margin-bottom: 10%;" class="page-container">
     @if (orders != null)
     {
         @foreach (var order in orders)
         {
             <div class="order-container">
-                <a href="order/@order.Id">
+                <a href="order/@order.Id/details">
                     <MudPaper>
                         <div class="order-item">
                             <div class="left-side">

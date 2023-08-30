@@ -1,1 +1,37 @@
-﻿
+﻿.buttons-container {
+    display: flex;
+    margin-bottom: 2%;
+    width: 700px;
+}
+
+.button {
+    flex: 1;
+    margin-top: 4%;
+}
+
+.delivery-information-container {
+    margin-bottom: 2%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+    .delivery-information-container:hover {
+        background-color: #f0f0f0; 
+    }
+
+    .delivery-information-container.selected {
+        background-color: #e0f0e0; 
+    }
+
+.delivery-information {
+    padding: 3%;
+    position: relative;
+}
+
+.radio {
+    position: absolute;
+    top: 5%;
+    right: 0;
+}

@@ -2,27 +2,42 @@
 @attribute [Authorize]
 @inject IUserService UserService
 @inject IDeliveryService DeliveryService
+@inject IOrderService OrderService
 @inject NavigationManager NavigationManager
 
 <MudContainer Class="page-container">
-    <h1>Your Profile</h1>
+    <h1>Profile</h1>
 
-    <div>
-        <h2>Delivery Information</h2>
-        <AuthorizeView>
-@*             <h3>Email: @context.User.Identity.</h3>
- *@        </AuthorizeView>
+    <h4>Email address: @user.Email</h4>
 
-        <h1>Delivery Information</h1>
-        <p>First Name: @deliveryInfo.FirstName</p>
-        <p>Last Name: @deliveryInfo.LastName</p>
-        <p>Phone Number: @deliveryInfo.PhoneNumber</p>
-        <p>Street: @deliveryInfo.Street</p>
-        <p>City: @deliveryInfo.City</p>
-        <p>State: @deliveryInfo.State</p>
-        <p>Country: @deliveryInfo.Country</p>
-        <p>Zip-code: @deliveryInfo.ZipCode</p>
-    </div>
-
-    <button @onclick="EditDeliveryInfo">Edit Delivery Information</button>
+    <h1 style="padding-top: 3%; padding-bottom: 2%;">Delivery Information</h1>
+    <MudButton Variant="Variant.Outlined" OnClick="AddNewDeliveryInfo">Add Delivery Information</MudButton>
+    @if (deliveryInfos != null)
+    {
+        foreach (var info in deliveryInfos)
+        {
+            <div class="delivery-information-container">
+                <MudPaper Elevation="2">
+                    <div class="delivery-information">
+                        <p>@info.FirstName @info.LastName</p>
+                        <p>@info.PhoneNumber</p>
+                        <p>@info.Street street, @info.City @info.ZipCode</p>
+                        <p>@info.State, @info.Country</p>
+                        <div class="edit-button">
+                            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => EditDeliveryInfo(info.Id))" />
+                        </div>
+                        @if (order != null)
+                        {
+                            @if (order.Status == DTO.Orders.OrderStatus.Approved)
+                            {
+                                <div class="delete-button">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeleteDeliveryInfo(info.Id))" />
+                                </div>
+                            }
+                        }
+                    </div>
+                </MudPaper>
+            </div>
+        }
+    }
 </MudContainer>

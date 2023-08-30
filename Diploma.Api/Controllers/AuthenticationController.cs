@@ -46,14 +46,14 @@ namespace Diploma.Api.Controllers
             return _userContext.IsAuthenticated() ? true : false;
         }
 
-        [HttpGet]
-        [Route("authenticated-user")]
-        [Authorize]
-        public async Task<ActionResult<User>> AuthenticatedUser()
-        {
-            var user = await _userRepository.GetCurrentUser(_userContext.GetUserId());
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
-        }
+        //[HttpGet]
+        //[Route("authenticated-user")]
+        //[Authorize]
+        //public async Task<ActionResult<User>> AuthenticatedUser()
+        //{
+        //    var user = await _userRepository.GetCurrentUser(_userContext.GetUserId());
+        //    var userDto = _mapper.Map<UserDto>(user);
+        //    return Ok(userDto);
+        //}
     }
 }

@@ -8,7 +8,6 @@ namespace Diploma.Client.Services.UserService
     {
         Task<ResponseFromServer<int>> Register(CreateUserDto request);
         Task<ResponseFromServer<bool>> ChangePassword(ChangePasswordDto request);
-        Task<User> GetCurrentUser(int userId);
-        //Task<bool> IsAuthenticated();
+        Task<User> GetCurrentUser();
     }
 }

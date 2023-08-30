@@ -11,12 +11,14 @@
             <MudTh SortLabel="Price">Price</MudTh>
             <MudTh SortLabel="QuantityInStock">Quantity in Stock</MudTh>
             <MudTh SortLabel="SoldQuantity">Sold Quantity</MudTh>
+            <MudTh SortLabel="TotalRevenue">Total Revenue</MudTh>
         </HeaderContent>
         <RowTemplate>
             <MudTd>@context.Name</MudTd>
             <MudTd>@context.Price</MudTd>
             <MudTd>@context.QuantityInStock</MudTd>
             <MudTd>@context.SoldQuantity</MudTd>
+            <MudTd>$@(@context.SoldQuantity * @context.Price)</MudTd>
         </RowTemplate>
     </MudTable>
 </MudContainer>

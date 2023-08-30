@@ -6,5 +6,6 @@
         public decimal TotalPrice { get; set; }
         public List<ItemDetailsInOrder> Items { get; set; }
         public OrderStatus Status { get; set; }
+        //public int DeliveryInformationId { get; set; }
     }
 }

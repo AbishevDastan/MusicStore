@@ -1,12 +1,12 @@
 ﻿@page "/cart"
-@inject IOrderService _orderService
-@inject ICartService _cartService
-@inject IBreadcrumbService _breadcrumbService
-@inject NavigationManager _navigationManager
+@inject IOrderService OrderService
+@inject ICartService CartService
+@inject IBreadcrumbService BreadcrumbService
+@inject NavigationManager NavigationManager
 
 <div class="breadcrumbs-container">
     <ul class="breadcrumbs">
-        @foreach (var breadcrumb in _breadcrumbService.Breadcrumbs)
+        @foreach (var breadcrumb in BreadcrumbService.Breadcrumbs)
         {
             <li class="breadcrumb-item"><a href="@breadcrumb.Link">@breadcrumb.Label</a></li>
         }

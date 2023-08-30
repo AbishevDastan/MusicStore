@@ -10,13 +10,12 @@
     <MudText Typo="Typo.h4">ALL ORDERS (@orderCount)</MudText>
 </div>
 
-<MudContainer Class="page-container" Style="padding-top: 3%;">
+<MudContainer Class="page-container" Style="padding-top: 3%; padding-bottom: 15%;">
     <MudTable Items="@orders">
         <HeaderContent>
             <MudTh>Order ID</MudTh>
             <MudTh>Order Date</MudTh>
             <MudTh>Total Price</MudTh>
-            <MudTh>Items</MudTh>
             <MudTh>Status</MudTh>
             <MudTh></MudTh>
         </HeaderContent>
@@ -26,10 +25,9 @@
                 <MudTd>@context.Id</MudTd>
                 <MudTd>@context.OrderDate</MudTd>
                 <MudTd>@context.TotalPrice</MudTd>
-                <MudTd>@context.Item</MudTd>
                 <MudTd>@context.Status</MudTd>
                 <MudTd>
-                    <a href="order/admin/@context.Id">Details</a>
+                    <a href="order/admin/@context.Id/details">Details</a>
                 </MudTd>
                 <MudTd>
                     @if (context.Status == OrderStatus.Pending)

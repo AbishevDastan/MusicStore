@@ -4,11 +4,13 @@
     {
         private async Task Logout()
         {
+            await LocalStorageService.RemoveItemAsync("cartItemsCount");
+            await LocalStorageService.RemoveItemAsync("wishlistItemsCount");
             await LocalStorageService.RemoveItemAsync("token");
-            await CartService.GetNumberOfCartItems();
-            await WishlistService.GetNumberOfWishlistItems();
             await AuthStateProvider.GetAuthenticationStateAsync();
             NavigationManager.NavigateTo("");
+
+            StateHasChanged();
         }
     }
 }

@@ -41,6 +41,11 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             _emailRepository = emailRepository;
         }
 
+        public async Task<Order?> GetOrder(int? orderId)
+        {
+            return await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
+        }
+
         public async Task<OrderDetails> GetOrderDetails(int orderId)
         {
             var order = await _dataContext.Orders
@@ -82,10 +87,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                     Id = order.Id,
                     OrderDate = order.OrderDate,
                     TotalPrice = order.TotalPrice,
-                    Item = order.OrderItems.Any() ?
-                    $"{order.OrderItems.First().Item.Name} and" +
-                    $" {order.OrderItems.Count - 1} more..." :
-                    order.OrderItems.First().Item.Name,
                     Status = order.Status
                 };
                 orderOverviewList.Add(orderOverview);
@@ -93,7 +94,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             return orderOverviewList;
         }
 
-        public async Task<bool> PlaceOrder()
+        public async Task<bool> PlaceOrder(int deliveryInfoId)
         {
             decimal total = 0;
             var orderItems = new List<OrderItem>();
@@ -125,12 +126,13 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                 TotalPrice = total,
                 OrderItems = orderItems,
                 Status = OrderStatus.Pending,
+                DeliveryInformationId = deliveryInfoId,
             };
 
             _dataContext.Orders.Add(order);
             await _dataContext.SaveChangesAsync();
 
-            var user = await _userRepository.GetCurrentUser(order.UserId);
+            var user = await _userRepository.GetCurrentUserWithId(order.UserId);
             if (user == null)
             {
                 throw new Exception("User not found");
@@ -185,10 +187,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
                     Id = order.Id,
                     OrderDate = order.OrderDate,
                     TotalPrice = order.TotalPrice,
-                    Item = order.OrderItems.Any() ?
-                        $"{order.OrderItems.First().Item.Name} and" +
-                        $" {order.OrderItems.Count - 1} more..." :
-                        order.OrderItems.First().Item.Name,
                     Status = order.Status
                 };
                 orderOverviewList.Add(orderOverview);
@@ -253,7 +251,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             }
             await _dataContext.SaveChangesAsync();
 
-            var user = await _userRepository.GetCurrentUser(order.UserId);
+            var user = await _userRepository.GetCurrentUserWithId(order.UserId);
             if (user == null)
             {
                 throw new Exception("User not found");

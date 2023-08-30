@@ -1,0 +1,12 @@
+﻿.edit-form-container {
+    padding-right: 3%;
+    padding-left: 3%;
+    padding-top: 3%;
+    position: relative;
+}
+
+.button {
+    position: absolute;
+    left: 2%;
+    bottom: 25%;
+}
