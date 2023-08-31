@@ -31,26 +31,26 @@
                 <MudTh>SUBTOTAL</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>
-            <RowTemplate>
+            <RowTemplate Context="item">
                 <MudTd>
                     <div class="item-box">
-                        <img src="@context.ImageUrl" class="item-image" />
+                        <img src="@item.ImageUrl" class="item-image" />
                         <div class="item-name">
                             <MudText Typo="Typo.h5">
-                                <a href="/item/@context.ItemId">@context.Name</a>
+                                <a href="/item/@item.ItemId">@item.Name</a>
                             </MudText>
                         </div>
                     </div>
                 </MudTd>
-                <MudTd>$@context.Price</MudTd>
+                <MudTd>$@item.Price</MudTd>
                 <MudTd>
                     <div>
-                        <input type="number" value="@context.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, context))" class="form-control input-quantity" min="1" />
+                        <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
                     </div>
                 </MudTd>
-                <MudTd>$@(context.Price * context.Quantity)</MudTd>
+                <MudTd>$@(item.Price * item.Quantity)</MudTd>
                     <MudTd>
-                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(context.ItemId))"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(item.ItemId))"></MudIconButton>
                     </MudTd>
                 </RowTemplate>
             </MudTable>
@@ -61,6 +61,17 @@
                     TOTAL: $@addedCartItems.Sum(item => item.Price * item.Quantity)
                 </MudText>
             </div>
+
+@*             <AuthorizeView>
+                <NotAuthorized>
+                    <MudText Typo="Typo.h5">You are not authorized. Please, <a href="/login">login</a> or <a href="/register">create a new account</a> to proceed to checkout.</MudText>
+                </NotAuthorized>
+                <Authorized>
+                    <div class="place-order-button">
+                        <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout">Go to Checkout</MudButton>
+                    </div>
+                </Authorized>
+            </AuthorizeView> *@
 
             <div class="place-order-button">
                 <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout">Go to Checkout</MudButton>
