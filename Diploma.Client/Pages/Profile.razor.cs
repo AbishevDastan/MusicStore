@@ -6,19 +6,16 @@ namespace Diploma.Client.Pages
     {
         List<DeliveryInformation> deliveryInfos;
         User user = new User();
-        Order order;
+        bool isLinked = false;
 
         protected override async Task OnInitializedAsync()
         {
             deliveryInfos = await DeliveryService.GetDeliveryInfos();
-            user = await UserService.GetCurrentUser();
-            foreach (DeliveryInformation info in deliveryInfos)
+            foreach (var deliveryInfo in deliveryInfos)
             {
-                if (order != null)
-                {
-                    order = await OrderService.GetOrder(info.OrderId);
-                }
+                deliveryInfo.IsLinkedToOrder = await OrderService.IsDeliveryInfoLinkedToOrders(deliveryInfo.Id);
             }
+            user = await UserService.GetCurrentUser();
         }
 
         private void EditDeliveryInfo(int deliveryInfoId)

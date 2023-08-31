@@ -8,7 +8,8 @@ namespace Diploma.Client.Services.OrderService
     {
         List<OrderOverview> Orders { get; set; }
 
-        Task<Order?> GetOrder(int? id); 
+        Task<Order?> GetOrder(int? id);
+        Task<bool> IsDeliveryInfoLinkedToOrders(int deliveryInfoId);
         Task<List<OrderOverview>> GetOrdersForUser();
         Task<OrderDetails> GetOrderDetails(int orderId);
         Task PlaceOrder(int deliveryInfoId);

@@ -27,6 +27,7 @@ namespace Diploma.Client.Services.OrderService
 
 
         public async Task<Order?> GetOrder(int? id) => await _httpClient.GetFromJsonAsync<Order>($"api/order/{id}");
+        public async Task<bool> IsDeliveryInfoLinkedToOrders(int deliveryInfoId) => await _httpClient.GetFromJsonAsync<bool>($"api/order/{deliveryInfoId}/is-linked");
 
         public async Task<OrderDetails> GetOrderDetails(int orderId) => await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/{orderId}/details");
 

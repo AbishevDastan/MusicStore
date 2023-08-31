@@ -1,10 +1,14 @@
-﻿namespace Diploma.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Diploma.Domain.Entities
 {
     public class DeliveryInformation
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public int? OrderId { get; set; }
+        [NotMapped]
+        public bool? IsLinkedToOrder { get; set; } = false;
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string PhoneNumber { get; set; } = string.Empty;

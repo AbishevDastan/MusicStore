@@ -7,6 +7,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
     public interface IOrderRepository
     {
         Task<Order?> GetOrder(int? orderId);
+        Task<bool> IsDeliveryInfoLinkedToOrders(int deliveryInfoId);
         Task<OrderDetails> GetOrderDetails(int orderId);
         Task<List<OrderOverview>> GetOrdersForUser();
         Task<bool> PlaceOrder(int deliveryInfoId);

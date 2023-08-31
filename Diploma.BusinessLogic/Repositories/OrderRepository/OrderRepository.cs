@@ -46,6 +46,19 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             return await _dataContext.Orders.FirstOrDefaultAsync(x => x.Id == orderId);
         }
 
+        public async Task<bool> IsDeliveryInfoLinkedToOrders(int deliveryInfoId)
+        {
+            bool isLinked = await _dataContext.Orders.AnyAsync(x => x.DeliveryInformationId == deliveryInfoId);
+            if (isLinked == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<OrderDetails> GetOrderDetails(int orderId)
         {
             var order = await _dataContext.Orders

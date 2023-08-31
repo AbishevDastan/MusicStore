@@ -26,9 +26,9 @@
                         <div class="edit-button">
                             <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => EditDeliveryInfo(info.Id))" />
                         </div>
-                        @if (order != null)
+                        @if (info.IsLinkedToOrder.HasValue)
                         {
-                            @if (order.Status == DTO.Orders.OrderStatus.Approved)
+                            if (!info.IsLinkedToOrder.Value)
                             {
                                 <div class="delete-button">
                                     <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeleteDeliveryInfo(info.Id))" />

@@ -29,6 +29,13 @@ namespace Diploma.Api.Controllers
             }
             return Ok(order);
         }
+
+        [HttpGet]
+        [Route("{deliveryInfoId}/is-linked")]
+        public async Task<bool> IsDeliveryInfoLinkedToOrders(int deliveryInfoId)
+        {
+            return await _orderRepository.IsDeliveryInfoLinkedToOrders(deliveryInfoId);
+        }
  
         [HttpGet]
         [Route("{orderId}/details")]
