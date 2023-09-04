@@ -17,6 +17,8 @@ namespace Diploma.Client.Pages
 
         protected override async Task OnInitializedAsync()
         {
+            await LoadWishlist();
+            itemDto = await ItemService.GetItem(Id);
             isInWishlist = await WishlistService.IsInWishlist(itemDto.Id);
             BreadcrumbService.ClearBreadcrumbs();
             BreadcrumbService.AddBreadcrumb("Home", "/");
@@ -54,6 +56,13 @@ namespace Diploma.Client.Pages
                 await WishlistService.AddItemToWishlist(wishlistItem);
             }
             isInWishlist = !isInWishlist;
+            await LoadWishlist();
+        }
+
+        private async Task LoadWishlist()
+        {
+            await WishlistService.GetNumberOfWishlistItems();
+            await WishlistService.GetWishlistItemsLocally();
         }
 
         protected override async Task OnAfterRenderAsync(bool firstRender)

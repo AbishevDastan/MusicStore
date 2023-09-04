@@ -9,21 +9,19 @@
     <div class="carousel">
         <MudCarousel Class="mud-width-full" Style="height:500px;" ShowArrows="false" ShowBullets="false" AutoCycle="true" TData="string">
             <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                <a href="/crypto">
-                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
+                <a href="/electric-guitars">
+                    <img class="carousel-image" src="/images/guitarist.jpg" alt="Italian Trulli">
                     <div class="carousel-image-overlay">
-                        <h1 class="message">Level up your style with our summer collections</h1>
+                        <h3 class="message">Unleash your inner Rockstar</h3>
                     </div>
                 </a>
             </MudCarouselItem>
             <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                <a href="/crypto">
-                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
-                </a>
-            </MudCarouselItem>
-            <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
-                <a href="/crypto">
-                    <img class="carousel-image" src="/images/random.jpg" alt="Italian Trulli">
+                <a href="/synthesizers">
+                    <img class="carousel-image" src="/images/synth-player.jpg" alt="Italian Trulli">
+                    <div class="carousel-image-overlay">
+                        <h3 class="message">Instruments that Inspire – Discover Yours</h3>
+                    </div>
                 </a>
             </MudCarouselItem>
         </MudCarousel>
@@ -64,7 +62,8 @@
                             <div class="item-name">@item.Name</div>
                             <div class="item-price">$@item.Price</div>
                         </div>
-                        <MudIconButton Class="add-to-cart-button" Icon="@Icons.Material.Filled.AddShoppingCart"></MudIconButton>
+                        @*                         <MudIconButton Class="add-to-cart-button" Icon="@Icons.Material.Filled.AddShoppingCart"></MudIconButton>
+                    *@
                     </a>
                 </div>
             </MudItem>

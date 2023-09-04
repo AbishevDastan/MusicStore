@@ -61,6 +61,64 @@ namespace Diploma.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImageUrl = "images/Categories/acoustic-guitars-category.jpg",
+                            Name = "Acoustic Guitars",
+                            Url = "acoustic-guitars"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImageUrl = "images/Categories/electric-guitars-category.jpg",
+                            Name = "Electric Guitars",
+                            Url = "electric-guitars"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImageUrl = "images/Categories/bass-guitars-category.jpg",
+                            Name = "Bass Guitars",
+                            Url = "bass-guitars"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImageUrl = "images/Categories/drums-category.jpg",
+                            Name = "Drums",
+                            Url = "drums"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImageUrl = "images/Categories/trumpets-category.jpg",
+                            Name = "Trumpets",
+                            Url = "trumpets"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImageUrl = "images/Categories/violins-category.jpg",
+                            Name = "Violins",
+                            Url = "violins"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImageUrl = "images/Categories/pianos-category.jpg",
+                            Name = "Pianos",
+                            Url = "pianos"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImageUrl = "images/Categories/synthesizers-category.jpg",
+                            Name = "Synthesizers",
+                            Url = "synthesizers"
+                        });
                 });
 
             modelBuilder.Entity("Diploma.Domain.Entities.DeliveryInformation", b =>
@@ -133,6 +191,9 @@ namespace Diploma.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsInWishlist")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -154,6 +215,216 @@ namespace Diploma.DataAccess.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Items", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam id sodales nunc. Duis ut sapien tincidunt, tempor felis in, imperdiet diam. Vivamus eu justo sit amet nibh feugiat congue. ",
+                            ImageUrl = "images/Items/acoustic-guitar-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Martin 000-28",
+                            Price = 3500m,
+                            QuantityInStock = 10,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            Description = "Nam tempor, diam quis porta sagittis, dolor erat auctor nisi, eu pulvinar lacus massa in velit. Nam et aliquet felis.",
+                            ImageUrl = "images/Items/acoustic-guitar-2.jpg",
+                            IsInWishlist = false,
+                            Name = "Ibanez AW54OPN",
+                            Price = 399m,
+                            QuantityInStock = 20,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            Description = "Nullam auctor vitae velit a iaculis. Proin sed urna sit amet ante tincidunt imperdiet. Curabitur ac condimentum elit.",
+                            ImageUrl = "images/Items/acoustic-guitar-3.jpg",
+                            IsInWishlist = false,
+                            Name = "Ibanez Talman TCY10E",
+                            Price = 1999m,
+                            QuantityInStock = 17,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Description = "Nam ac diam lacinia, porta velit et, venenatis quam. In a quam sit amet est aliquet convallis nec vel ligula.",
+                            ImageUrl = "images/Items/electric-guitar-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Jackson JS32",
+                            Price = 1499m,
+                            QuantityInStock = 20,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            Description = "Sed dapibus tristique lacinia. Cras laoreet dictum elit id rutrum.",
+                            ImageUrl = "images/Items/electric-guitar-2.jpg",
+                            IsInWishlist = false,
+                            Name = "Jackson JS22",
+                            Price = 1m,
+                            QuantityInStock = 10,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 3,
+                            Description = "Nullam rutrum velit nulla, a mattis quam consequat eu. Nunc sagittis quam eget orci faucibus mattis.",
+                            ImageUrl = "images/Items/bass-guitar-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Jackson Bass JS2",
+                            Price = 999m,
+                            QuantityInStock = 23,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            Description = "Nulla vulputate viverra nisl in tincidunt. Mauris id tincidunt libero, a venenatis mauris. Morbi aliquam hendrerit sem id elementum.",
+                            ImageUrl = "images/Items/bass-guitar-2.jpg",
+                            IsInWishlist = false,
+                            Name = "Ibanez SR",
+                            Price = 1799m,
+                            QuantityInStock = 7,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 4,
+                            Description = "Mauris vitae maximus ante. Nunc vitae lorem eros. Duis vulputate pharetra eros at tincidunt.",
+                            ImageUrl = "images/Items/drums-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Donner DED-100",
+                            Price = 399m,
+                            QuantityInStock = 15,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 4,
+                            Description = "Quisque bibendum lacinia ante, rhoncus facilisis enim facilisis sit amet. Vivamus condimentum nunc nec maximus porttitor.",
+                            ImageUrl = "images/Items/drums-2.jpg",
+                            IsInWishlist = false,
+                            Name = "Vangoa Drum Kit",
+                            Price = 899m,
+                            QuantityInStock = 6,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 5,
+                            Description = "Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam lacinia accumsan urna, vel cursus nisl maximus pellentesque.",
+                            ImageUrl = "images/Items/trumpet-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Glory Bb Trumpet",
+                            Price = 128m,
+                            QuantityInStock = 12,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 6,
+                            Description = "Mauris eget sodales dolor. Maecenas rutrum ultricies mauris et finibus.",
+                            ImageUrl = "images/Items/violin-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Poseidon Violin",
+                            Price = 99m,
+                            QuantityInStock = 15,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 6,
+                            Description = "Nullam ac arcu a metus maximus aliquet eget vel dolor. Nulla ac volutpat mauris, quis pulvinar nulla.",
+                            ImageUrl = "images/Items/violin-2.jpg",
+                            IsInWishlist = false,
+                            Name = "Cecilio MV500+92D",
+                            Price = 249m,
+                            QuantityInStock = 6,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 7,
+                            Description = "Vestibulum accumsan lorem erat, sit amet congue ligula facilisis eget. Mauris mattis eget velit vitae molestie.",
+                            ImageUrl = "images/Items/piano-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Cossain Digital Piano",
+                            Price = 599m,
+                            QuantityInStock = 8,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 7,
+                            Description = "Nullam convallis tempor gravida. Suspendisse non est vitae tellus pretium fringilla et at eros. Nam venenatis elit quis faucibus porta.",
+                            ImageUrl = "images/Items/piano-2.jpg",
+                            IsInWishlist = false,
+                            Name = "FingerBallet Piano",
+                            Price = 399m,
+                            QuantityInStock = 10,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 7,
+                            Description = "Aenean id blandit libero. Curabitur nec enim aliquet, placerat arcu et, pellentesque est. Fusce condimentum tincidunt nulla, sit amet hendrerit diam mollis fringilla.",
+                            ImageUrl = "images/Items/piano-3.jpg",
+                            IsInWishlist = false,
+                            Name = "Magicon BX2 Piano",
+                            Price = 720m,
+                            QuantityInStock = 10,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 8,
+                            Description = "Praesent viverra ipsum id sem hendrerit sagittis. Praesent molestie faucibus elementum.",
+                            ImageUrl = "images/Items/synthesizer-1.jpg",
+                            IsInWishlist = false,
+                            Name = "Behringer DeepMind 6",
+                            Price = 499m,
+                            QuantityInStock = 4,
+                            SoldQuantity = 0,
+                            StockStatus = 0
+                        });
                 });
 
             modelBuilder.Entity("Diploma.Domain.Entities.Order", b =>

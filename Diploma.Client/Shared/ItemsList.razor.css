@@ -18,16 +18,16 @@
     margin: 10px;
     width: calc(25% - 20px);
     text-align: center;
+    transition: transform 0.2s ease-in-out;
 }
+
+    .item-card:hover {
+        transform: translateY(-5px);
+    }
 
 .item-image {
     max-width: 100%;
     height: 150px;
     object-fit: cover;
     border-radius: 5px;
-    transition: transform 0.2s ease-in-out;
 }
-
-    .item-image:hover {
-        transform: translateY(-5px);
-    }

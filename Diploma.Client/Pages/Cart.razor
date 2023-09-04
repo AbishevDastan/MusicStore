@@ -1,6 +1,7 @@
 ﻿@page "/cart"
 @inject IOrderService OrderService
 @inject ICartService CartService
+@inject IItemService ItemService
 @inject IBreadcrumbService BreadcrumbService
 @inject NavigationManager NavigationManager
 
@@ -45,7 +46,7 @@
                 <MudTd>$@item.Price</MudTd>
                 <MudTd>
                     <div>
-                        <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" />
+                        <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" max="@itemDto.QuantityInStock" />
                     </div>
                 </MudTd>
                 <MudTd>$@(item.Price * item.Quantity)</MudTd>
@@ -54,27 +55,18 @@
                     </MudTd>
                 </RowTemplate>
             </MudTable>
-
+        @if (!string.IsNullOrEmpty(message))
+        {
+            <div class="alert alert-danger">@message</div>
+        }
         <div class="fixed-bottom-right" style="position: fixed; bottom: 40px; right: 50px;">
             <div class="total-price">
                 <MudText Typo="Typo.h5">
                     TOTAL: $@addedCartItems.Sum(item => item.Price * item.Quantity)
                 </MudText>
             </div>
-
-@*             <AuthorizeView>
-                <NotAuthorized>
-                    <MudText Typo="Typo.h5">You are not authorized. Please, <a href="/login">login</a> or <a href="/register">create a new account</a> to proceed to checkout.</MudText>
-                </NotAuthorized>
-                <Authorized>
-                    <div class="place-order-button">
-                        <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout">Go to Checkout</MudButton>
-                    </div>
-                </Authorized>
-            </AuthorizeView> *@
-
             <div class="place-order-button">
-                <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout">Go to Checkout</MudButton>
+                <MudButton Variant="Variant.Outlined" Color="Color.Dark" OnClick="ProceedToCheckout" Disabled="@IsQuantityExceedingStock">Go to Checkout</MudButton>
             </div>
         </div>
     }

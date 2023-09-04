@@ -11,8 +11,6 @@ namespace Diploma.DataAccess.Configurations
             builder.HasKey(o => new { o.UserId, o.ItemId });
 
             builder.Property(x => x.Quantity);
-            builder.Property(x => x.UserId);
-            builder.Property(x => x.ItemId);
 
             builder.ToTable("CartItems");
         }

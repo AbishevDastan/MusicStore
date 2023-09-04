@@ -42,11 +42,11 @@
                     </div>
                 </MudTd>
                 <MudTd>$@context.Price</MudTd>
-                    <MudTd>
-                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromWishlist(context.ItemId))"></MudIconButton>
-                    </MudTd>
-                </RowTemplate>
-            </MudTable>
+                <MudTd>
+                    <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromWishlist(context.ItemId))"></MudIconButton>
+                </MudTd>
+            </RowTemplate>
+        </MudTable>
     }
 </div>
 
