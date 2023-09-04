@@ -20,7 +20,7 @@
             <MudItem xs="12" md="6">
                 <div class="delivery-info">
                     <MudText Style="margin-bottom: 2%;" Typo="Typo.h4">Your delivery information:</MudText>
-                    @if (deliveryInfos == null)
+                    @if (deliveryInfos == null || deliveryInfos.Count == 0)
                     {
                         <MudButton Variant="Variant.Outlined" OnClick="(() => AddDeliveryInfo())">Add Delivery Information</MudButton>
                     }

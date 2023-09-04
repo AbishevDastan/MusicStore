@@ -6,7 +6,7 @@ namespace Diploma.Client.Pages
 {
     public partial class Checkout
     {
-        List<DeliveryInformation> deliveryInfos;
+        List<DeliveryInformation> deliveryInfos = null;
         int selectedDeliveryInfoId;
         List<AddItemToCartDto> addedCartItems = null;
         private bool IsDeliveryInfoSelected { get; set; } = false;

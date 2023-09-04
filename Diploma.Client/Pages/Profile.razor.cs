@@ -5,6 +5,7 @@ namespace Diploma.Client.Pages
     public partial class Profile
     {
         List<DeliveryInformation> deliveryInfos;
+        DeliveryInformation deliveryInfo;
         User user = new User();
         bool isLinked = false;
 
@@ -26,7 +27,14 @@ namespace Diploma.Client.Pages
         private async Task DeleteDeliveryInfo(int deliveryInfoId)
         {
             await DeliveryService.DeleteDeliveryInfo(deliveryInfoId);
+
+            deliveryInfo = deliveryInfos.Find(x => x.Id == deliveryInfoId);
+            if (deliveryInfo != null)
+            {
+                deliveryInfos.Remove(deliveryInfo);
+            }
             NavigationManager.NavigateTo("/profile");
+            StateHasChanged();
         }
 
         private void AddNewDeliveryInfo()
