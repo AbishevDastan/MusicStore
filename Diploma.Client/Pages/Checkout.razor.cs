@@ -9,6 +9,7 @@ namespace Diploma.Client.Pages
         List<DeliveryInformation> deliveryInfos;
         int selectedDeliveryInfoId;
         List<AddItemToCartDto> addedCartItems = null;
+        private bool IsDeliveryInfoSelected { get; set; } = false;
 
         protected override async Task OnInitializedAsync()
         {
@@ -41,9 +42,15 @@ namespace Diploma.Client.Pages
             NavigationManager.NavigateTo("/profile");
         }
 
+        private void AddDeliveryInfo()
+        {
+            NavigationManager.NavigateTo("/delivery");
+        }
+
         private void SetSelectedDeliveryInfo(int deliveryInfoId)
         {
             selectedDeliveryInfoId = deliveryInfoId;
+            IsDeliveryInfoSelected = true;
         }
     }
 }

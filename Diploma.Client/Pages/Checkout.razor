@@ -20,7 +20,11 @@
             <MudItem xs="12" md="6">
                 <div class="delivery-info">
                     <MudText Style="margin-bottom: 2%;" Typo="Typo.h4">Your delivery information:</MudText>
-                    @if (deliveryInfos != null)
+                    @if (deliveryInfos == null)
+                    {
+                        <MudButton Variant="Variant.Outlined" OnClick="(() => AddDeliveryInfo())">Add Delivery Information</MudButton>
+                    }
+                    else
                     {
                         foreach (var info in deliveryInfos)
                         {
@@ -35,11 +39,11 @@
                         }
                     }
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
             </MudItem>
             <MudItem xs="12" md="6">
                 <MudText Style="margin-bottom: 2%;" Typo="Typo.h4">Order summary</MudText>
@@ -62,8 +66,13 @@
                         </div>
                     </MudPaper>
                     <MudButton Style="margin-right: 191px; margin-top: 4%;" Variant=" Variant.Outlined" OnClick="(() => ManageDeliveryInfo())">Manage Delivery Information</MudButton>
-                    <MudButton Style="margin-top: 4%;" ButtonType="ButtonType.Submit" Color="Color.Success" Variant="Variant.Outlined" OnClick="PlaceOrder">Confirm Order</MudButton>
-                </MudItem>
-            </MudGrid>
-        </div>
-    </MudContainer>
+                    <MudButton Style="margin-top: 4%;" ButtonType="ButtonType.Submit" Color="Color.Success" Variant="Variant.Outlined" OnClick="PlaceOrder" disabled="@(!IsDeliveryInfoSelected)">Confirm Order</MudButton>
+
+                    @if (!IsDeliveryInfoSelected)
+                {
+                    <div style="margin-top: 2%;">Please select your delivery information or add another to continue.</div>
+                }
+            </MudItem>
+        </MudGrid>
+    </div>
+</MudContainer>

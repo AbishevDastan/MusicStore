@@ -10,12 +10,10 @@ namespace Diploma.Client.Services.UserService
     public class UserService : IUserService
     {
         private readonly HttpClient _httpClient;
-        private readonly AuthenticationStateProvider _authStateProvider;
 
-        public UserService(HttpClient httpClient, AuthenticationStateProvider authStateProvider)
+        public UserService(HttpClient httpClient)
         {
             _httpClient = httpClient;
-            _authStateProvider = authStateProvider;
         }
         public async Task<ResponseFromServer<int>> Register(CreateUserDto request)
         {

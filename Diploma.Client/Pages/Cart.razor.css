@@ -14,17 +14,6 @@
     flex: 1;
 }
 
-.total-price {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    text-align: right;
-    font-size: 18px;
-    margin-right: 40px;
-}
-
 .place-order-button {
-    margin-bottom: 10px;
-    text-align: right;
-    margin-top: 15px;
-    margin-right: 40px;
+    margin-top: 5%;
 }

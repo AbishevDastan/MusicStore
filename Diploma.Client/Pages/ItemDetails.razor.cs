@@ -37,7 +37,9 @@ namespace Diploma.Client.Pages
             };
 
             await CartService.AddItemToCart(cartItem);
+            itemDto.QuantityInStock -= 1;
             showSnackbar = true;
+            NavigationManager.NavigateTo("/cart");
         }
 
         private async Task ToggleWishlist()

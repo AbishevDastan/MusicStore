@@ -6,6 +6,7 @@
 @inject ILocalStorageWishlistService LocalStorageWishlistService
 @inject IBreadcrumbService BreadcrumbService
 @inject ISnackbar SnackBar
+@inject NavigationManager NavigationManager
 
 
 <div class="breadcrumbs-container">
@@ -59,15 +60,15 @@ else
                         <MudText Typo="Typo.body1">@itemDto.Description</MudText>
                         <div class="container-2">
                             <div class="left">
-                                @if (itemDto.StockStatus == ItemStockStatus.InStock || itemDto.StockStatus == ItemStockStatus.LowStock)
+                                @if (itemDto.QuantityInStock <= 0)
                                 {
-                                    <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
+                                    <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
                                         Add to Shopping Cart
                                     </MudButton>
                                 }
                                 else
                                 {
-                                    <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default" Disabled="true">
+                                    <MudButton Variant="Variant.Outlined" OnClick="AddItemToCart" EndIcon="@Icons.Material.Filled.ShoppingCart" Color="Color.Default">
                                         Add to Shopping Cart
                                     </MudButton>
                                 }

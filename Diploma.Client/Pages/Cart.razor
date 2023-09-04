@@ -17,7 +17,7 @@
     <MudText Typo="Typo.h4">SHOPPING CART</MudText>
 </div>
 
-<div class="page-container">
+<div class="page-container" style="padding-bottom: 20%;">
     @if (addedCartItems == null || addedCartItems.Count == 0)
     {
         <span>@message</span>
@@ -59,7 +59,7 @@
         {
             <div class="alert alert-danger">@message</div>
         }
-        <div class="fixed-bottom-right" style="position: fixed; bottom: 40px; right: 50px;">
+        <div style="margin-top: 2%; margin-left: 82%;">
             <div class="total-price">
                 <MudText Typo="Typo.h5">
                     TOTAL: $@addedCartItems.Sum(item => item.Price * item.Quantity)
