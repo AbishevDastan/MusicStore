@@ -11,7 +11,7 @@
 </div>
 
 <MudContainer Class="page-container" Style="padding-top: 3%; padding-bottom: 15%;">
-    <MudTable Items="@orders">
+    <MudTable Items="@orderOverviews">
         <HeaderContent>
             <MudTh>Order ID</MudTh>
             <MudTh>Order Date</MudTh>
@@ -20,21 +20,34 @@
             <MudTh></MudTh>
         </HeaderContent>
         <RowTemplate>
-            @if (orders != null)
+            @if (orderOverviews != null)
             {
                 <MudTd>@context.Id</MudTd>
                 <MudTd>@context.OrderDate</MudTd>
-                <MudTd>@context.TotalPrice</MudTd>
+                <MudTd>$@context.TotalPrice</MudTd>
                 <MudTd>@context.Status</MudTd>
                 <MudTd>
                     <a href="order/admin/@context.Id/details">Details</a>
                 </MudTd>
-                <MudTd>
-                    @if (context.Status == OrderStatus.Pending)
-                    {
+                @if (context.Status == OrderStatus.Pending)
+                {
+                    <MudTd>
                         <MudIconButton Icon="@Icons.Material.Filled.Check" @onclick="() => ApproveOrder(context.Id)" />
-                    }
-                </MudTd>
+                    </MudTd>
+                }
+                else if (context.Status == OrderStatus.Approved)
+                {
+                    <MudTd>
+                        <MudButton OnClick="() => SetStatusToShipped(context.Id)">Shipped</MudButton>
+                    </MudTd>
+
+                }
+                else if (context.Status == OrderStatus.Shipped)
+                {
+                    <MudTd>
+                        <MudButton OnClick="() => SetStatusToDelivered(context.Id)">Delivered</MudButton>
+                    </MudTd>
+                }
             }
         </RowTemplate>
     </MudTable>

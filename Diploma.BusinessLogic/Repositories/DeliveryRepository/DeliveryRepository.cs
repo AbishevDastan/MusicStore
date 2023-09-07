@@ -100,18 +100,6 @@ namespace Diploma.BusinessLogic.Repositories.DeliveryRepository
             }
         }
 
-        public async Task LinkDeliveryInfoToOrder(int deliveryInfoId, int orderId)
-        {
-            var deliveryInfo = await _dataContext.DeliveryInformations.FirstOrDefaultAsync(x => x.Id == deliveryInfoId);
-            var order = await _orderRepository.GetOrder(orderId);
-
-            if (deliveryInfo != null && order != null)
-            {
-                deliveryInfo.OrderId = orderId;
-                await _dataContext.SaveChangesAsync();
-            }
-        }
-
         public async Task<int> GetDeliveryInfosCount()
         {
             return await _dataContext.DeliveryInformations

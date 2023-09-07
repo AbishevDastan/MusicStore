@@ -19,7 +19,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         private readonly ICartRepository _cartRepository;
         private readonly IUserContext _userContext;
         private readonly IItemRepository _itemRepository;
-        private readonly IMapper _mapper;
         private readonly IUserRepository _userRepository;
         private readonly IEmailRepository _emailRepository;
 
@@ -28,7 +27,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             ICartRepository cartRepository,
             IUserContext userContext,
             IItemRepository itemRepository,
-            IMapper mapper,
             IUserRepository userRepository,
             IEmailRepository emailRepository)
         {
@@ -36,7 +34,6 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             _cartRepository = cartRepository;
             _userContext = userContext;
             _itemRepository = itemRepository;
-            _mapper = mapper;
             _userRepository = userRepository;
             _emailRepository = emailRepository;
         }
@@ -145,22 +142,41 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             _dataContext.Orders.Add(order);
             await _dataContext.SaveChangesAsync();
 
-            var user = await _userRepository.GetCurrentUserWithId(order.UserId);
-            if (user == null)
+            var user = await GetCurrentUser(order.UserId);
+            var email = new EmailDto()
             {
-                throw new Exception("User not found");
-            }
-            else
-            {
-                var email = new EmailDto()
-                {
-                    To = user.Email,
-                    Subject = $"Order Confirmation - Order ID: {order.Id}",
-                    Body = $"Dear customer,\n\nThank you for placing an order with the MusicStore. The order has been received and is being processed.\n\nOrder ID: {order.Id}\nOrder Date: {order.OrderDate}\nTotal Price: {order.TotalPrice}\n\nIf you have any questions or need assistance, please feel free to contact our customer support team at musicstore7510@outlook.com or +1 234 567 890.\nThank you for choosing MusicStore!\n\nBest regards,\nThe MusicStore Team"
-                };
-                _emailRepository.SendEmail(email);
-            }
-
+                To = user.Email,
+                Subject = $"Order Confirmation - Order ID: {order.Id}",
+                Body = $@"
+                    <!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                        <meta charset=""UTF-8"">
+                        <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
+                        <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                        <title>Order Confirmation</title>
+                    </head>
+                    <body>
+                        <div style=""font-family: Arial, sans-serif;"">
+                            <h1>Order Confirmation</h1>
+                            <p>Dear Customer,</p>
+        
+                            <p>Thank you for placing an order with the Music Store! The order has been received and is being processed.</p>
+        
+                            <p>Order Details:</p>
+                            <ul>
+                                <li>Order ID: {order.Id}</li>
+                                <li>Order Date: {order.OrderDate}</li>
+                                <li>Total Price: {order.TotalPrice}</li>
+                            </ul>
+        
+                            <p>If you have any questions or need assistance, please feel free to contact our customer support team at musicstore7510@outlook.com or +1 234 567 890.</br></br>Thank you for choosing MusicStore!</p>
+                            <p>Best regards,</br>The Music Store Team</p>""
+                        </div>
+                    </body>
+                    </html>"
+            };
+            _emailRepository.SendEmail(email);
             return true;
         }
 
@@ -246,7 +262,7 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
 
             if (order == null)
             {
-                throw new NullReferenceException("The order is not found");
+                throw new NullReferenceException("The order not found");
             }
 
             if (order.Status == OrderStatus.Approved)
@@ -264,18 +280,118 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
             }
             await _dataContext.SaveChangesAsync();
 
-            var user = await _userRepository.GetCurrentUserWithId(order.UserId);
-            if (user == null)
+            var user = await GetCurrentUser(order.UserId);
+
+            var email = new EmailDto()
             {
-                throw new Exception("User not found");
+                To = user.Email,
+                Subject = "Order Approved",
+                Body = $@"
+                    <!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                        <meta charset=""UTF-8"">
+                        <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
+                        <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                        <title>Order Approval</title>
+                    </head>
+                    <body>
+                        <div style=""font-family: Arial, sans-serif;"">
+                            <p>Dear Customer,</p>
+        
+                            <p>Your order with ID {order.Id} has been approved. Thank you for shopping with us!</p>
+        
+                            <p>Best regards,</br>The Music Store Team</p>""
+                        </div>
+                    </body>
+                    </html>"
+            };
+            _emailRepository.SendEmail(email);
+        }
+
+
+        public async Task SetStatusToDelivered(int orderId)
+        {
+            var order = await _dataContext.Orders
+               .FirstOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new NullReferenceException("The order not found");
             }
             else
             {
+                order.Status = OrderStatus.Delivered;
+                await _dataContext.SaveChangesAsync();
+                var user = await GetCurrentUser(order.UserId);
+
                 var email = new EmailDto()
                 {
                     To = user.Email,
-                    Subject = "Order Approved",
-                    Body = $"Dear customer,\n\nYour order with ID {order.Id} has been approved. Thank you for shopping with us!\n\nBest regards,\nThe MusicStore Team"
+                    Subject = "Order Delivered",
+                    Body = $@"
+                    <!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                        <meta charset=""UTF-8"">
+                        <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
+                        <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                        <title>Order Delivery</title>
+                    </head>
+                    <body>
+                        <div style=""font-family: Arial, sans-serif;"">
+                            <p>Dear Customer,</p>
+        
+                            <p>Your order with ID {order.Id} has been delivered successfully. Thank you for shopping with us!</p>
+        
+                            <p>Best regards,</br>The Music Store Team</p>""
+                        </div>
+                    </body>
+                    </html>"
+                };
+                _emailRepository.SendEmail(email);
+
+            }
+        }
+
+        public async Task SetStatusToShipped(int orderId)
+        {
+            var order = await _dataContext.Orders
+                .FirstOrDefaultAsync(x => x.Id == orderId);
+
+            if (order == null)
+            {
+                throw new NullReferenceException("The order not found");
+            }
+            else
+            {
+                order.Status = OrderStatus.Shipped;
+                await _dataContext.SaveChangesAsync();
+                var user = await GetCurrentUser(order.UserId);
+
+                var email = new EmailDto()
+                {
+                    To = user.Email,
+                    Subject = "Order Shipment",
+                    Body = $@"
+                    <!DOCTYPE html>
+                    <html lang=""en"">
+                    <head>
+                         <meta charset=""UTF-8"">
+                         <meta http-equiv=""X-UA-Compatible"" content=""IE=edge"">
+                         <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+                         <title>Order Shipment</title>
+                    </head>
+                    <body>
+                        <div style=""font-family: Arial, sans-serif;"">
+                             <p>Dear Customer,</p>
+        
+                             <p>Your order with ID {order.Id} has been shipped. Thank you for shopping with us!</p>
+        
+                             <p>Best regards,</br>The Music Store Team</p>""
+                        </div>
+                    </body>
+                    </html>"
                 };
                 _emailRepository.SendEmail(email);
             }
@@ -284,6 +400,19 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         public async Task<int> GetOrdersCount()
         {
             return await _dataContext.Orders.CountAsync();
+        }
+
+        public async Task<User> GetCurrentUser(int userId)
+        {
+            var user = await _userRepository.GetCurrentUserWithId(userId);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            else
+            {
+                return user;
+            }
         }
     }
 }

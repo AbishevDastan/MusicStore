@@ -19,7 +19,12 @@ namespace Diploma.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<List<AddItemToCartDto>>> GetCartItemsFromDatabase()
         {
-            return Ok(await _cartRepository.GetCartItemsFromDatabase());
+            var cartItems = await _cartRepository.GetCartItemsFromDatabase();
+            if (cartItems == null)
+            {
+                return NotFound();
+            }
+            return Ok(cartItems);
         }
 
         [HttpPost]

@@ -38,6 +38,8 @@ namespace Diploma.Client.Services.OrderService
         public async Task<OrderDetails> GetOrderDetailsForAdmin(int orderId) => await _httpClient.GetFromJsonAsync<OrderDetails>($"api/order/admin/{orderId}/details");
 
         public async Task ApproveOrder(int orderId) => await _httpClient.PostAsync($"api/order/admin/{orderId}/approve", null);
+        public async Task SetStatusToShipped(int orderId) => await _httpClient.PostAsync($"api/order/admin/{orderId}/set-to-shipped", null);
+        public async Task SetStatusToDelivered(int orderId) => await _httpClient.PostAsync($"api/order/admin/{orderId}/set-to-delivered", null);
         public async Task<int> GetOrdersCount() => await _httpClient.GetFromJsonAsync<int>("api/order/admin/count");
 
         public async Task PlaceOrder(int deliveryInfoId)

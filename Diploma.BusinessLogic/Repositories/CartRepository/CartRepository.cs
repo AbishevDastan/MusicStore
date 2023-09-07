@@ -23,6 +23,7 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
         public async Task<bool> AddCartItemsToDatabase(CartItem cartItem)
         {
             cartItem.UserId = _userContext.GetUserId();
+
             var existingItem = await _dataContext.CartItems
                 .FirstOrDefaultAsync(ci => ci.ItemId == cartItem.ItemId && ci.UserId == cartItem.UserId);
 
@@ -45,9 +46,11 @@ namespace Diploma.BusinessLogic.Repositories.CartRepository
             if(userId == null)
             userId = _userContext.GetUserId();
 
-            return await GetCartItemsLocally(await _dataContext.CartItems
+            var cartItems = await GetCartItemsLocally(await _dataContext.CartItems
                 .Where(ci => ci.UserId == userId)
                 .ToListAsync());
+
+            return cartItems;
         }
 
         public async Task<List<AddItemToCartDto>> GetCartItemsLocally(List<CartItem> cartItems)

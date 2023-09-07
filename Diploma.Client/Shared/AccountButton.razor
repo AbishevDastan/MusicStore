@@ -4,17 +4,19 @@
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider AuthStateProvider
 
-<MudMenu IconColor="Color.Dark" Icon="@Icons.Material.Filled.Person">
-    <AuthorizeView>
-        <Authorized>
-            <MudMenuItem Href="profile">My Profile</MudMenuItem>
-            <MudMenuItem Href="orders">My Orders</MudMenuItem>
-            <MudMenuItem Href="change-password">Change Password</MudMenuItem>
-            <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
-        </Authorized>
-        <NotAuthorized>
-            <MudMenuItem Href="register">Create Account</MudMenuItem>
-            <MudMenuItem Href="login">Login</MudMenuItem>
-        </NotAuthorized>
-    </AuthorizeView>
-</MudMenu>
+<MudTooltip Text="My Account">
+    <MudMenu IconColor="Color.Dark" Icon="@Icons.Material.Filled.Person">
+        <AuthorizeView>
+            <Authorized>
+                <MudMenuItem Href="profile">My Profile</MudMenuItem>
+                <MudMenuItem Href="orders">My Orders</MudMenuItem>
+                <MudMenuItem Href="change-password">Change Password</MudMenuItem>
+                <MudMenuItem OnClick="Logout">Logout</MudMenuItem>
+            </Authorized>
+            <NotAuthorized>
+                <MudMenuItem Href="register">Create Account</MudMenuItem>
+                <MudMenuItem Href="login">Login</MudMenuItem>
+            </NotAuthorized>
+        </AuthorizeView>
+    </MudMenu>
+</MudTooltip>

@@ -19,6 +19,8 @@ namespace Diploma.Client.Services.OrderService
         Task<List<OrderOverview>> GetOrdersForAdmin();
         Task<OrderDetails> GetOrderDetailsForAdmin(int orderId);
         Task ApproveOrder(int orderId);
+        Task SetStatusToShipped(int orderId);
+        Task SetStatusToDelivered(int orderId);
         Task<int> GetOrdersCount();
     }
 }

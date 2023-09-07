@@ -3,10 +3,12 @@
 
 @if (authorized)
 {
-    <MudMenu Icon="@Icons.Material.Filled.AdminPanelSettings">
-        <MudMenuItem Href="item/admin/statistics">Items Statistics</MudMenuItem>
-        <MudMenuItem Href="orders/admin">Manage Orders</MudMenuItem>
-        <MudMenuItem Href="categories/admin">Manage Categories</MudMenuItem>
-        <MudMenuItem Href="items/admin">Manage Items</MudMenuItem>
-    </MudMenu>
+    <MudTooltip Text="Administrator Panel">
+        <MudMenu Icon="@Icons.Material.Filled.AdminPanelSettings">
+            <MudMenuItem Href="item/admin/statistics">Items Statistics</MudMenuItem>
+            <MudMenuItem Href="orders/admin">Manage Orders</MudMenuItem>
+            <MudMenuItem Href="categories/admin">Manage Categories</MudMenuItem>
+            <MudMenuItem Href="items/admin">Manage Items</MudMenuItem>
+        </MudMenu>
+    </MudTooltip>
 }

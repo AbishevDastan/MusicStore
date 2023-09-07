@@ -23,7 +23,7 @@ namespace Diploma.Api.Controllers
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
             var order = await _orderRepository.GetOrder(id);
-            if(order == null)
+            if (order == null)
             {
                 return NotFound();
             }
@@ -36,7 +36,7 @@ namespace Diploma.Api.Controllers
         {
             return await _orderRepository.IsDeliveryInfoLinkedToOrders(deliveryInfoId);
         }
- 
+
         [HttpGet]
         [Route("{orderId}/details")]
         public async Task<ActionResult<OrderDetails>> GetOrderDetails(int orderId)
@@ -102,6 +102,20 @@ namespace Diploma.Api.Controllers
         public async Task ApproveOrder(int orderId)
         {
             await _orderRepository.ApproveOrder(orderId);
+        }
+
+        [HttpPost]
+        [Route("admin/{orderId}/set-to-shipped")]
+        public async Task SetStatusToShipped(int orderId)
+        {
+            await _orderRepository.SetStatusToShipped(orderId);
+        }
+
+        [HttpPost]
+        [Route("admin/{orderId}/set-to-delivered")]
+        public async Task SetStatusToDelivered(int orderId)
+        {
+            await _orderRepository.SetStatusToDelivered(orderId);
         }
 
         [HttpGet]

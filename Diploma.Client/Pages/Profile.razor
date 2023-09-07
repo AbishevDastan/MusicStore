@@ -23,16 +23,23 @@
                         <p>@info.PhoneNumber</p>
                         <p>@info.Street street, @info.City @info.ZipCode</p>
                         <p>@info.State, @info.Country</p>
-                        <div class="edit-button">
-                            <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => EditDeliveryInfo(info.Id))" />
-                        </div>
-                        @if (info.IsLinkedToOrder.HasValue)
+                        @if (isPendingOrDelivered)
                         {
-                            if (!info.IsLinkedToOrder.Value)
+                            @if (canEditDeliveryInfo)
                             {
-                                <div class="delete-button">
-                                    <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeleteDeliveryInfo(info.Id))" />
+                                <div class="edit-button">
+                                    <MudIconButton Icon="@Icons.Material.Filled.Edit" OnClick="(() => EditDeliveryInfo(info.Id))" Disabled="@canEditDeliveryInfo" />
                                 </div>
+                            }
+
+                            @if (info.IsLinkedToOrder.HasValue)
+                            {
+                                if (!info.IsLinkedToOrder.Value)
+                                {
+                                    <div class="delete-button">
+                                        <MudIconButton Icon="@Icons.Material.Filled.Delete" OnClick="(() => DeleteDeliveryInfo(info.Id))" />
+                                    </div>
+                                }
                             }
                         }
                     </div>

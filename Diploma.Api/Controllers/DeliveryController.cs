@@ -77,12 +77,12 @@ namespace Diploma.Api.Controllers
             return Ok(await _deliveryRepository.DeleteDeliveryInfo(id));
         }
 
-        [HttpPost("link-to-order")]
-        public async Task<ActionResult> LinkDeliveryInfoToOrder(LinkDeliveryInfoToOrderDto dto)
-        {
-            await _deliveryRepository.LinkDeliveryInfoToOrder(dto.DeliveryInfoId, dto.OrderId);
-            return Ok();
-        }
+        //[HttpPost("link-to-order")]
+        //public async Task<ActionResult> LinkDeliveryInfoToOrder(LinkDeliveryInfoToOrderDto dto)
+        //{
+        //    await _deliveryRepository.LinkDeliveryInfoToOrder(dto.DeliveryInfoId, dto.OrderId);
+        //    return Ok();
+        //}
 
         [HttpGet]
         [Route("count")]

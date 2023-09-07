@@ -1,4 +1,5 @@
 ﻿using Diploma.Domain.Entities;
+using Diploma.DTO.Orders;
 
 namespace Diploma.Client.Pages
 {
@@ -7,7 +8,9 @@ namespace Diploma.Client.Pages
         List<DeliveryInformation> deliveryInfos;
         DeliveryInformation deliveryInfo;
         User user = new User();
-        bool isLinked = false;
+        Order? order = null;
+        bool canEditDeliveryInfo;
+        bool isPendingOrDelivered;
 
         protected override async Task OnInitializedAsync()
         {
@@ -17,6 +20,39 @@ namespace Diploma.Client.Pages
                 deliveryInfo.IsLinkedToOrder = await OrderService.IsDeliveryInfoLinkedToOrders(deliveryInfo.Id);
             }
             user = await UserService.GetCurrentUser();
+        }
+
+        private async Task<bool> CanEditDeliveryInformation()
+        {
+            canEditDeliveryInfo = true;
+            foreach (var orderId in deliveryInfo.OrderIds)
+            {
+                order = await OrderService.GetOrder(orderId);
+                if (order != null && order.Status == OrderStatus.Shipped)
+                {
+                    canEditDeliveryInfo = false;
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private async Task<bool> IsPendingOrDelivered()
+        {
+            isPendingOrDelivered = true;
+            foreach (var orderId in deliveryInfo.OrderIds)
+            {
+                order = await OrderService.GetOrder(orderId);
+                if (order != null)
+                {
+                    if (order.Status == OrderStatus.Delivered || order.Status == OrderStatus.Pending)
+                    {
+                        isPendingOrDelivered = false;
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
 
         private void EditDeliveryInfo(int deliveryInfoId)

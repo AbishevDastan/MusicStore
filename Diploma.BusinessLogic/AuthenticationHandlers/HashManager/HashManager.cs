@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using System.Text;
 
 namespace Diploma.BusinessLogic.AuthenticationHandlers.HashManager
 {
@@ -9,7 +10,7 @@ namespace Diploma.BusinessLogic.AuthenticationHandlers.HashManager
             using (var hmac = new HMACSHA512())
             {
                 salt = hmac.Key;
-                hash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
             }
         }
 
@@ -17,7 +18,7 @@ namespace Diploma.BusinessLogic.AuthenticationHandlers.HashManager
         {
             using (var hmac = new HMACSHA512(salt))
             {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(hash);
             }
         }

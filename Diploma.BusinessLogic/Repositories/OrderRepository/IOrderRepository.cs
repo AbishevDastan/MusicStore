@@ -17,6 +17,9 @@ namespace Diploma.BusinessLogic.Repositories.OrderRepository
         Task<List<OrderOverview>> GetAllOrders();
         Task<OrderDetails> GetOrderDetailsForAdmin(int orderId);
         Task ApproveOrder(int orderId);
+        Task SetStatusToShipped(int orderId);
+        Task SetStatusToDelivered(int orderId);
         Task<int> GetOrdersCount();
+        Task<User> GetCurrentUser(int userId);
     }
 }

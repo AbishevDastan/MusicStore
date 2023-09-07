@@ -9,7 +9,6 @@ namespace Diploma.BusinessLogic.Repositories.DeliveryRepository
         Task<DeliveryInformation> GetDeliveryInfoForAdmin(int id);
         Task<bool> AddOrUpdateDeliveryInfo(DeliveryInformation deliveryInfo);
         Task<bool> DeleteDeliveryInfo(int deliveryInfoId);
-        Task LinkDeliveryInfoToOrder(int deliveryInfoId, int orderId);
         Task<int> GetDeliveryInfosCount();
     }
 }
