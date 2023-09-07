@@ -69,9 +69,12 @@ else
                         <MudTd>@context.Quantity</MudTd>
                     </RowTemplate>
                 </MudTable>
-                <div class="cancel-order-button">
-                    <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="CancelOrder">Cancel Order</MudButton>
-                </div>
+                @if (order.Status != DTO.Orders.OrderStatus.Canceled)
+                {
+                    <div class="cancel-order-button">
+                        <MudButton Variant="Variant.Outlined" Color="Color.Error" OnClick="CancelOrder">Cancel Order</MudButton>
+                    </div>
+                }
             </MudItem>
         </MudGrid>
     </MudContainer>

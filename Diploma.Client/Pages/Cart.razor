@@ -32,26 +32,26 @@
                 <MudTh>SUBTOTAL</MudTh>
                 <MudTh></MudTh>
             </HeaderContent>
-            <RowTemplate Context="item">
+            <RowTemplate Context="addedCartItem">
                 <MudTd>
                     <div class="item-box">
-                        <img src="@item.ImageUrl" class="item-image" />
+                        <img src="@addedCartItem.ImageUrl" class="item-image" />
                         <div class="item-name">
                             <MudText Typo="Typo.h5">
-                                <a href="/item/@item.ItemId">@item.Name</a>
+                                <a href="/item/@addedCartItem.ItemId">@addedCartItem.Name</a>
                             </MudText>
                         </div>
                     </div>
                 </MudTd>
-                <MudTd>$@item.Price</MudTd>
+                <MudTd>$@addedCartItem.Price</MudTd>
                 <MudTd>
                     <div>
-                        <input type="number" value="@item.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, item))" class="form-control input-quantity" min="1" max="@itemDto.QuantityInStock" />
+                        <input type="number" value="@addedCartItem.Quantity" @onchange="@((ChangeEventArgs ev) => UpdateItemsQuantity(ev, addedCartItem, addedCartItem.ItemId))" class="form-control input-quantity" min="1" max="@itemDto?.QuantityInStock" />
                     </div>
                 </MudTd>
-                <MudTd>$@(item.Price * item.Quantity)</MudTd>
+                <MudTd>$@(addedCartItem.Price * addedCartItem.Quantity)</MudTd>
                     <MudTd>
-                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(item.ItemId))"></MudIconButton>
+                        <MudIconButton Icon="@Icons.Material.Filled.Close" Color="Color.Error" @onclick="@(() => DeleteItemFromCart(addedCartItem.ItemId))"></MudIconButton>
                     </MudTd>
                 </RowTemplate>
             </MudTable>

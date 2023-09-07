@@ -41,33 +41,30 @@ namespace Diploma.Client.Pages
             }
         }
 
-        private async Task UpdateItemsQuantity(ChangeEventArgs e, AddItemToCartDto cartItem)
+        private async Task UpdateItemsQuantity(ChangeEventArgs e, AddItemToCartDto cartItem, int itemId)
         {
-            foreach (var addedCartItem in addedCartItems)
+            itemDto = await ItemService.GetItem(itemId);
+
+            if (itemDto != null)
             {
-                itemDto = await ItemService.GetItem(addedCartItem.ItemId);
-
-                if (itemDto != null)
+                cartItem.Quantity = int.Parse(e.Value.ToString());
+                if (cartItem.Quantity < 1)
+                    cartItem.Quantity = 1;
+                else if (cartItem.Quantity > itemDto.QuantityInStock)
                 {
-
-                    cartItem.Quantity = int.Parse(e.Value.ToString());
-                    if (cartItem.Quantity < 1)
-                        cartItem.Quantity = 1;
-                    else if (cartItem.Quantity > itemDto.QuantityInStock)
-                    {
-                        cartItem.Quantity = itemDto.QuantityInStock;
-                        IsQuantityExceedingStock = true;
-                        message = $"The quantity exceeds available stock, only {itemDto.QuantityInStock} items available.";
-                    }
-                    else
-                    {
-                        IsQuantityExceedingStock = false;
-                        message = string.Empty;
-                        await CartService.UpdateItemsQuantity(cartItem);
-                    }
+                    cartItem.Quantity = itemDto.QuantityInStock;
+                    IsQuantityExceedingStock = true;
+                    message = $"The quantity exceeds available stock, only {itemDto.QuantityInStock} items available.";
+                }
+                else
+                {
+                    IsQuantityExceedingStock = false;
+                    message = string.Empty;
+                    await CartService.UpdateItemsQuantity(cartItem);
                 }
             }
         }
+
 
         public void ProceedToCheckout()
         {
