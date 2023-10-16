@@ -1,4 +1,4 @@
-# An E-commerce application (Musical Instruments store)
+# An E-commerce application
 
 ### Screenshots
 <img src="https://user-images.githubusercontent.com/67172004/109070833-dc259a80-76a7-11eb-8050-cf6feb1a3081.png" width="600" height="490">
@@ -40,6 +40,6 @@
 
 ## Author Info
 
-- [LinkedIn: Dastan Abishev]([https://www.linkedin.com/in/dastan-abishev]/)
+- [LinkedIn: Dastan Abishev](https://www.linkedin.com/in/dastan-abishev)
 
-[Back To The Top](#DinerTimer)
+[Back To The Top](#an-e-commerce-application)
