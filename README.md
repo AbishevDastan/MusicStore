@@ -5,11 +5,15 @@ An e-commerce application for the Musical Instruments store (Educational project
 
 ### Functionality & UI
 
-- Home page
+
+- Categories
+   
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/48da3e9e-602d-4040-b8f7-24313b93dca0)
+  
+  
+-Featured projects (Automatically sorted by the quantity of sales for an item)
 
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/0536328b-36e2-46ca-b6ba-c6e3d2afebf3)
-
   
 - Role-based Authorization and Authentication (JWT + AuthenticationStateProvider)
 
