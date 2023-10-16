@@ -1,31 +1,55 @@
 # An E-commerce application
 
+---
+
+### Table of Contents
+
+- [Description](#description)
+- [Author Info](#author-info)
+
+---
+
 ## Description
-An e-commerce application for the Musical Instruments store (Educational project)
+- An e-commerce application for the Musical Instruments store (Educational project)
+- Role-based Authorization and Authentication (JWT + AuthenticationStateProvider)
+- Administrator Panel with CRUD operations available for products and categories, as well as the manipulations over the order status
+- Searching functionality
+- Wishlist
+- The user is able to add products to the shopping cart, if the product is in stock and place orders
+- E-mail notifications are being sent when the user places and order and an Administrator changes the order's status
 
-### Functionality & UI
+---
 
-
+## UI
 - Categories
    
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/48da3e9e-602d-4040-b8f7-24313b93dca0)
   
   
--Featured projects (Automatically sorted by the quantity of sales for an item)
+- Featured projects (Automatically sorted by the quantity of sales for an item)
 
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/0536328b-36e2-46ca-b6ba-c6e3d2afebf3)
   
-- Role-based Authorization and Authentication (JWT + AuthenticationStateProvider)
+- Registration
 
 ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/75d288b4-2360-4307-9bae-085ac90f018a)
 
+- Login
   
-- Administrator Panel with CRUD operations available for products and categories, as well as the manipulations over the order status
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/28f5b78a-9d96-4eda-b93f-a9098bf19add)
 
+  
+- Categories (Administrator Panel)
+  
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/dc9b8c19-dd1b-49da-9e3b-a46f690f2bbc)
 
+  
+- Edit product (Administrator Panel)
+  
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/2a0bfbe7-5f21-4f7c-bf69-88dcadf7e012)
 
+- All orders (Administrator Panel)
+  
   ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/5111342a-7847-4a8e-9478-0e5766febe40)
 
 
@@ -43,13 +67,19 @@ An e-commerce application for the Musical Instruments store (Educational project
 
   
 
-- The user is able to add products to the shopping cart, if the product is in stock and place orders
+- Product details
 
 ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/a046997e-b5e2-4a8e-bd49-4a85d528b2bc)
 
+- Shopping cart
+
 ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/8fde9a5f-d5b9-4414-a520-db24af2cf9bb)
 
+- Checkout
+
 ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/9e96ad9b-9913-4c83-b8ce-5a328a8c39e9)
+
+- Order details
 
 ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/897c606f-4653-4e35-b5b9-3755641b2f05)
 
