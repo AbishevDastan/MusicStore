@@ -5,6 +5,7 @@
 ### Table of Contents
 
 - [Description](#description)
+- [UI](#ui)
 - [Author Info](#author-info)
 
 ---
