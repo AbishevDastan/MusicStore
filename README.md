@@ -1,27 +1,67 @@
 # An E-commerce application
 
-### Screenshots
-<img src="https://user-images.githubusercontent.com/67172004/109070833-dc259a80-76a7-11eb-8050-cf6feb1a3081.png" width="600" height="490">
-
-<img src="https://user-images.githubusercontent.com/67172004/107609786-cec2d780-6bf4-11eb-8081-25ca517473c9.gif" width="240" height="510">.<img src="https://user-images.githubusercontent.com/67172004/107610733-22cebb80-6bf7-11eb-937c-65f9fde5c778.gif" width="240" height="510">
-
----
-
-### Table of Contents
-
-- [Description](#description)
-- [Author Info](#author-info)
-
----
-
 ## Description
-- An e-commerce application for the Musical Instruments store (Educational project)
+An e-commerce application for the Musical Instruments store (Educational project)
+
+### Functionality & UI
+
+- Home page
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/48da3e9e-602d-4040-b8f7-24313b93dca0)
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/0536328b-36e2-46ca-b6ba-c6e3d2afebf3)
+
+  
 - Role-based Authorization and Authentication (JWT + AuthenticationStateProvider)
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/75d288b4-2360-4307-9bae-085ac90f018a)
+
+  
 - Administrator Panel with CRUD operations available for products and categories, as well as the manipulations over the order status
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/dc9b8c19-dd1b-49da-9e3b-a46f690f2bbc)
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/2a0bfbe7-5f21-4f7c-bf69-88dcadf7e012)
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/5111342a-7847-4a8e-9478-0e5766febe40)
+
+
+
+
 - Searching functionality
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/3c64a266-d1f0-46c4-9e4c-594e6ccc2f0d)
+
+
+
 - Wishlist
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/87462134-ba8f-4fc7-b39a-6b089cb99331)
+
+  
+
 - The user is able to add products to the shopping cart, if the product is in stock and place orders
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/a046997e-b5e2-4a8e-bd49-4a85d528b2bc)
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/8fde9a5f-d5b9-4414-a520-db24af2cf9bb)
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/9e96ad9b-9913-4c83-b8ce-5a328a8c39e9)
+
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/897c606f-4653-4e35-b5b9-3755641b2f05)
+
+
+
+- The delivery information may be added, edited or deleted on the user's profile page
+  
+![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/92771ce7-ec6e-41c2-8a25-5635a87ea883)
+
+
+
 - E-mail notifications are being sent when the user places and order and an Administrator changes the order's status
+
+  ![image](https://github.com/AbishevDastan/MusicStore/assets/92532796/e44d31fb-f306-4b45-a227-d8fa78f46734)
+
+
 
 #### Technology Stack
 
